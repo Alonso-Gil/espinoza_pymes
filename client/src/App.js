@@ -1,24 +1,35 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+
+// Imports de las vistas
+import Login from './components/auth/Login';
+import NuevaCuenta from './components/auth/NuevaCuenta';
+import SuperAdmin from './components/usuarios/SuperAdmin';
+
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+
+    // Creando las rutas
+    <Router>
+      <Switch>
+
+        {/* Iniciar sésion */}
+        <Route exact path="/" component={Login} />
+        <Route exact path="/nuevaCuenta" component={NuevaCuenta} />
+
+        {/* Usuarios */}
+        <Route exact path="/superAdmin" component={SuperAdmin} />
+        {/* <Route exact path="/manager" component={manager} />
+        <Route exact path="/agenteDifusor" component={agenteDifusor} />
+        <Route exact path="/recepcion" component={recepcion} />
+        <Route exact path="/procesos" component={procesos} />
+        <Route exact path="/agenteCerrador" component={agenteCerrador} />
+        <Route exact path="/finanzas" component={finanzas} />
+        <Route exact path="/procesos" component={procesos} /> */}
+
+      </Switch>
+    </Router>
   );
 }
 
