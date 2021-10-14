@@ -11,6 +11,8 @@ app.use(express.json({ limit: '25mb' }));
 
 const PORT = process.env.PORT;
 
+// Rutas
+
 
 // Inicializar el servidor
 app.listen(PORT, () => {
