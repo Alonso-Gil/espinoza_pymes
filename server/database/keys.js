@@ -1,8 +1,10 @@
 require("dotenv").config();
 
 module.exports = {
-    host: process.env.HOST || 'localhost',
-    user: process.env.DB_USER || 'root',
-    password: process.env.DB_PASS || '',
-    database: process.env.DB_NAME || 'espinozapymes_test'
-}
+    database: {
+        host: process.env.HOST || 'localhost',
+        user: process.env.DB_USER || 'root',
+        password: process.env.DB_PASS || '',
+        database: process.env.DB_NAME || 'espinozapymes_test'
+    }
+};
