@@ -68,7 +68,11 @@ const deleteUser = async (req, res) => {
 const modifyUser = async(req, res) => {
 
     const { idUsuario } = req.params;
+<<<<<<< HEAD
     const { contra, tipo } = req.body;
+=======
+    let { contra, tipo } = req.body;
+>>>>>>> main
 
     try {
         // Encriptar contraseña si contra no es null
@@ -77,7 +81,11 @@ const modifyUser = async(req, res) => {
             contra = bcrypt.hashSync(contra, salt);
         }
 
+<<<<<<< HEAD
         const [results] = await db.query('CALL SA_updateUser(?, ?, ?, ?)', [id, Nombre, Correo, contra]);
+=======
+        const [results] = await db.query('CALL SA_updateUser(?, ?, ?)', [idUsuario, contra, tipo]);
+>>>>>>> main
 
         // Si no se modificó ninguna fila, significa que el usuario no existe
         if (results.affectedRows === 0) {
@@ -112,9 +120,44 @@ const modifyUser = async(req, res) => {
 
 }
 
+<<<<<<< HEAD
+=======
+const listUsers = async(req, res) => {
+     
+    try {
+        
+        const [tipos] = await db.query('SELECT idTipo, descripcion as Tipo FROM tipoUsuarios');
+        //const [tipos] = results.slice(0, results.length);
+
+        const [result] = await db.query('CALL SA_ListUsers()');
+        const [users] = result.slice(0, result.length);
+
+        res.status(201).json({
+            users, tipos
+        });
+
+    } catch (error) {
+        
+        console.error(error);
+        return res.status(500).json({
+            errors: [{
+                msg: 'Error con la base de datos o el servidor'
+            }],
+            query: error.sql,
+            sqlMessage: error.sqlMessage
+        });
+    }
+}
+
+>>>>>>> main
 module.exports = {
 
     createUser, 
     deleteUser,
+<<<<<<< HEAD
     modifyUser
+=======
+    modifyUser,
+    listUsers
+>>>>>>> main
 }

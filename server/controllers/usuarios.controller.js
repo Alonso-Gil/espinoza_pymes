@@ -2,10 +2,39 @@ const bcrypt = require('bcrypt');
 const db = require('../database/connection');
 
 
+<<<<<<< HEAD
 
 const modifyUser = async (req, res) => {
     const { idUsuario } = req.params;
     let { Nombre, Correo, contra } = req.body;
+=======
+const getUser = async (req, res) => {
+
+    const { idUsuario } = req.params;
+
+    try {
+        
+        const [results] = await db.query('CALL USget');
+        const [user] = results.slice(0, results.length);
+        res.status(201).json(user);
+
+    } catch (error) {
+        
+        console.error(error);
+        return res.status(500).json({
+            errors: [{
+                msg: 'Error con la base de datos o el servidor'
+            }],
+            query: error.sql,
+            sqlMessage: error.sqlMessage
+        });
+    }
+}
+
+const modifyUser = async (req, res) => {
+    const { idUsuario } = req.params;
+    let { nombre, correo, contra } = req.body;
+>>>>>>> main
 
     try {
         // Encriptar contraseña si contra no es null
@@ -14,7 +43,11 @@ const modifyUser = async (req, res) => {
             contra = bcrypt.hashSync(contra, salt);
         }
 
+<<<<<<< HEAD
         const [results] = await db.query('CALL USupdate(?, ?, ?, ?)', [idUsuario , Nombre, Correo, contra]);
+=======
+        const [results] = await db.query('CALL USupdate(?, ?, ?, ?)', [idUsuario , nombre, correo, contra]);
+>>>>>>> main
 
         // Si no se modificó ninguna fila, significa que el usuario no existe
         if (results.affectedRows === 0) {
@@ -51,8 +84,16 @@ const modifyUser = async (req, res) => {
 
 
 
+<<<<<<< HEAD
 module.exports = {
 
     modifyUser,
 
+=======
+
+module.exports = {
+
+    modifyUser,
+    getUser,
+>>>>>>> main
 }
