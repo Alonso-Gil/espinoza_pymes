@@ -68,11 +68,12 @@ const deleteUser = async (req, res) => {
 const modifyUser = async(req, res) => {
 
     const { idUsuario } = req.params;
-    let { contra, tipo } = req.body;
+    let { contra = '', tipo } = req.body;
 
     try {
-        // Encriptar contraseña si contra no es null
-        if (contra) {
+        
+        // Encriptar contraseña solo si la enviarion
+        if (contra != '') {
             salt = bcrypt.genSaltSync();
             contra = bcrypt.hashSync(contra, salt);
         }

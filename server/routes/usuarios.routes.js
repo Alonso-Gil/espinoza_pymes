@@ -10,7 +10,6 @@ router.put('/:idUsuario',
     [
         check('nombre', 'Debes de agregar un nombre').notEmpty(),
         check('correo', 'Debe de quedar un correo asociado').notEmpty(),
-        check('contra', 'Debes de agregar una contraseña para acceder').notEmpty(),
         validarCampos
     ], modifyUser);
 

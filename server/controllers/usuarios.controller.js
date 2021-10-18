@@ -27,7 +27,7 @@ const getUser = async (req, res) => {
 
 const modifyUser = async (req, res) => {
     const { idUsuario } = req.params;
-    let { nombre, correo, contra } = req.body;
+    let { nombre, correo, contra = '' } = req.body;
 
     try {
         // Encriptar contraseña si contra no es null

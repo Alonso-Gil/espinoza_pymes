@@ -17,7 +17,6 @@ router.post('/nuevoUsuario',
 
 router.put('/editarUsuario/:idUsuario',
     [
-        check('contra', 'La contraseña no puede quedar vacía').notEmpty(),
         check('tipo', 'El usuario no puede quedar sin un rol').notEmpty(),
         validarCampos
     ], modifyUser);
