@@ -1,24 +1,20 @@
 import React from 'react';
-import SideBar from '../layout/SideBar';
-import MainNavBar from '../layout/MainNavBar';
-
-// Material UI
-import Box from '@mui/material/Box';
-import CssBaseline from '@mui/material/CssBaseline';
+import Layout from '../layout/Layout';
 
 
 const SuperAdmin = () => {
 
+  const LayoutProp = {
+    firstName: "Lindsay",
+    lastName: "Criswell",
+    city: "NYC",
+    listaMenu: {'Inicio': 1, 'Usuario': 2, 'Cliente': 3}
+  }
+
     return (
-        <Box sx={{ display: 'flex' }}>
-            
-            <CssBaseline />
-
-            <SideBar />
-
-            <MainNavBar />
-
-        </Box>
+        <Layout 
+          LayoutProp={LayoutProp}
+        />
       );
 }
  

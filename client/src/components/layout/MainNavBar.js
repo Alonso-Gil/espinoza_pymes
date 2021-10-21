@@ -29,21 +29,24 @@ function TabPanel(props) {
     );
   }
 
-function a11yProps(index) {
-    return {
-      id: `simple-tab-${index}`,
-      'aria-controls': `simple-tabpanel-${index}`,
-    };
-  }
+// function a11yProps(index) {
+//     return {
+//       id: `simple-tab-${index}`,
+//       'aria-controls': `simple-tabpanel-${index}`,
+//     };
+//   }
 
-const MainNavBar = (props) => {
+const MainNavBar = (MainNavBarProp) => {
+
+
+    const contenido = MainNavBarProp.MainNavBarProp;
+    const { firstName, listaMenu } = contenido;
 
     const [value2, setValue2] = React.useState(0);
 
     const handleChange = (event, newValue) => {
       setValue2(newValue);
     };
-  
 
     return ( 
         <>
@@ -54,9 +57,15 @@ const MainNavBar = (props) => {
                 <Box sx={{ width: '100%' }}>
                     <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                         <Tabs value={value2} onChange={handleChange} textColor="inherit" indicatorColor="secondary" >
-                            <Tab label="Inicio" {...a11yProps(0)} />
+                            {Object.keys(listaMenu).map(menu => (
+                              <Tab 
+                                label={menu}
+                                key={menu}
+                              />
+                            ))}
+                            {/* <Tab label="Inicio" {...a11yProps(0)} />
                             <Tab label="Usuarios" {...a11yProps(1)} />
-                            <Tab label="Clientes" {...a11yProps(2)} />
+                            <Tab label="Clientes" {...a11yProps(2)} /> */}
                         </Tabs>
                     </Box>
                 </Box>
@@ -69,7 +78,7 @@ const MainNavBar = (props) => {
                 <TabPanel value={value2} index={0}>
 
                     <Typography sx={{textAlign: 'center', fontWeight: 'bold', marginBottom: 5}} color="black" variant="h3" component="div">
-                        Inicio
+                        {firstName}
                     </Typography>
 
                     <Typography align="justify" paragraph color="black">
