@@ -6,7 +6,7 @@ const { modifyUser, createUser, deleteUser, listUsers } = require('../controller
 
 const router = Router();
 
-router.post('/nuevoUsuario', 
+router.post('/nuevoUsuario',  // TODO: Tipo checar que sea númerico para agregar el id y no el nombre del tipo de usuario
     [
         check('nombre', 'El usuario debe de tener un nombre').notEmpty(),
         check('correo', 'El usuario debe de tener un correo asociado').notEmpty().isEmail(),
