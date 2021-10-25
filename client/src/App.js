@@ -3,11 +3,11 @@ import React from 'react';
 // Imports de las vistas
 import Login from './components/auth/Login';
 import NuevaCuenta from './components/auth/NuevaCuenta';
-import SuperAdmin from './components/usuarios/SuperAdmin';
+import SuperAdmin from './components/usuarios/SuperAdmin/SuperAdmin';
 import Manager from './components/usuarios/Manager';
 import AgenteDifusor from './components/usuarios/AgenteDifusor';
 import Recepcion from './components/usuarios/Recepcion';
-import Procesos from './components/usuarios/Procesos';
+import Procesos from './components/usuarios/Procesos/Procesos';
 import AgenteCerrador from './components/usuarios/AgenteCerrador';
 import Finanzas from './components/usuarios/Finanzas';
 

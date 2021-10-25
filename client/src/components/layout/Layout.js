@@ -6,7 +6,7 @@ import MainNavBar from '../layout/MainNavBar';
 import Box from '@mui/material/Box';
 import CssBaseline from '@mui/material/CssBaseline';
 
-const Layout = ({LayoutProp, MyProp}) => {
+const Layout = ({NavBarContenido, InicioContenido, ClientesContenido, UsuariosContenido, CalendarioContenido, AvisosContenido}) => {
 
     return ( 
         <Box sx={{ display: 'flex' }}>
@@ -16,8 +16,12 @@ const Layout = ({LayoutProp, MyProp}) => {
             <SideBar />
 
             <MainNavBar 
-                LayoutProp={LayoutProp}
-                MyProp={MyProp}
+                NavBarContenido={NavBarContenido}
+                InicioContenido={InicioContenido}
+                ClientesContenido={ClientesContenido}
+                UsuariosContenido={UsuariosContenido}
+                CalendarioContenido={CalendarioContenido}
+                AvisosContenido={AvisosContenido}
             />
 
         </Box>

@@ -38,7 +38,7 @@ import EditIcon from '@mui/icons-material/Edit';
   
     
 
-const MainSuperAdmin = () => {
+const UsuariosSA = () => {
 
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
@@ -164,4 +164,4 @@ const MainSuperAdmin = () => {
 
 }
  
-export default MainSuperAdmin;
+export default UsuariosSA;

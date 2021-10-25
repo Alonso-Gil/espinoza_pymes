@@ -4,10 +4,8 @@ import PropTypes from 'prop-types';
 // Material UI
 import Box from '@mui/material/Box';
 import AppBar from '@mui/material/AppBar';
-import Typography from '@mui/material/Typography';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
-import MainSuperAdmin from '../usuarios/MainSuperAdmin';
 
 const drawerWidth = 320;
 
@@ -38,9 +36,9 @@ function TabPanel(props) {
 //     };
 //   }
 
-const MainNavBar = ({LayoutProp, MyProp}) => {
+const MainNavBar = ({NavBarContenido, InicioContenido, ClientesContenido, UsuariosContenido, CalendarioContenido, AvisosContenido}) => {
 
-    const { firstName, listaMenu } = LayoutProp;
+    const { listaMenu } = NavBarContenido;
 
     const [value2, setValue2] = React.useState(0);
 
@@ -75,52 +73,32 @@ const MainNavBar = ({LayoutProp, MyProp}) => {
                 component="main"
                 sx={{ flexGrow: 1, p: 8 }}
             >
+
+                {/* Contenido de "Inicio" */}
                 <TabPanel value={value2} index={0}>
-
-                    <Typography sx={{textAlign: 'center', fontWeight: 'bold', marginBottom: 5}} color="black" variant="h3" component="div">
-                        {firstName}
-                    </Typography>
-
-                    <Typography align="justify" paragraph color="black">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                    tempor incididunt ut labore et dolore magna aliqua. Rhoncus dolor purus non
-                    enim praesent elementum facilisis leo vel. Risus at ultrices mi tempus
-                    imperdiet. Semper risus in hendrerit gravida rutrum quisque non tellus.
-                    Convallis convallis tellus id interdum velit laoreet id donec ultrices.
-                    Odio morbi quis commodo odio aenean sed adipiscing. Amet nisl suscipit
-                    adipiscing bibendum est ultricies integer quis. Cursus euismod quis viverra
-                    nibh cras. Metus vulputate eu scelerisque felis imperdiet proin fermentum
-                    leo. Mauris commodo quis imperdiet massa tincidunt. Cras tincidunt lobortis
-                    feugiat vivamus at augue. At augue eget arcu dictum varius duis at
-                    consectetur lorem. Velit sed ullamcorper morbi tincidunt. Lorem donec massa
-                    sapien faucibus et molestie ac.
-                    </Typography>
-
-                    <Typography align="justify" paragraph color="black">
-                    Consequat mauris nunc congue nisi vitae suscipit. Fringilla est ullamcorper
-                    eget nulla facilisi etiam dignissim diam. Pulvinar elementum integer enim
-                    neque volutpat ac tincidunt. Ornare suspendisse sed nisi lacus sed viverra
-                    tellus. Purus sit amet volutpat consequat mauris. Elementum eu facilisis
-                    sed odio morbi. Euismod lacinia at quis risus sed vulputate odio. Morbi
-                    tincidunt ornare massa eget egestas purus viverra accumsan in. In hendrerit
-                    gravida rutrum quisque non tellus orci ac. Pellentesque nec nam aliquam sem
-                    et tortor. Habitant morbi tristique senectus et. Adipiscing elit duis
-                    tristique sollicitudin nibh sit. Ornare aenean euismod elementum nisi quis
-                    eleifend. Commodo viverra maecenas accumsan lacus vel facilisis. Nulla
-                    posuere sollicitudin aliquam ultrices sagittis orci a.
-                    </Typography>
-
+                  {InicioContenido}
                 </TabPanel>
         
+                {/* Contenido de Clientes */}
                 <TabPanel value={value2} index={1}>
-                    
-                        <MainSuperAdmin />
+                  {ClientesContenido}
+                </TabPanel>
 
-                </TabPanel>
-                
+                {/* Contenido de "Usuarios" */}
                 <TabPanel value={value2} index={2}>
-                    {MyProp}
+                  {UsuariosContenido}
                 </TabPanel>
+
+                {/* Contenido de "Calendario" */}
+                <TabPanel value={value2} index={3}>
+                  {CalendarioContenido}
+                </TabPanel>
+
+                {/* Contenido de "Avisos" */}
+                <TabPanel value={value2} index={4}>
+                    {AvisosContenido}
+                </TabPanel>
+
             </Box>
 
         </>
@@ -129,8 +107,11 @@ const MainNavBar = ({LayoutProp, MyProp}) => {
 }
 
 MainNavBar.propTypes = {
-  LayoutProp: PropTypes.object.isRequired,
-  MyProp: PropTypes.object.isRequired
+  NavBarContenido: PropTypes.object.isRequired,
+  InicioContenido: PropTypes.object.isRequired,
+  ClientesContenido: PropTypes.object.isRequired,
+  CalendarioContenido: PropTypes.object.isRequired,
+  AvisosContenido: PropTypes.object.isRequired,
 }
  
 export default MainNavBar;
