@@ -1,5 +1,6 @@
 import React from 'react';
 import Layout from '../layout/Layout';
+import MyProp from './MyProp';
 
 
 const SuperAdmin = () => {
@@ -8,12 +9,13 @@ const SuperAdmin = () => {
     firstName: "Lindsay",
     lastName: "Criswell",
     city: "NYC",
-    listaMenu: {'Inicio': 1, 'Usuario': 2, 'Cliente': 3}
+    listaMenu: {'Inicio': 1, 'Usuario': 2, 'Cliente': 3},
   }
 
     return (
         <Layout 
           LayoutProp={LayoutProp}
+          MyProp={<MyProp />}
         />
       );
 }

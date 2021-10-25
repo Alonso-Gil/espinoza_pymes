@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 // Material UI
 import Box from '@mui/material/Box';
@@ -37,11 +38,9 @@ function TabPanel(props) {
 //     };
 //   }
 
-const MainNavBar = (MainNavBarProp) => {
+const MainNavBar = ({LayoutProp, MyProp}) => {
 
-
-    const contenido = MainNavBarProp.MainNavBarProp;
-    const { firstName, listaMenu } = contenido;
+    const { firstName, listaMenu } = LayoutProp;
 
     const [value2, setValue2] = React.useState(0);
 
@@ -120,13 +119,18 @@ const MainNavBar = (MainNavBarProp) => {
                 </TabPanel>
                 
                 <TabPanel value={value2} index={2}>
-                    Item Three
+                    {MyProp}
                 </TabPanel>
             </Box>
 
         </>
             
      );
+}
+
+MainNavBar.propTypes = {
+  LayoutProp: PropTypes.object.isRequired,
+  MyProp: PropTypes.object.isRequired
 }
  
 export default MainNavBar;
