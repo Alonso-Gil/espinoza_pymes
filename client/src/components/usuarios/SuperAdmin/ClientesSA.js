@@ -1,7 +1,7 @@
 import React from 'react';
 
 ///////////MATERIAL\\\\\\\\\\\\\\\\\\\
-import { Icon, IconButton } from '@mui/material';
+import { IconButton } from '@mui/material';
 import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -10,16 +10,10 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 
-import Accordion from '@mui/material/Accordion';
-import AccordionSummary from '@mui/material/AccordionSummary';
-import AccordionDetails from '@mui/material/AccordionDetails';
-import Typography from '@mui/material/Typography';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 ///////////ICONS\\\\\\\\\\\\\\\\\\\\\
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
-import DescriptionIcon from '@mui/icons-material/Description';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 
 const ClientesSA = () => {
@@ -59,7 +53,7 @@ const ClientesSA = () => {
            {cliente.clientes.map((user, i) => {
 
                 return (
-                    
+
                     
                   <TableRow align="center" key={i} > 
                   
