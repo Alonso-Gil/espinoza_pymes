@@ -12,32 +12,11 @@ import TableRow from '@mui/material/TableRow';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 
-  // function createData(nombre, correo, tipo, code) {
-
-  //   const contraseña = '**********'
-  //   return { nombre, correo, contraseña, tipo, code};    
-  // }
-
-  // const rows = [
-
-  //   createData('Vero',     'vero@espinozapymes.com',     'Super Admin',      1),
-  //   createData('Fernando', 'fernando@espinozapymes.com', 'Super Admin',      2),
-  //   createData('Gil',      'alonso@espinozapymes.com',   'Agente Difusor',   3),
-  //   createData('Lucy',     'lucy@espinozapymes.com',     'Recursos Humanos', 4),
-  //   createData('Ceiri',    'ceiri@espinozapymes.com',    'Agente Difusor',   5),
-  //   createData('Sharon',   'sharon@espinozapymes.com',   'Recepción',        6),
-  //   createData('Mariana',  'sharon@espinozapymes.com',   'Recepción',        7),
-  //   createData('Liliana',  'liliana@espinozapymes.com',  'Agente Difusor',   8),
-  //   createData('Alberto',  'alberto@espinozapymes.com',  'Agente Difusor',   9)
-  // ];
-
-
 const UsuariosSA = () => {
-
 
     const [usuario, setUsuario] = React.useState(
 
-      { 
+      {
       usuarios: [
 
          {
@@ -106,8 +85,6 @@ const UsuariosSA = () => {
 
           </TableHead>
           <TableBody>
-            {console.log(usuario) }
-            
            {usuario.usuarios.map((user, i) => {
 
                 return (
