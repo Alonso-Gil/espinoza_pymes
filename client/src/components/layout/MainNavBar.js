@@ -29,45 +29,49 @@ function TabPanel(props) {
     );
   }
 
-// function a11yProps(index) {
-//     return {
-//       id: `simple-tab-${index}`,
-//       'aria-controls': `simple-tabpanel-${index}`,
-//     };
-//   }
+  TabPanel.propTypes = {
+    children: PropTypes.node,
+    index: PropTypes.number,
+    value: PropTypes.number.isRequired,
+  };
+
+function a11yProps(index) {
+    return {
+      id: `simple-tab-${index}`,
+      'aria-controls': `simple-tabpanel-${index}`,
+    };
+  }
 
 const MainNavBar = ({NavBarContenido, InicioContenido, ClientesContenido, UsuariosContenido, CalendarioContenido, AvisosContenido}) => {
 
     const { listaMenu } = NavBarContenido;
 
-    const [value2, setValue2] = React.useState(0);
+    const [value, setValue] = React.useState(0);
 
     const handleChange = (event, newValue) => {
-      setValue2(newValue);
+      setValue(newValue);
     };
 
     return ( 
         <>
-        <AppBar
-                position="fixed"
-                sx={{ width: `calc(100% - ${drawerWidth}px)`, ml: `${drawerWidth}px` }}
-            >  
-                <Box sx={{ width: '100%' }}>
-                    <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-                        <Tabs value={value2} onChange={handleChange} textColor="inherit" indicatorColor="secondary" >
-                            {Object.keys(listaMenu).map(menu => (
-                              <Tab 
-                                label={menu}
-                                key={menu}
-                              />
-                            ))}
-                            {/* <Tab label="Inicio" {...a11yProps(0)} />
-                            <Tab label="Usuarios" {...a11yProps(1)} />
-                            <Tab label="Clientes" {...a11yProps(2)} /> */}
-                        </Tabs>
-                    </Box>
-                </Box>
-            </AppBar>
+          <AppBar
+              position="fixed"
+              sx={{ width: `calc(100% - ${drawerWidth}px)`, ml: `${drawerWidth}px` }}
+          >  
+              <Box sx={{ width: '100%' }}>
+                  <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+                      <Tabs value={value} onChange={handleChange} textColor="inherit" indicatorColor="secondary" >
+                          {Object.keys(listaMenu).map(menu => (
+                            <Tab 
+                              label={menu}
+                              key={menu}
+                              {...a11yProps(menu)}
+                            />
+                          ))}
+                      </Tabs>
+                  </Box>
+              </Box>
+          </AppBar>
 
             <Box
                 component="main"
@@ -75,34 +79,32 @@ const MainNavBar = ({NavBarContenido, InicioContenido, ClientesContenido, Usuari
             >
 
                 {/* Contenido de "Inicio" */}
-                <TabPanel value={value2} index={0}>
+                <TabPanel value={value} index={listaMenu.Inicio}>
                   {InicioContenido}
                 </TabPanel>
         
                 {/* Contenido de Clientes */}
-                <TabPanel value={value2} index={1}>
+                <TabPanel value={value} index={listaMenu.Clientes}>
                   {ClientesContenido}
                 </TabPanel>
 
                 {/* Contenido de "Usuarios" */}
-                <TabPanel value={value2} index={2}>
+                <TabPanel value={value} index={listaMenu.Usuarios}>
                   {UsuariosContenido}
                 </TabPanel>
 
                 {/* Contenido de "Calendario" */}
-                <TabPanel value={value2} index={3}>
+                <TabPanel value={value} index={listaMenu.Calendario}>
                   {CalendarioContenido}
                 </TabPanel>
 
                 {/* Contenido de "Avisos" */}
-                <TabPanel value={value2} index={4}>
+                <TabPanel value={value} index={listaMenu.Avisos}>
                     {AvisosContenido}
                 </TabPanel>
 
             </Box>
-
-        </>
-            
+        </> 
      );
 }
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import logo from '../../logo.png';
-import Copyright from '../layout/Copyright';
+import Copyright from '../reutilizables/Copyright';
 
 // Material UI
 import Box from '@mui/material/Box';

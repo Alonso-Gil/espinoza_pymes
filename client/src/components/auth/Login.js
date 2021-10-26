@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 import logo from '../../logo.png';
 import styled from '@emotion/styled';
-import Copyright from '../layout/Copyright';
+import Copyright from '../reutilizables/Copyright';
 
 // Material UI
 import Button from '@mui/material/Button';

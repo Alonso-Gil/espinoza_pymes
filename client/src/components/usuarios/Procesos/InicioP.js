@@ -1,14 +1,13 @@
-import React from 'react';
+import React from 'react'
 
 // Material UI
 import Typography from '@mui/material/Typography';
 
-const InicioSA = () => {
-
-    return ( 
+const InicioP = () => {
+    return (
         <>
             <Typography sx={{textAlign: 'center', fontWeight: 'bold', marginBottom: 5}} color="black" variant="h3" component="div">
-                Inicio Super Administrador
+                Inicio Procesos
             </Typography>
 
             <Typography align="justify" paragraph color="black">
@@ -40,7 +39,7 @@ const InicioSA = () => {
                 posuere sollicitudin aliquam ultrices sagittis orci a.
             </Typography>
         </>
-     );
+    );
 }
- 
-export default InicioSA;
+
+export default InicioP;
