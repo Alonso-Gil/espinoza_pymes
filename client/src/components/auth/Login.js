@@ -68,7 +68,7 @@ const Login = () => {
               <Imagen src={logo} alt="logo" />
 
               <Typography component="h1" variant="h5">
-                Iniciar sésion
+                Iniciar sesión
               </Typography>
               <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
                 <TextField
