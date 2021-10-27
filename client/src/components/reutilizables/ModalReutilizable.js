@@ -5,19 +5,18 @@ import PropTypes from 'prop-types';
 import Backdrop from '@mui/material/Backdrop';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
-import Fade from '@mui/material/Fade';
-import Button from '@mui/material/Button';
 
 const style = {
     position: 'absolute',
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: 600,
+    width: 800,
     bgcolor: 'background.paper',
     borderRadius: '5px',
     boxShadow: 24,
-    p: 4,
+    p: 7,
+    flexGrow: 1,
   };
 
 const ModalReutilizable = ({Boton, Contenido}) => {
@@ -28,7 +27,7 @@ const ModalReutilizable = ({Boton, Contenido}) => {
 
     return ( 
         <>
-            <Button onClick={handleOpen}>{Boton}</Button>
+            <Box color='inherit' onClick={handleOpen}>{Boton}</Box>
             <Modal
                 aria-labelledby="transition-modal-title"
                 aria-describedby="transition-modal-description"
@@ -40,11 +39,9 @@ const ModalReutilizable = ({Boton, Contenido}) => {
                 timeout: 500,
                 }}
             >
-                <Fade in={open}>
                 <Box sx={style}>
                     {Contenido}
                 </Box>
-                </Fade>
             </Modal>
         </>
      );

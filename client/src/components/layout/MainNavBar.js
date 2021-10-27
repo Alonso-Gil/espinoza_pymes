@@ -6,6 +6,8 @@ import Box from '@mui/material/Box';
 import AppBar from '@mui/material/AppBar';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
+import SwipeableViews from 'react-swipeable-views';
+import { useTheme } from '@mui/material/styles';
 
 const drawerWidth = 320;
 
@@ -44,12 +46,16 @@ function a11yProps(index) {
 
 const MainNavBar = ({NavBarContenido, InicioContenido, ClientesContenido, UsuariosContenido, CalendarioContenido, AvisosContenido}) => {
 
+    const theme = useTheme();
     const { listaMenu } = NavBarContenido;
-
     const [value, setValue] = React.useState(0);
 
     const handleChange = (event, newValue) => {
       setValue(newValue);
+    };
+
+    const handleChangeIndex = (index) => {
+      setValue(index);
     };
 
     return ( 
@@ -77,32 +83,36 @@ const MainNavBar = ({NavBarContenido, InicioContenido, ClientesContenido, Usuari
                 component="main"
                 sx={{ flexGrow: 1, p: 8 }}
             >
-
+              <SwipeableViews
+                axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
+                index={value}
+                onChangeIndex={handleChangeIndex}
+              >
                 {/* Contenido de "Inicio" */}
-                <TabPanel value={value} index={listaMenu.Inicio}>
+                <TabPanel value={value} index={listaMenu.Inicio} dir={theme.direction}>
                   {InicioContenido}
                 </TabPanel>
         
                 {/* Contenido de Clientes */}
-                <TabPanel value={value} index={listaMenu.Clientes}>
+                <TabPanel value={value} index={listaMenu.Clientes} dir={theme.direction}>
                   {ClientesContenido}
                 </TabPanel>
 
                 {/* Contenido de "Usuarios" */}
-                <TabPanel value={value} index={listaMenu.Usuarios}>
+                <TabPanel value={value} index={listaMenu.Usuarios} dir={theme.direction}>
                   {UsuariosContenido}
                 </TabPanel>
 
                 {/* Contenido de "Calendario" */}
-                <TabPanel value={value} index={listaMenu.Calendario}>
+                <TabPanel value={value} index={listaMenu.Calendario} dir={theme.direction}>
                   {CalendarioContenido}
                 </TabPanel>
 
                 {/* Contenido de "Avisos" */}
-                <TabPanel value={value} index={listaMenu.Avisos}>
+                <TabPanel value={value} index={listaMenu.Avisos} dir={theme.direction}>
                     {AvisosContenido}
                 </TabPanel>
-
+              </SwipeableViews>
             </Box>
         </> 
      );
