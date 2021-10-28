@@ -4,6 +4,9 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+// Actualmente Material UI no interactia bien con el ScrictMode
+// Comentado hasta que sea actualizado.
+
 ReactDOM.render(
   <React.StrictMode>
     <App />
