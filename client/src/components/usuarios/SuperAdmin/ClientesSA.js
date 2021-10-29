@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 ///////////MATERIAL\\\\\\\\\\\\\\\\\\\
 import { IconButton } from '@mui/material';
@@ -9,7 +9,7 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-
+import SpinnerKit from '../../reutilizables/SpinnerKit';
 
 ///////////ICONS\\\\\\\\\\\\\\\\\\\\\
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -18,6 +18,7 @@ import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 
 const ClientesSA = () => {
 
+  const [isLoading, setIsLoading] = React.useState(true);
     const [cliente, setCliente] = React.useState({
         clientes: [
             {
@@ -26,13 +27,27 @@ const ClientesSA = () => {
            nss: '123456789012',
            fecha_nacimiento: '05/07/1998',
            celular: '(449) 230 46 75',
-         }
+         },
+         {
+          nombre: 'Alonso Gil Pérez',
+          curp: 'GIPA990621HASNTR01',
+          nss: '123456789012',
+          fecha_nacimiento: '21/06/1999',
+          celular: '(449) 365 66 42',
+        }
         ]
-    })
+    });
+
+    useEffect( () => {
+
+      setIsLoading(false);
+    }, [] );
 
     return (
         
         <>
+        {isLoading ? <SpinnerKit  /> 
+             : (
             <Paper sx={{ width: '100%', overflow: 'hidden' }}>
       <TableContainer sx={{ maxHeight: 500 }}>
         <Table stickyHeader aria-label="sticky table">
@@ -61,7 +76,7 @@ const ClientesSA = () => {
                       <TableCell key={"curps"}   align="center">{user.curp}</TableCell>
                       <TableCell key={"nsss"}    align="center">{user.nss}</TableCell>
 
-                      {/* <TableCell key={"datos"}    align="center" >
+                      {/* <TableCell key={"docs"}    align="center" >
                              <IconButton style={{ color: '#09507a' }} >
                                 <RemoveRedEyeIcon />
                             </IconButton> 
@@ -99,7 +114,6 @@ const ClientesSA = () => {
 
                           <IconButton style={{ color: '#09507a' }}>
                               <EditIcon />
-                              
                           </IconButton>
 
                           <IconButton style={{ color: '#b00020' }}>
@@ -109,11 +123,9 @@ const ClientesSA = () => {
                       </TableCell>
                   
                   </TableRow>
-                  );
-             
+                  );  
            })}
 
-              
           </TableBody>
         </Table>
       </TableContainer>
@@ -128,6 +140,7 @@ const ClientesSA = () => {
       /> */}
     </Paper>
 
+      )}
          </>
     );
 }
