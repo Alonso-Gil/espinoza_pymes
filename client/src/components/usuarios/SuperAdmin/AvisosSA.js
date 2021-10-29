@@ -7,9 +7,25 @@ import Modal from '../../reutilizables/ModalReutilizable';
 import Box from '@mui/material/Box';
 import Fab from '@mui/material/Fab';
 import EditIcon from '@mui/icons-material/Edit';
+import TextField from '@mui/material/TextField';
 import { Typography } from '@mui/material';
+import Button from '@mui/material/Button';
 
 const AvisosSA = () => {
+
+    const [avisos, setAvisos] = React.useState({
+        titulo: 'El titulo del contenido',
+        contenido: 'Contenido que es editable'
+    });
+
+    const { titulo, contenido } = avisos;
+
+    const handleChange = e => {
+        setAvisos({
+            ...avisos,
+            [e.target.name] : e.target.value
+        })
+    }
 
     const defaultOptions = {
         loop: true,
@@ -23,45 +39,53 @@ const AvisosSA = () => {
     return ( 
         <>
             <Typography sx={{textAlign: 'center', fontWeight: 'bold', marginBottom: 5}} color="black" variant="h3" component="div">
-                Avisos
+                {titulo}
             </Typography>
-            <p>
-                Do in veniam reprehenderit culpa Lorem esse laborum tempor cillum. Occaecat veniam est duis non labore anim consequat nostrud occaecat esse adipisicing ipsum elit qui. Consectetur commodo consectetur ea anim nostrud irure. Nulla elit officia consectetur dolor nisi cillum dolor laboris.
-
-                Amet do pariatur enim non excepteur velit reprehenderit ullamco. Veniam ut reprehenderit amet aliquip ut labore eiusmod aliqua magna aute excepteur. Duis exercitation magna aliqua mollit nostrud. Sit eu anim Lorem enim ut sunt nostrud eiusmod adipisicing sunt nisi labore consequat.
-
-                Occaecat esse esse in in mollit enim reprehenderit aliquip. Lorem nulla irure aliquip ea irure in ipsum. Non consequat duis non id mollit id excepteur eiusmod duis elit. Labore consequat tempor quis eu sit excepteur consectetur deserunt ut dolore. Fugiat est reprehenderit consectetur dolor consequat nulla nostrud est eu ullamco nisi aliquip et. Ipsum adipisicing dolore adipisicing ut aliquip cillum ipsum nulla dolor laborum ex.
-            </p>
+            <Typography variant="h5" sx={{textAlign: 'justify', mb: 5}}>
+                {contenido}
+            </Typography>
             
             <Lottie options={defaultOptions} height={400} width={400} />
 
             <Box sx={{ mt: 5, textAlign: 'right'}}>
                 
-                        <Modal Boton={<Fab color="secondary" aria-label="edit" sx={{  }}>
-                                    <EditIcon />
-                                </Fab>}
-                                Contenido={
-                                    <>
-                                        <Typography sx={{textAlign: 'center', fontWeight: 'bold', marginBottom: 5}} color="black" variant="h3" component="div">
-                                            Modificar avisos
-                                        </Typography>
-                                        <Typography variant="h5" sx={{textAlign: 'justify'}}>
-                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                                            tempor incididunt ut labore et dolore magna aliqua. Rhoncus dolor purus non
-                                            enim praesent elementum facilisis leo vel. Risus at ultrices mi tempus
-                                            imperdiet. Semper risus in hendrerit gravida rutrum quisque non tellus.
-                                            Convallis convallis tellus id interdum velit laoreet id donec ultrices.
-                                            Odio morbi quis commodo odio aenean sed adipiscing. Amet nisl suscipit
-                                            adipiscing bibendum est ultricies integer quis. Cursus euismod quis viverra
-                                            ni
-                                            bh cras. Metus vulputate eu scelerisque felis imperdiet proin fermentum
-                                            leo. Mauris commodo quis imperdiet massa tincidunt. Cras tincidunt lobortis
-                                            feugiat vivamus at augue. At augue eget arcu dictum varius duis at
-                                            consectetur lorem. Velit sed ullamcorper morbi tincidunt. Lorem donec massa
-                                            sapien faucibus et molestie ac.
-                                        </Typography>
-                                    </>
-                                }
+                        <Modal Boton={
+                            <Fab color="secondary" aria-label="edit">
+                                <EditIcon />
+                            </Fab>}
+                            Contenido={
+                                <>
+                                    <Typography sx={{textAlign: 'center', fontWeight: 'bold', marginBottom: 5}} color="black" variant="h3" component="div">
+                                        Editar avisos
+                                    </Typography>
+                                    <TextField fullWidth sx={{mb: 4}}
+                                        multiline
+                                        required
+                                        id="titulo"
+                                        label="Titulo"
+                                        name="titulo"
+                                        autoComplete="titulo"
+                                        autoFocus
+                                        value={titulo}
+                                        onChange={handleChange}
+                                    />
+                                    <TextField fullWidth sx={{mb: 5}}
+                                        multiline
+                                        rows={8}
+                                        required
+                                        id="contenido"
+                                        label="Contenido"
+                                        name="contenido"
+                                        autoComplete="contenido"
+                                        autoFocus
+                                        value={contenido}
+                                        onChange={handleChange}
+                                    >
+                                    </TextField>
+                                    <Lottie options={defaultOptions} height={200} width={200}/>
+                                    <Button variant="contained" color='secondary' fullWidth sx={{mt: 5, height: 50}}>Actualizar</Button>
+                                </>
+                            }
                         />
                 
             </Box>
