@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 
 ///////////MATERIAL\\\\\\\\\\\\\\\\\\\
-import { IconButton } from '@mui/material';
+import { Fab, IconButton } from '@mui/material';
 import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -10,11 +10,15 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import SpinnerKit from '../../reutilizables/SpinnerKit';
+import { Box } from '@mui/system';
+import ModalReutilizable from '../../reutilizables/ModalReutilizable';
 
 ///////////ICONS\\\\\\\\\\\\\\\\\\\\\
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
+import PersonAddIcon from '@mui/icons-material/PersonAdd';
+import ClienteForm from '../../reutilizables/ClienteForm';
 
 const ClientesSA = () => {
 
@@ -27,6 +31,10 @@ const ClientesSA = () => {
            nss: '123456789012',
            fecha_nacimiento: '05/07/1998',
            celular: '(449) 230 46 75',
+           oficina:'',
+          registrado_por:'Vero',
+          actualizado_por:'Lucy',
+          actualizado_fecha:'29/10/21'
          },
          {
           nombre: 'Alonso Gil Pérez',
@@ -34,6 +42,10 @@ const ClientesSA = () => {
           nss: '123456789012',
           fecha_nacimiento: '21/06/1999',
           celular: '(449) 365 66 42',
+          oficina:'',
+          registrado_por:'Lucy',
+          actualizado_por:'Vero',
+          actualizado_fecha:'29/09/21'
         }
         ]
     });
@@ -45,7 +57,19 @@ const ClientesSA = () => {
 
     return (
         
-        <>
+        < >
+
+          <Box sx={{ mb:2, mr:7 ,textAlign: 'right'}}>
+                        <ModalReutilizable Boton={<Fab color="secondary" aria-label="edit" sx={{  }}>
+                                              <PersonAddIcon />
+                                          </Fab>}
+                                          Contenido={
+                                              <>
+                                                  <ClienteForm />
+                                              </>
+                                          }
+                                  />
+                      </Box>
         {isLoading ? <SpinnerKit  /> 
              : (
             <Paper sx={{ width: '100%', overflow: 'hidden' }}>
@@ -65,16 +89,16 @@ const ClientesSA = () => {
           <TableBody>
             
             
-           {cliente.clientes.map((user, i) => {
+           {cliente.clientes.map((cliente, i) => {
 
                 return (
 
                     
                   <TableRow align="center" key={i} > 
                   
-                      <TableCell key={"nombres"} align="center">{user.nombre}</TableCell>
-                      <TableCell key={"curps"}   align="center">{user.curp}</TableCell>
-                      <TableCell key={"nsss"}    align="center">{user.nss}</TableCell>
+                      <TableCell key={"nombres"} align="center">{cliente.nombre}</TableCell>
+                      <TableCell key={"curps"}   align="center">{cliente.curp}</TableCell>
+                      <TableCell key={"nsss"}    align="center">{cliente.nss}</TableCell>
 
                       {/* <TableCell key={"docs"}    align="center" >
                              <IconButton style={{ color: '#09507a' }} >
@@ -87,7 +111,7 @@ const ClientesSA = () => {
                           <Select
                           labelId="demo-simple-select-label"
                           id="demo-simple-select"
-                          value={ user.tipe }
+                          value={ cliente.tipe }
                           label="Tipo de Usuario"
                           align="left"
                           onChange={ onChangeUsuario }
@@ -107,18 +131,31 @@ const ClientesSA = () => {
 
                       <TableCell key={"acciones"} align="center">  
 
-                      <IconButton style={{ color: '#09507a' }} >
-                                <RemoveRedEyeIcon />
-                            </IconButton> 
+                      <Box sx={{  display: 'inline-flex' }} >
+
+                          <IconButton style={{ color: '#09507a' }} >
+                                    <RemoveRedEyeIcon />
+                                </IconButton> 
+
+                                <ModalReutilizable Boton={ <IconButton style={{ color: '#09507a' }}>
+                                                                <EditIcon />
+                                                            </IconButton> }
+                                              Contenido={
+                                                  <>
+                                                      <ClienteForm
+                                                          client={cliente}
+                                                          titulo="Editar" />
+                                                  </>
+                                              }
+                            
+                                />
 
 
-                          <IconButton style={{ color: '#09507a' }}>
-                              <EditIcon />
-                          </IconButton>
+                              <IconButton style={{ color: '#b00020' }}>
+                                  <DeleteIcon />
+                              </IconButton>
 
-                          <IconButton style={{ color: '#b00020' }}>
-                              <DeleteIcon />
-                          </IconButton>
+                      </Box>
 
                       </TableCell>
                   

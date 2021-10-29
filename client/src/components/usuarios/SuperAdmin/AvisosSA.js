@@ -1,7 +1,7 @@
 import React from 'react';
 import Lottie from 'react-lottie';
 import Skull from '../../../assets/lotties/81807-meditation-skull.json';
-import Modal from '../../reutilizables/ModalReutilizable';
+import ModalReutilizable from '../../reutilizables/ModalReutilizable';
 
 // Material UI
 import Box from '@mui/material/Box';
@@ -49,7 +49,7 @@ const AvisosSA = () => {
 
             <Box sx={{ mt: 5, textAlign: 'right'}}>
                 
-                        <Modal Boton={
+                        <ModalReutilizable Boton={
                             <Fab color="secondary" aria-label="edit">
                                 <EditIcon />
                             </Fab>}
