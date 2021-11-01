@@ -45,7 +45,6 @@ const ClienteForm = (
             id="nombre"
             label="Nombre"
             variant="filled"
-            defaultValue={nombre}
             value={ nombre }
             onChange={handleChange}
             sx={{ minWidth: 180 }}
