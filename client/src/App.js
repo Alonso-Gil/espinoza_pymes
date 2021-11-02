@@ -2,6 +2,10 @@ import React from 'react';
 import AppRouter from './routes/AppRouter';
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
+// Redux 
+import { Provider } from 'react-redux';
+import store from './redux/store';
+
 function App() {
 
   const theme = createTheme({
@@ -17,7 +21,9 @@ function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <AppRouter />
+      <Provider store={store}>
+        <AppRouter />
+      </Provider>
     </ThemeProvider>
   );
 }

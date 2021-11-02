@@ -1,0 +1,1 @@
+export const EDITAR_AVISO = 'EDITAR_AVISO';
