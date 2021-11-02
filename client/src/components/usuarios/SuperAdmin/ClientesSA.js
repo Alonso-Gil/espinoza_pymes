@@ -12,6 +12,11 @@ import TableRow from '@mui/material/TableRow';
 import SpinnerKit from '../../reutilizables/SpinnerKit';
 import { Box } from '@mui/system';
 import ModalReutilizable from '../../reutilizables/ModalReutilizable';
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import Typography from '@mui/material/Typography';
+import { DeleteDialog } from '../../reutilizables/utils';
 
 ///////////ICONS\\\\\\\\\\\\\\\\\\\\\
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -19,6 +24,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import ClienteForm from '../../reutilizables/ClienteForm';
+
 
 const ClientesSA = () => {
 
@@ -37,14 +43,25 @@ const ClientesSA = () => {
           actualizado_fecha:'29/10/21'
          },
          {
-          nombre: 'Alonso Gil Pérez',
-          curp: 'GIPA990621HASNTR01',
+          nombre: 'Alan Emmanuel Delgado López',
+          curp: 'DELA990621HASNTR01',
           nss: '123456789012',
           fecha_nacimiento: '21/06/1999',
           celular: '(449) 365 66 42',
           oficina:'',
           registrado_por:'Lucy',
           actualizado_por:'Vero',
+          actualizado_fecha:'29/09/21'
+        },
+        {
+          nombre: 'Edna Montserrat Silva Aguilar',
+          curp: 'SIAE990414HASNTR01',
+          nss: '123456789012',
+          fecha_nacimiento: '21/06/1999',
+          celular: '(449) 788 77 42',
+          oficina:'',
+          registrado_por:'Mariana',
+          actualizado_por:'Lucy',
           actualizado_fecha:'29/09/21'
         }
         ]
@@ -78,11 +95,11 @@ const ClientesSA = () => {
           <TableHead>
 
             <TableRow>
-                <TableCell key={"nombre"}     align="center"   style={{ minWidth:140, backgroundColor:"#09507a", color:"white"}}>Nombre</TableCell>
-                <TableCell key={"curp"}     align="center"   style={{ minWidth:150, backgroundColor:"#09507a", color:"white"}}>CURP</TableCell>
+                <TableCell key={"nombre"}    align="center"   style={{ minWidth:140, backgroundColor:"#09507a", color:"white"}}>Nombre</TableCell>
+                <TableCell key={"curp"}      align="center"   style={{ minWidth:150, backgroundColor:"#09507a", color:"white"}}>CURP</TableCell>
                 <TableCell key={"nss"}       align="center"   style={{ minWidth:200, backgroundColor:"#09507a", color:"white"}}>NSS</TableCell>
-                {/* <TableCell key={"doc"}       align="center"   style={{ minWidth:200, backgroundColor:"#09507a", color:"white"}}> </TableCell> */}
-                <TableCell key={"accion"}     align="center"   style={{ minWidth:150, backgroundColor:"#09507a", color:"white"}} >Acciones</TableCell>
+                {/* <TableCell key={"doc"}   align="center"   style={{ minWidth:200, backgroundColor:"#09507a", color:"white"}}> </TableCell> */}
+                <TableCell key={"accion"}    align="center"   style={{ minWidth:150, backgroundColor:"#09507a", color:"white"}} >Acciones</TableCell>
             </TableRow>
 
           </TableHead>
@@ -99,35 +116,6 @@ const ClientesSA = () => {
                       <TableCell key={"nombres"} align="center">{cliente.nombre}</TableCell>
                       <TableCell key={"curps"}   align="center">{cliente.curp}</TableCell>
                       <TableCell key={"nsss"}    align="center">{cliente.nss}</TableCell>
-
-                      {/* <TableCell key={"docs"}    align="center" >
-                             <IconButton style={{ color: '#09507a' }} >
-                                <RemoveRedEyeIcon />
-                            </IconButton> 
-                      </TableCell> */}
-
-
-                      {/* <TableCell key={"tipos"} align="right">    
-                          <Select
-                          labelId="demo-simple-select-label"
-                          id="demo-simple-select"
-                          value={ cliente.tipe }
-                          label="Tipo de Usuario"
-                          align="left"
-                          onChange={ onChangeUsuario }
-                          sx={{ width: 200 }}
-                          > 
-                          <MenuItem value={"Super Admin"}>Super Administrador</MenuItem>
-                          <MenuItem value={"Manager"}>Manager</MenuItem>
-                          <MenuItem value={"Agente Difusor"}>Agente Difusor</MenuItem>
-                          <MenuItem value={"Recepción"}>Recepción</MenuItem>
-                          <MenuItem value={"Procesos"}>Procesos</MenuItem>
-                          <MenuItem value={"Agente Cerrador"}>Agente Cerrador</MenuItem>
-                          <MenuItem value={"Asesor"}>Asesor</MenuItem>
-                          <MenuItem value={"Finanzas"}>Finanzas</MenuItem>
-                          <MenuItem value={"Recursos Humanos"}>Recursos Humanos</MenuItem>
-                      </Select>  
-                      </TableCell> */}
 
                       <TableCell key={"acciones"} align="center">  
 
@@ -151,7 +139,7 @@ const ClientesSA = () => {
                                 />
 
 
-                              <IconButton style={{ color: '#b00020' }}>
+                              <IconButton style={{ color: '#b00020' }} onClick={ () => { DeleteDialog("cliente", cliente.nombre) } }>
                                   <DeleteIcon />
                               </IconButton>
 
@@ -178,6 +166,60 @@ const ClientesSA = () => {
     </Paper>
 
       )}
+  
+  <Box sx={{ minWidth: 275, mt:2, display:'flex' }}>
+
+      {cliente.clientes.map((cliente, i) => {
+
+        return(
+          <Card sx={{ maxWidth: 275, background:"#E0E0E0", m:2}} key={i}>
+          <CardContent>
+            <Typography gutterBottom variant="h5" component="div" key={"nombre"}>
+            {cliente.nombre}
+            </Typography>
+            <Typography variant="body2" color="text.secondary" key={"curp"}>
+              CURP: {cliente.curp}
+              </Typography>
+              <Typography variant="body2" color="text.secondary" key={"celular"}>
+              Teléfono: {cliente.celular}
+            </Typography>
+            
+          </CardContent>
+          <CardActions>
+    
+                    <Box sx={{  minWidth: 275, display: 'inline-flex', background:'#184c7c' }} >
+    
+              <IconButton style={{ color: '#E3F2FD' }} >
+                        <RemoveRedEyeIcon />
+                    </IconButton> 
+    
+                    <ModalReutilizable Boton={ <IconButton style={{ color: '#E3F2FD' }}>
+                                                    <EditIcon />
+                                                </IconButton> }
+                                  Contenido={
+                                      <>
+                                          <ClienteForm
+                                              client={cliente}
+                                              titulo="Editar" />
+                                      </>
+                                  }
+                
+                    />
+    
+    
+                  <IconButton style={{ color: '#E3F2FD' }} 
+                              onClick={ () => { DeleteDialog("cliente", cliente.nombre) } } >
+                      <DeleteIcon />
+                  </IconButton>
+    
+              </Box>
+          </CardActions>
+        </Card>
+    );
+
+      })}
+
+  </Box>
          </>
     );
 }

@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react'
 import ModaReutilizable from '../../reutilizables/ModalReutilizable';
 import UserForm from '../../reutilizables/UserForm';
+import { DeleteDialog } from '../../reutilizables/utils';
+
 
 ///////////MATERIAL\\\\\\\\\\\\\\\\\\\
 import { IconButton } from '@mui/material';
@@ -17,6 +19,7 @@ import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import SpinnerKit from '../../reutilizables/SpinnerKit';
 import Fab from '@mui/material/Fab';
 import { Box } from '@mui/system';
+
 
 
 
@@ -146,8 +149,11 @@ const UsuariosSA = () => {
                             
                             />
                                 
-                                <IconButton style={{ color: '#b00020' }}>
-                                    <DeleteIcon />
+                                <IconButton style={{ color: '#b00020' }} 
+                                   onClick={ () => { DeleteDialog("usuario", user.nombre) } } >
+
+                                    <DeleteIcon  />            
+
                                 </IconButton>
                                 </Box>
 
