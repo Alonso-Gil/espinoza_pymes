@@ -26,7 +26,7 @@ import { Box } from '@mui/system';
 const UsuariosSA = () => {
 
     const [isLoading, setIsLoading] = React.useState(true);
-    const [usuario, setUsuario] = React.useState(
+    const [usuario, setUsuario] = React.useState( //Usuarios iniciales simulando un JSON
 
       {
       usuarios: [
@@ -87,22 +87,17 @@ const UsuariosSA = () => {
 
     useEffect( () => {
 
-      setIsLoading(false);
+      setIsLoading(false); //Se deja de mostrar el Spinner
     }, [] )
 
-
-  //   const onChangeUsuario = e => {
-  //     setUsuario(e.target.value)
-  // }
     return ( 
-        
+    
         <  >
-
           <Box sx={{ mb:2, mr:7 ,textAlign: 'right'}}>
               <ModaReutilizable Boton={<Fab color="secondary" aria-label="edit" sx={{  }}>
                                     <PersonAddIcon />
                                 </Fab>}
-                                Contenido={
+                                Contenido={ //Caja para agregar usuario con modal
                                     <>
                                         <UserForm />
                                     </>
@@ -110,7 +105,7 @@ const UsuariosSA = () => {
                         />
             </Box>
 
-        {isLoading ? <SpinnerKit  /> 
+        {isLoading ? <SpinnerKit  />  //Si no se ha cargado se muestra el Spinner
              : (
                   <Paper sx={{ width: '100%', overflow: 'hidden' }}>
             <TableContainer sx={{ maxHeight: 490 }}>
@@ -126,12 +121,12 @@ const UsuariosSA = () => {
 
                 </TableHead>
                 <TableBody>
-                {usuario.usuarios.map((user, i) => {
+                {usuario.usuarios.map((user, i) => { //Hacemos un mapeo a todos los clientes para poder mostrarlos en la tabla
 
                       return (
                         <TableRow align="center" key={i} > 
                             <TableCell key={"nombres"} align="center">{user.nombre}</TableCell>
-                            <TableCell key={"correos"} align="center">{user.correo}</TableCell>
+                            <TableCell key={"correos"} align="center">{user.correo}</TableCell> 
                             <TableCell key={"tipos"}   align="center">{user.tipe}</TableCell>
                             <TableCell key={"acciones"} align="center"  >  
 
@@ -139,7 +134,7 @@ const UsuariosSA = () => {
                             <ModaReutilizable Boton={ <IconButton style={{ color: '#09507a' }}>
                                                           <EditIcon />
                                                       </IconButton> }
-                                              Contenido={
+                                              Contenido={                                                   //Caja para los botones de cada usuario
                                                   <>
                                                       <UserForm 
                                                           titulo={'Editar'}
