@@ -3,19 +3,19 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import { Button, FormControl, Grid, InputLabel, MenuItem, Select, Typography } from '@mui/material';
 
-const UserForm = ( {
- user={
-    nombre:'',
-    correo:'',
-    contraseña:'',
-    tipe:'',
-    idTipe:0
-}, titulo='Crear',
-} ) => {
+const UserForm = ( { 
+  user={
+      nombre:'',
+      correo:'',
+      contraseña:'',
+      tipe:'',
+      idTipe:0
+  }, titulo='Crear', //Si no manda el titulo será para crear y si es para editar debe de mandar el titulo como "Editar"
+  } ) => { //Desestructuramos al usuario y al titulo, el titulo debe ser "Crear" o "Editar", el usuario lo inicializamos todo en null por si las dudas
 
   const [usuario, setUsuario] = React.useState(user);
 
-  const {nombre, correo, contraseña, idTipe} = usuario;
+  const {nombre, correo, contraseña, idTipe} = usuario; //Desestructuramos los campos de usuario
 
   const handleChange = (event) => {
     setUsuario({...usuario,

@@ -15,12 +15,13 @@ const ClienteForm = (
         registrado_por:'',
         actualizado_por:'',
         actualizado_fecha:'',}, 
-    titulo='Agregar'} ) => {
+    titulo='Agregar'} ) => { //Desestructuramos al cliente y lo inicializamos en null todo por si las dudas
+                             //Si no manda el titulo será para Agregar Cliente, si es para editarlo deberá de mandar titulo="Editar"
 
         
     const [cliente, setCliente] = React.useState(client);
 
-    const {nombre, curp, nss, fecha_nacimiento, celular, oficina, actualizado_fecha, actualizado_por} = cliente;
+    const {nombre, curp, nss, fecha_nacimiento, celular, oficina, actualizado_fecha, actualizado_por} = cliente; //Desestrucuramos los campos de cliente
 
     const handleChange = (event) => {
          setCliente({...cliente,

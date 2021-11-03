@@ -30,7 +30,7 @@ const ClientesSA = () => {
 
   const [isLoading, setIsLoading] = React.useState(true);
     const [cliente, setCliente] = React.useState({
-        clientes: [
+        clientes: [ //Clientes iniciales simulando un JSON
             {
            nombre: 'Fernando Rafael González Soto',
            curp: 'GOSF980507HASNTR01',
@@ -69,7 +69,7 @@ const ClientesSA = () => {
 
     useEffect( () => {
 
-      setIsLoading(false);
+      setIsLoading(false); //Se deja de mostrar el Spinner, solo dura 1 seg o menos por ahora
     }, [] );
 
     return (
@@ -77,9 +77,9 @@ const ClientesSA = () => {
         < >
 
           <Box sx={{ mb:2, mr:7 ,textAlign: 'right'}}>
-                        <ModalReutilizable Boton={<Fab color="secondary" aria-label="edit" sx={{  }}>
+                        <ModalReutilizable Boton={<Fab color="secondary" aria-label="edit" sx={{  }}> 
                                               <PersonAddIcon />
-                                          </Fab>}
+                                          </Fab>} // Botón para agregar cliente con modal
                                           Contenido={
                                               <>
                                                   <ClienteForm />
@@ -87,7 +87,7 @@ const ClientesSA = () => {
                                           }
                                   />
                       </Box>
-        {isLoading ? <SpinnerKit  /> 
+        {isLoading ? <SpinnerKit  />  //Mientras el spinner este activo no muestra nada
              : (
             <Paper sx={{ width: '100%', overflow: 'hidden' }}>
       <TableContainer sx={{ maxHeight: 500 }}>
@@ -106,7 +106,7 @@ const ClientesSA = () => {
           <TableBody>
             
             
-           {cliente.clientes.map((cliente, i) => {
+           {cliente.clientes.map((cliente, i) => {  //Hacemos un map a todos los clientes para mostrarlos en la tabla
 
                 return (
 
@@ -119,7 +119,7 @@ const ClientesSA = () => {
 
                       <TableCell key={"acciones"} align="center">  
 
-                      <Box sx={{  display: 'inline-flex' }} >
+                      <Box sx={{  display: 'inline-flex' }} >  
 
                           <IconButton style={{ color: '#09507a' }} >
                                     <RemoveRedEyeIcon />
@@ -128,7 +128,7 @@ const ClientesSA = () => {
                                 <ModalReutilizable Boton={ <IconButton style={{ color: '#09507a' }}>
                                                                 <EditIcon />
                                                             </IconButton> }
-                                              Contenido={
+                                              Contenido={                                       //Caja para mostrar los botones en un solo TableCell
                                                   <>
                                                       <ClienteForm
                                                           client={cliente}
@@ -167,9 +167,9 @@ const ClientesSA = () => {
 
       )}
   
-  <Box sx={{ minWidth: 275, mt:2, display:'flex' }}>
+  <Box sx={{ minWidth: 275, mt:2, display:'flex' }}>  
 
-      {cliente.clientes.map((cliente, i) => {
+      {cliente.clientes.map((cliente, i) => { //Map a clientes para mostrarlos en Cartas
 
         return(
           <Card sx={{ maxWidth: 275, background:"#E0E0E0", m:2}} key={i}>
