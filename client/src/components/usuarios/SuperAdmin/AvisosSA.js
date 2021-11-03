@@ -5,7 +5,7 @@ import ModalReutilizable from '../../reutilizables/ModalReutilizable';
 
 // Actions de Redux
 import { editarAvisoAction } from '../../../redux/actions/avisoActions';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 // Material UI
 import Box from '@mui/material/Box';
@@ -14,14 +14,9 @@ import EditIcon from '@mui/icons-material/Edit';
 import TextField from '@mui/material/TextField';
 import { Typography } from '@mui/material';
 import Button from '@mui/material/Button';
+import { useSnackbar } from 'notistack';
 
 const AvisosSA = () => {
-
-    // Utilizar use dispatch y crea una función
-    const dispatch = useDispatch();
-
-    // Mandar llamar el action de avisoAction
-    const editarAviso = () => dispatch( editarAvisoAction() );
 
     // State para el contenido de los avisos
     const [avisos, setAvisos] = React.useState({
@@ -31,6 +26,14 @@ const AvisosSA = () => {
 
     // Extraer  titulo y contenido del state de avisos
     const { titulo, contenido } = avisos;
+
+    const { enqueueSnackbar } = useSnackbar();
+
+    // Utilizar use dispatch y crea una función
+    const dispatch = useDispatch();
+
+    // Mandar llamar el action de avisoAction
+    const editarAviso = (aviso) => dispatch( editarAvisoAction(aviso) );
 
     // Lee el contenido de los inputs
     const handleChange = e => {
@@ -44,10 +47,27 @@ const AvisosSA = () => {
     const onSubmitAvisos = e => {
         e.preventDefault();
 
-        // Validar los avisos
+        // Validar el aviso
+        if(titulo.trim() === '' || contenido.trim() === ''){
+            enqueueSnackbar('No se ha actualizado el contenido, todos los campos son obligatorios!', { 
+                variant: 'error',
+                anchorOrigin: {
+                    vertical: 'bottom',
+                    horizontal: 'center',
+                },
+            });
+            return;
+        }
 
         // Editar el aviso
-        editarAviso();
+        editarAviso({
+            titulo,
+            contenido
+        });
+
+        enqueueSnackbar('Se ha actualizado el contenido correctamente!', { 
+            variant: 'success',
+        });
     }
 
     const defaultOptions = {
@@ -85,7 +105,6 @@ const AvisosSA = () => {
                                     </Typography>
                                     <TextField fullWidth sx={{mb: 4}}
                                         multiline
-                                        required
                                         id="titulo"
                                         label="Titulo"
                                         name="titulo"
@@ -97,7 +116,6 @@ const AvisosSA = () => {
                                     <TextField fullWidth sx={{mb: 5}}
                                         multiline
                                         rows={8}
-                                        required
                                         id="contenido"
                                         label="Contenido"
                                         name="contenido"
@@ -109,12 +127,13 @@ const AvisosSA = () => {
                                     </TextField>
                                     <Lottie options={defaultOptions} height={200} width={200}/>
                                     <Button 
-                                    type="submit"
-                                    variant="contained" 
-                                    color='secondary' 
-                                    fullWidth 
-                                    sx={{mt: 5, height: 50}}
-                                >Actualizar</Button>
+                                        type="submit"
+                                        variant="contained" 
+                                        color='secondary' 
+                                        fullWidth 
+                                        sx={{mt: 5, height: 50}}
+                                    >Actualizar
+                                    </Button>
                                 </form>
                             </>
                         }

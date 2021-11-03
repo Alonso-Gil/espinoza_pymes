@@ -5,6 +5,7 @@ import MainNavBar from '../layout/MainNavBar';
 // Material UI
 import Box from '@mui/material/Box';
 import CssBaseline from '@mui/material/CssBaseline';
+import { SnackbarProvider } from 'notistack';
 
 const Layout = ({NavBarContenido, InicioContenido, ClientesContenido, UsuariosContenido, CalendarioContenido, AvisosContenido}) => {
 
@@ -15,14 +16,16 @@ const Layout = ({NavBarContenido, InicioContenido, ClientesContenido, UsuariosCo
 
             <SideBar />
 
-            <MainNavBar 
-                NavBarContenido={NavBarContenido}
-                InicioContenido={InicioContenido}
-                ClientesContenido={ClientesContenido}
-                UsuariosContenido={UsuariosContenido}
-                CalendarioContenido={CalendarioContenido}
-                AvisosContenido={AvisosContenido}
-            />
+            <SnackbarProvider maxSnack={3}>
+                <MainNavBar 
+                    NavBarContenido={NavBarContenido}
+                    InicioContenido={InicioContenido}
+                    ClientesContenido={ClientesContenido}
+                    UsuariosContenido={UsuariosContenido}
+                    CalendarioContenido={CalendarioContenido}
+                    AvisosContenido={AvisosContenido}
+                />
+            </SnackbarProvider>
 
         </Box>
      );
