@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
-import { Button, FormControl, Grid, InputLabel, MenuItem, Select, Typography } from '@mui/material';
+import { Button, FormControl, Grid, Input, InputLabel, MenuItem, Select, Typography } from '@mui/material';
 
 const UserForm = ( { 
   user={
@@ -9,7 +9,7 @@ const UserForm = ( {
       correo:'',
       contraseña:'',
       tipe:'',
-      idTipe:0
+      idTipe:1
   }, titulo='Crear', //Si no manda el titulo será para crear y si es para editar debe de mandar el titulo como "Editar"
   } ) => { //Desestructuramos al usuario y al titulo, el titulo debe ser "Crear" o "Editar", el usuario lo inicializamos todo en null por si las dudas
 
@@ -32,7 +32,9 @@ const UserForm = ( {
 
 <Grid container spacing={2}>
 
-    <Grid item xs={6} sm={4} >
+{titulo==='Crear' 
+? 
+<Grid item xs={6} sm={4} >
     <TextField 
       id="nombre"
       label="Nombre"
@@ -41,10 +43,19 @@ const UserForm = ( {
       onChange={handleChange}
       sx={{ minWidth: 180 }}
     />
+    </Grid> 
+    : 
+    <Grid item xs={6} sm={4} >
+    <FormControl disabled variant="standard">
+    <InputLabel htmlFor="component-disabled">Nombre: </InputLabel>
+    <Input value={nombre} />
+    </FormControl>
     </Grid>
+    }
 
-
-    <Grid item xs={6} sm={4}>
+{titulo==='Crear' 
+  ? 
+  <Grid item xs={6} sm={4}>
     <TextField
       id="correo"
       label="Correo"
@@ -54,6 +65,16 @@ const UserForm = ( {
       variant="filled"
     />
     </Grid>
+
+  : 
+  <Grid item xs={6} sm={4} >
+    <FormControl disabled variant="standard">
+    <InputLabel htmlFor="component-disabled">Correo: </InputLabel>
+    <Input value={correo} />
+    </FormControl>
+    </Grid>
+  }
+    
     
     
     <Grid item xs={6} sm={4}>

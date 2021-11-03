@@ -26,7 +26,7 @@ import { Box } from '@mui/system';
 const UsuariosSA = () => {
 
     const [isLoading, setIsLoading] = React.useState(true);
-    const [usuario, setUsuario] = React.useState( //Usuarios iniciales simulando un JSON
+    const [usuario] = React.useState( //Usuarios iniciales simulando un JSON
 
       {
       usuarios: [
@@ -92,7 +92,7 @@ const UsuariosSA = () => {
 
     return ( 
     
-        <  >
+        <   >
           <Box sx={{ mb:2, mr:7 ,textAlign: 'right'}}>
               <ModaReutilizable Boton={<Fab color="secondary" aria-label="edit" sx={{  }}>
                                     <PersonAddIcon />
@@ -134,7 +134,7 @@ const UsuariosSA = () => {
                             <ModaReutilizable Boton={ <IconButton style={{ color: '#09507a' }}>
                                                           <EditIcon />
                                                       </IconButton> }
-                                              Contenido={                                                   //Caja para los botones de cada usuario
+                                              Contenido={             //Caja para los botones de cada usuario
                                                   <>
                                                       <UserForm 
                                                           titulo={'Editar'}
@@ -176,7 +176,7 @@ const UsuariosSA = () => {
           </Paper>
              )}
 
-         </>
+         </ >
      )
 
 

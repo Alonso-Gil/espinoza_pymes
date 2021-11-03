@@ -13,7 +13,8 @@ export function DeleteDialog (  tipo="tipo", nombre="nombre"  )  {
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
-            confirmButtonText: 'Si, ¡Elimínalo!'
+            confirmButtonText: `Eliminar ${tipo}`,
+            cancelButtonText: 'Cancelar'
           }).then((result) => {
             if (result.isConfirmed) {
 

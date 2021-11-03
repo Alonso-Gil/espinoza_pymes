@@ -29,8 +29,30 @@ import ClienteForm from '../../reutilizables/ClienteForm';
 const ClientesSA = () => {
 
   const [isLoading, setIsLoading] = React.useState(true);
-    const [cliente, setCliente] = React.useState({
+    const [cliente] = React.useState({
         clientes: [ //Clientes iniciales simulando un JSON
+          {
+            nombre: 'Alan Emmanuel Delgado López',
+            curp: 'DELA990621HASNTR01',
+            nss: '123456789012',
+            fecha_nacimiento: '21/06/1999',
+            celular: '(449) 365 66 42',
+            oficina:'',
+            registrado_por:'Lucy',
+            actualizado_por:'Vero',
+            actualizado_fecha:'29/09/21'
+          },
+          {
+            nombre: 'Edna Montserrat Silva Aguilar',
+            curp: 'SIAE990414HASNTR01',
+            nss: '123456789012',
+            fecha_nacimiento: '21/06/1999',
+            celular: '(449) 788 77 42',
+            oficina:'',
+            registrado_por:'Mariana',
+            actualizado_por:'Lucy',
+            actualizado_fecha:'29/09/21'
+          },
             {
            nombre: 'Fernando Rafael González Soto',
            curp: 'GOSF980507HASNTR01',
@@ -42,27 +64,16 @@ const ClientesSA = () => {
           actualizado_por:'Lucy',
           actualizado_fecha:'29/10/21'
          },
-         {
-          nombre: 'Alan Emmanuel Delgado López',
-          curp: 'DELA990621HASNTR01',
-          nss: '123456789012',
-          fecha_nacimiento: '21/06/1999',
-          celular: '(449) 365 66 42',
-          oficina:'',
-          registrado_por:'Lucy',
-          actualizado_por:'Vero',
-          actualizado_fecha:'29/09/21'
-        },
         {
-          nombre: 'Edna Montserrat Silva Aguilar',
-          curp: 'SIAE990414HASNTR01',
+          nombre: 'José Antonio Soto de Anda',
+          curp: 'SOTJ690321HASNTR01',
           nss: '123456789012',
-          fecha_nacimiento: '21/06/1999',
-          celular: '(449) 788 77 42',
+          fecha_nacimiento: '03/21/1969',
+          celular: '(449) 254 82 56',
           oficina:'',
-          registrado_por:'Mariana',
-          actualizado_por:'Lucy',
-          actualizado_fecha:'29/09/21'
+          registrado_por:'Fernando',
+          actualizado_por:'Fernando',
+          actualizado_fecha:'03/11/21'
         }
         ]
     });
@@ -185,11 +196,11 @@ const ClientesSA = () => {
             </Typography>
             
           </CardContent>
-          <CardActions>
+          <CardActions sx={{ background:'#184c7c', maxHeight:42 }}>
     
-                    <Box sx={{  minWidth: 275, display: 'inline-flex', background:'#184c7c' }} >
+                    <Box sx={{  minWidth: 260, display: 'flex' }} >
     
-              <IconButton style={{ color: '#E3F2FD' }} >
+              <IconButton style={{ color: '#E3F2FD'}} >
                         <RemoveRedEyeIcon />
                     </IconButton> 
     
@@ -207,7 +218,7 @@ const ClientesSA = () => {
                     />
     
     
-                  <IconButton style={{ color: '#E3F2FD' }} 
+                  <IconButton style={{ color: '#E3F2FD', marginLeft:"auto" }} 
                               onClick={ () => { DeleteDialog("cliente", cliente.nombre) } } >
                       <DeleteIcon />
                   </IconButton>
