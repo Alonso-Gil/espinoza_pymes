@@ -46,7 +46,7 @@ const ClienteForm = (
             id="nombre"
             label="Nombre"
             variant="filled"
-            
+            value={ nombre }
             onChange={handleChange}
             sx={{ minWidth: 180 }}
             />
@@ -57,7 +57,7 @@ const ClienteForm = (
             id="curp"
             label="CURP"
             variant="filled"
-            
+            value={ curp }
             onChange={handleChange}
             sx={{ minWidth: 180 }}
             />
@@ -68,7 +68,7 @@ const ClienteForm = (
             id="nss"
             label="Nss"
             variant="filled"
-            
+            value={ nss }
             onChange={handleChange}
             sx={{ minWidth: 180 }}
             />
@@ -79,7 +79,7 @@ const ClienteForm = (
             id="fecha_nacimiento"
             label="Fecha de Nacimiento"
             variant="filled"
-            
+            value={ fecha_nacimiento }
             onChange={handleChange}
             sx={{ minWidth: 180 }}
             />
@@ -90,7 +90,7 @@ const ClienteForm = (
             id="celular"
             label="Celular"
             variant="filled"
-            
+            value={ celular }
             onChange={handleChange}
             sx={{ minWidth: 180 }}
             />
@@ -101,7 +101,7 @@ const ClienteForm = (
             id="oficina"
             label="Oficina"
             variant="filled"
-            
+            value={ oficina }
             onChange={handleChange}
             sx={{ minWidth: 180 }}
             />
@@ -112,9 +112,7 @@ const ClienteForm = (
         <Grid item xs={6} sm={4} >
             <FormControl disabled variant="standard">
             <InputLabel htmlFor="component-disabled">Última Actualización: </InputLabel>
-            <Input id="component-disabled" 
-            
-            onChange={handleChange} />
+            <Input id="component-disabled" value={actualizado_fecha} onChange={handleChange} />
             <FormHelperText>Actualizado por: {actualizado_por}</FormHelperText>
             </FormControl>
             </Grid>
