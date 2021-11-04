@@ -10,21 +10,30 @@ export function editarAvisoAction(aviso) {
         dispatch( editarAviso() );
 
         try {
-            dispatch( editarAvisoExito(aviso))
+            // Insertar en la API
+
+            // Si todo sale bien, actualizar el state
+            dispatch( editarAvisoExito(aviso));
         } catch (error) {
-            dispatch( editarAvisoError(aviso))
+            console.log(error);
+            // Si hay un error, cambiar el state
+            dispatch( editarAvisoError(true));
         }
     }
 }
 
 const editarAviso = () => ({
-    type: EDITAR_AVISO
+    type: EDITAR_AVISO,
+    payload: true
 })
 
-const editarAvisoExito = () => ({
+// Si el producto se guarda en la base de datos
+const editarAvisoExito = (aviso) => ({
     type: EDITAR_AVISO_EXITO
 })
 
-const editarAvisoError = () => ({
-    type: EDITAR_AVISO_ERROR
+// SI hubo un error
+const editarAvisoError = (estado) => ({
+    type: EDITAR_AVISO_ERROR,
+    payload: estado
 })

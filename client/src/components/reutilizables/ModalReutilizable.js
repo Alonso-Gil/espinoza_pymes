@@ -10,8 +10,11 @@ const style = {
     position: 'absolute',
     top: '50%',
     left: '50%',
+    overflow: 'scroll',
     transform: 'translate(-50%, -50%)',
     width: 800,
+    height: 870,
+    display: 'block',
     bgcolor: 'background.paper',
     borderRadius: '5px',
     boxShadow: 24,
@@ -27,7 +30,7 @@ const ModalReutilizable = ({Boton, Contenido}) => {
 
     return ( 
         <>
-            <Box color='inherit' onClick={handleOpen}>{Boton}</Box>
+            <Box maxWidth="0px" color='inherit' onClick={handleOpen}>{Boton}</Box>
             <Modal
                 aria-labelledby="transition-modal-title"
                 aria-describedby="transition-modal-description"

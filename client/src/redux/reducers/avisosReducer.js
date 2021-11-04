@@ -6,8 +6,8 @@ import {
 
 // Cada reducer tiene su propio state
 const initialState = {
-    titulo: '',
-    contenido: '',
+    titulo: 'El titulo del contenido',
+    contenido: 'Contenido que es editable',
     error: null,
     loading: false
 }
@@ -18,17 +18,19 @@ export default function(state = initialState, action) {
         case EDITAR_AVISO:
             return{
                 ...state,
-                loading: true
+                loading: action.payload
             }
         case EDITAR_AVISO_EXITO:
             return{
                 ...state,
-                loading: true
+                loading: false,
+                titulo: [...state.titulo, action.payload]
             }
         case EDITAR_AVISO_ERROR:
             return{
                 ...state,
-                loading: true
+                loading: false,
+                error: action.payload
             }
 
         default:
