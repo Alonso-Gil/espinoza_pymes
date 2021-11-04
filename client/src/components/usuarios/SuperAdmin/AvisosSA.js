@@ -144,7 +144,7 @@ const AvisosSA = () => {
                                             variant="contained" 
                                             color='secondary' 
                                             fullWidth 
-                                            sx={{mt: 5, height: 50}}
+                                            sx={{mt: 5, height: 50 }}
                                         >Actualizar
                                         </Button>
                                     </form>

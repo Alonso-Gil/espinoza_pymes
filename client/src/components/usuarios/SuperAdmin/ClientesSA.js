@@ -87,7 +87,7 @@ const ClientesSA = () => {
         
         < >
 
-          <Box sx={{ mb:2, mr:7 ,textAlign: 'right'}}>
+          <Box sx={{ mb:2, mr:7 ,textAlign: 'right', marginLeft:140 }}>
                         <ModalReutilizable Boton={<Fab color="secondary" aria-label="edit" sx={{  }}> 
                                               <PersonAddIcon />
                                           </Fab>} // Botón para agregar cliente con modal
@@ -150,7 +150,7 @@ const ClientesSA = () => {
                                 />
 
 
-                              <IconButton style={{ color: '#b00020' }} onClick={ () => { DeleteDialog("cliente", cliente.nombre) } }>
+                              <IconButton style={{ color: '#b00020', marginLeft:35 }} onClick={ () => { DeleteDialog("cliente", cliente.nombre) } }>
                                   <DeleteIcon />
                               </IconButton>
 

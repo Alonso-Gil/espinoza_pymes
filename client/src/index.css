@@ -1,3 +1,11 @@
+.screen {
+  background: #999999
+  /* background-image: radial-gradient(circle at 50% -20.71%, #c5ffff 0, #bfffff 25%, #b5def2 50%, #a8bdc9 75%, #9a9fa3 100%); */
+}
+
+.form {
+  background: #FFFFFF
+}
 .sk-cube-grid {
   width: 80px;
   height: 80px;
@@ -187,8 +195,8 @@
 /* /////////////////////////////////////// SPINNER 4 //////////////////////////////////////// */
 
 .sk-chase {
-  width: 50px;
-  height: 50px;
+  width: 70px;
+  height: 70px;
   margin: 120px auto;
   position: relative;
   animation: sk-chase 2.5s infinite linear both;

@@ -39,7 +39,7 @@ const UserForm = ( {
       id="nombre"
       label="Nombre"
       variant="filled"
-      value={ nombre }
+      
       onChange={handleChange}
       sx={{ minWidth: 180 }}
     />
@@ -48,7 +48,7 @@ const UserForm = ( {
     <Grid item xs={6} sm={4} >
     <FormControl disabled variant="standard">
     <InputLabel htmlFor="component-disabled">Nombre: </InputLabel>
-    <Input value={nombre} />
+    
     </FormControl>
     </Grid>
     }
@@ -60,7 +60,7 @@ const UserForm = ( {
       id="correo"
       label="Correo"
       type="email"
-      value={ correo }
+      
       onChange={handleChange}
       variant="filled"
     />
@@ -70,7 +70,7 @@ const UserForm = ( {
   <Grid item xs={6} sm={4} >
     <FormControl disabled variant="standard">
     <InputLabel htmlFor="component-disabled">Correo: </InputLabel>
-    <Input value={correo} />
+    
     </FormControl>
     </Grid>
   }
@@ -82,7 +82,7 @@ const UserForm = ( {
       id="filled-password-input"
       label="Contraseña"
       type="password"
-      value={ contraseña }
+      
       onChange={handleChange}
       autoComplete="current-password"
       variant="filled"
@@ -96,7 +96,7 @@ const UserForm = ( {
         <Select
         labelId="demo-simple-select-standard-label"
         id="demo-simple-select-standard"
-        value={idTipe}
+        
         onChange={handleChange}
         label="Tipo de Usuario"
         >

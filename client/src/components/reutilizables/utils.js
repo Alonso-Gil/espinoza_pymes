@@ -26,3 +26,17 @@ export function DeleteDialog (  tipo="tipo", nombre="nombre"  )  {
             }
           })  
     )};
+
+
+export function FormularioEnviado () {
+
+  return (
+
+    Swal.fire(
+      '¡Gracias por confiar en nosotros!',
+      'Pronto recibirás un correo con más instrucciones',
+      'success'
+    )
+  );
+
+}
