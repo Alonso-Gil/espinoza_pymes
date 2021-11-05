@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-import logo from '../../logo.png';
+import logo from '../../espinozaLogo.png';
 import styled from '@emotion/styled';
 import Copyright from '../reutilizables/Copyright';
 
@@ -105,7 +105,7 @@ const Login = () => {
                   variant="contained"
                   sx={{ mt: 3, mb: 2 }}
                 >
-                  Iniciar sésion
+                  Iniciar sesión
                 </Button>
                 <Grid container>
                   <Grid item xs>

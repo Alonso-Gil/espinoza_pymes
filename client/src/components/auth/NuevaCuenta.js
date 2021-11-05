@@ -4,6 +4,10 @@ import React, { useState } from 'react';
 //import { Link } from 'react-router-dom';
 import { FormularioEnviado } from '../reutilizables/utils';
 
+import logo from '../../espinozaLogo.png';
+import styled from '@emotion/styled';
+import { Link } from 'react-router-dom';
+
 const NuevaCuenta = () => {
 
     // State para iniciar sesión
@@ -29,32 +33,37 @@ const NuevaCuenta = () => {
     }
 
     // Cuando el usuario quiere iniciar sesión
-    const onSubmit = e => {
-        e.preventDefault();
+    // const onSubmit = e => {
+    //     e.preventDefault();
 
-        // Valdidar que no haya campos vacios
+    //     // Valdidar que no haya campos vacios
 
-        // Password minimo de 6 caracteres
+    //     // Password minimo de 6 caracteres
 
-        // Los dos passwords son iguales
+    //     // Los dos passwords son iguales
 
-        // Pasarlo al action
-    }
+    //     // Pasarlo al action
+    // }
+
+    const Imagen = styled.img`
+    max-width: 100%;
+    max-height:300px;
+    margin-left: 40rem;
+    display: flex;
+    justify-content: center;
+`;
 
     return ( 
 
         < >
+            <Box sx={{minHeight:800}} >
 
-            <Box sx={{minHeight:800}} className="screen">
+            <Imagen src={logo} alt="logo"  />
+          
 
-             <Typography sx={{textAlign: 'center', fontWeight: 'bold', marginBottom: 3, mt:2}} color="black" variant="h3" component="div">
-              EspinozaPymes
-            </Typography>
-
-            <Box sx={{maxWidth:1200, maxHeight:1000, marginLeft:"auto", marginRight:"auto", marginTop:20, borderRadius:2 }} className="form">
+            <Box sx={{maxWidth:1200, maxHeight:1000, marginLeft:45, marginRight:"auto", marginTop:10, borderRadius:2 }} >
         <Typography variant="h6" gutterBottom sx={{mt:2, ml:2}}>
-            Registro de Agente Difusor
-            
+            Registrate como Agente Difusor
         </Typography>
 
         <Grid container spacing={3} sx={{ ml:1}}>
@@ -156,9 +165,24 @@ const NuevaCuenta = () => {
           </Grid>
 
           <Grid item xs={12}>
+          <Box sx={{display:'flex'}}>
+
+          {/* <Button variant="contained" color='secondary' fullWidth 
+          sx={{ display:'flex', height: 50, maxWidth:150, marginRight:"auto", mt:3, mb:3, mr:13}}
+          href="/"
+          >Regresar</Button> */}
+
+          <Link to={'/'} variant="body2" underline='none'>
+          <Button variant="contained" color='secondary' fullWidth
+          sx={{ display:'flex', height: 50, maxWidth:150, marginRight:"auto", mt:3, mb:3, mr:13}}
+          >Regresar</Button>
+                    </Link>
+
           <Button variant="contained" color='primary' fullWidth 
           sx={{ display:'flex', height: 50, maxWidth:400, marginLeft:"auto", mt:3, mb:3, mr:13}}
           onClick={ () => { FormularioEnviado() } } >Envía tus Datos</Button>
+
+          </Box>
           </Grid>
 
         </Grid>
