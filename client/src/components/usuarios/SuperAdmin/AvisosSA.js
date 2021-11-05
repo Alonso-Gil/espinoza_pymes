@@ -1,6 +1,6 @@
 import React from 'react';
 import Lottie from 'react-lottie';
-import Skull from '../../../assets/lotties/81807-meditation-skull.json';
+import Skull from '../../../assets/lotties/Navidad.json';
 import ModalReutilizable from '../../reutilizables/ModalReutilizable';
 import Spinner2 from '../../reutilizables/Spinner2';
 
@@ -22,12 +22,26 @@ const AvisosSA = () => {
 
     // State para el contenido de los avisos
     const [avisos, setAvisos] = React.useState({
-        titulo: 'El titulo del contenido',
-        contenido: 'Contenido que es editable'
+        titulo: 'Titulo con lorem',
+        contenido: `Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+        Etiam mattis ante sit amet arcu aliquet, et mollis massa ornare. 
+        Proin eu mi ut est tincidunt hendrerit. Sed commodo efficitur posuere. 
+        Nullam eleifend, orci nec mollis tristique, nibh enim condimentum diam, 
+        in vulputate velit orci a turpis. Etiam mollis, libero et volutpat 
+        condimentum, eros mi commodo ante, dictum aliquet neque libero eget felis. 
+        Donec a lectus volutpat, placerat purus ut, vestibulum quam. 
+        Cras a nisi at dui tristique porta in vel ligula. Nam volutpat vitae mi non 
+        posuere. Proin facilisis eros in mattis sodales.
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+        Etiam mattis ante sit amet arcu aliquet, et mollis massa ornare. 
+        Proin eu mi ut est tincidunt hendrerit. Sed commodo efficitur posuere. 
+        Nullam eleifend, orci nec mollis tristique, nibh enim condimentum diam, 
+        in vulputate velit orci a turpis. Etiam mollis, libero et volutpat 
+        condimentum, eros mi commodo ante, dictum aliquet neque libero eget felis. 
+        Donec a lectus volutpat, placerat purus ut, vestibulum quam. 
+        Cras a nisi at dui tristique porta in vel ligula. Nam volutpat vitae mi non 
+        posuere. Proin facilisis eros in mattis sodales.`
     });
-
-    // Extraer  titulo y contenido del state de avisos
-    const { titulo, contenido } = avisos;
 
     const { enqueueSnackbar } = useSnackbar();
 
@@ -37,6 +51,9 @@ const AvisosSA = () => {
     // Acceder al state del store
     const cargando = useSelector( (state) => state.avisos);
     const error = useSelector(state => state.avisos.error);
+
+    // Extraer  titulo y contenido del state de avisos
+    const { titulo, contenido } = avisos;
 
     // Mandar llamar el action de avisoAction
     const editarAviso = (aviso) => dispatch( editarAvisoAction(aviso) );
@@ -87,16 +104,7 @@ const AvisosSA = () => {
       
     return ( 
         <>
-            <Typography sx={{textAlign: 'center', fontWeight: 'bold', marginBottom: 5}} color="black" variant="h3" component="div">
-                {titulo}
-            </Typography>
-            <Typography variant="h5" sx={{textAlign: 'justify', mb: 5}}>
-                {contenido}
-            </Typography>
-            
-            <Lottie options={defaultOptions} height={400} width={400} />
-
-            <Box sx={{ mt: 5 }}>
+            <Box sx={{ }}>
                     <ModalReutilizable Boton={
                         <Box sx={{ }}>
                             <Fab color="secondary" aria-label="edit">
@@ -153,6 +161,15 @@ const AvisosSA = () => {
                         }
                     />
             </Box>
+
+            <Typography sx={{textAlign: 'center', fontWeight: 'bold', marginBottom: 5}} color="black" variant="h3" component="div">
+                {titulo}
+            </Typography>
+            <Typography variant="h5" sx={{textAlign: 'justify', mb: 5}}>
+                {contenido}
+            </Typography>
+            
+            <Lottie options={defaultOptions} height={400} width={400} />
         </>
      );
 }

@@ -11,6 +11,9 @@ import Container from '@mui/material/Container';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import TwitterIcon from '@mui/icons-material/Twitter';
+import Alert from '@mui/material/Alert';
+import Pagination from '@mui/material/Pagination';
+import Stack from '@mui/material/Stack';
 
 const drawerWidth = 320;
 
@@ -38,11 +41,30 @@ const SideBar = () => {
             <Divider />
             <Divider />
 
-            <Container fixed sx={{ marginBottom: 15, marginTop: 2}}>
-                <Typography sx={{textAlign: 'center', fontWeight: 'bold'}} variant="h5" component="div">
-                    Clientes
-                </Typography>
+            <Container fixed sx={{ marginBottom: 8.5, marginTop: 2}}>
+                <Stack spacing={2}>
+                    <Typography sx={{textAlign: 'center', fontWeight: 'bold'}} variant="h5" component="div">
+                        Clientes
+                    </Typography>
+                    <Alert variant="filled" severity="error">
+                        Alonso Gil Pérez  -  11:45 am
+                    </Alert> 
+                    <Alert variant="filled" severity="warning">
+                        Juan de la Cruz  -  1:23 pm
+                    </Alert> 
+                    <Alert variant="filled" severity="warning">
+                        Jose Chuy de la Riva  -  4:51 pm
+                    </Alert> 
+                    <Alert variant="filled" severity="info">
+                        Miguelon Martinez  -  7:30 pm
+                    </Alert> 
+                    <Alert variant="filled" severity="success">
+                        Jose Pancho  -  9:00 pm
+                    </Alert> 
+                </Stack>
             </Container>
+
+            <Pagination count={3} sx={{ display: 'flex', justifyContent: 'center', pb: 2.5}} color="primary" />
 
             <Box
                 component="footer"

@@ -9,7 +9,8 @@ const initialState = {
     titulo: 'El titulo del contenido',
     contenido: 'Contenido que es editable',
     error: null,
-    loading: false
+    loading: false,
+    avisoeditar: null
 }
 
 // eslint-disable-next-line
@@ -18,6 +19,7 @@ export default function(state = initialState, action) {
         case EDITAR_AVISO:
             return{
                 ...state,
+                productoeditar: action.payload,
                 loading: action.payload
             }
         case EDITAR_AVISO_EXITO:
