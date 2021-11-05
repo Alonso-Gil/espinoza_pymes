@@ -1,5 +1,8 @@
+import { Button, Grid, TextField, Typography } from '@mui/material';
+import { Box } from '@mui/system';
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+//import { Link } from 'react-router-dom';
+import { FormularioEnviado } from '../reutilizables/utils';
 
 const NuevaCuenta = () => {
 
@@ -12,13 +15,11 @@ const NuevaCuenta = () => {
         lugarNac: '',
         fechaNac: '',
         telCel: '',
-        telOfi: '',
-        password: '',
-        confirmar: ''
+        telOfi: ''
     });
 
     // Extraer de usuario
-    const { nombre, email, curp, nss, lugarNac, fechaNac, telCel, telOfi, password, confirmar } = usuario;
+   // const { nombre, email, curp, nss, lugarNac, fechaNac, telCel, telOfi } = usuario;
 
     const onChange = e => {
         guardarUsuario({
@@ -41,154 +42,133 @@ const NuevaCuenta = () => {
     }
 
     return ( 
-        <div className="form-usuario">
-            <div className="contenedor-form sombra-dark">
-                <h1>Crear nueva cuenta como Agente Difusor</h1>
 
-                <form
-                    onSubmit={onSubmit}
-                >
+        < >
 
-                    <div className="campo-form">
-                        <label htmlFor="nombre">Nombre</label>
-                        <input 
-                            type="text"
-                            autoComplete="off"
-                            id="nombre"
-                            name="nombre"
-                            placeholder="Tu Nombre"
-                            value={nombre}
-                            onChange={onChange}
-                        />
-                    </div>
+            <Box sx={{minHeight:800}} className="screen">
 
-                    <div className="campo-form">
-                        <label htmlFor="email">Email</label>
-                        <input 
-                            type="email"
-                            autoComplete="off"
-                            id="email"
-                            name="email"
-                            placeholder="Tu email"
-                            value={email}
-                            onChange={onChange}
-                        />
-                    </div>
+             <Typography sx={{textAlign: 'center', fontWeight: 'bold', marginBottom: 3, mt:2}} color="black" variant="h3" component="div">
+              EspinozaPymes
+            </Typography>
 
-                    <div className="campo-form">
-                        <label htmlFor="curp">CURP</label>
-                        <input 
-                            type="text"
-                            autoComplete="off"
-                            id="curp"
-                            name="curp"
-                            placeholder="Tu CURP"
-                            value={curp}
-                            onChange={onChange}
-                        />
-                    </div>
+            <Box sx={{maxWidth:1200, maxHeight:1000, marginLeft:"auto", marginRight:"auto", marginTop:20, borderRadius:2 }} className="form">
+        <Typography variant="h6" gutterBottom sx={{mt:2, ml:2}}>
+            Registro de Agente Difusor
+            
+        </Typography>
 
-                    <div className="campo-form">
-                        <label htmlFor="nss">NSS</label>
-                        <input 
-                            type="text"
-                            autoComplete="off"
-                            id="nss"
-                            name="nss"
-                            placeholder="Tu número de Seguro Social (NSS)"
-                            value={nss}
-                            onChange={onChange}
-                        />
-                    </div>
+        <Grid container spacing={3} sx={{ ml:1}}>
 
-                    <div className="campo-form">
-                        <label htmlFor="lugarNac">Lugar de Nacimiento</label>
-                        <input 
-                            type="text"
-                            autoComplete="off"
-                            id="lugarNac"
-                            name="lugarNac"
-                            placeholder="Tu lugar de nacimiento"
-                            value={lugarNac}
-                            onChange={onChange}
-                        />
-                    </div>
+          <Grid item xs={12} sm={6}>
+            <TextField
+              required
+              id="nombre"
+              name="nombre"
+              label="Nombre Completo"
+              fullWidth
+              autoComplete="off"
+              onChange={onChange}
+              variant="standard"
+            />
+          </Grid>
 
-                    <div className="campo-form">
-                        <label htmlFor="fechaNac">Fecha de Nacimiento</label>
-                        <input 
-                            type="date"
-                            id="fechaNac"
-                            name="fechaNac"
-                            value={fechaNac}
-                            onChange={onChange}
-                        />
-                    </div>
+          <Grid item xs={12} sm={5}>
+            <TextField
+              required
+              id="curp"
+              name="curp"
+              label="CURP"
+              fullWidth
+              autoComplete="off"
+              onChange={onChange}
+              variant="standard"
+            />
+          </Grid>
 
-                    <div className="campo-form">
-                        <label htmlFor="telCel">Número de celular</label>
-                        <input 
-                            type="tel"
-                            autoComplete="off"
-                            id="telCel"
-                            name="telCel"
-                            placeholder="Tu número de celular"
-                            value={telCel}
-                            onChange={onChange}
-                        />
-                    </div>
+          <Grid item xs={12} sm={6}>
+            <TextField
+              id="lugarNac"
+              name="lugarNac"
+              label="Lugar de Nacimiento"
+              fullWidth
+              autoComplete="off"
+              onChange={onChange}
+              variant="standard"
+            />
+          </Grid>
+          <Grid item xs={12} sm={5}>
+            <TextField
+              id="fechaNac"
+              name="fechaNac"
+              label="Fecha de Nacimiento"
+              fullWidth
+              autoComplete="off"
+              onChange={onChange}
+              variant="standard"
+            />
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <TextField
+              required
+              id="telCel"
+              name="telCel"
+              label="Teléfono Celular"
+              fullWidth
+              autoComplete="off"
+              onChange={onChange}
+              variant="standard"
+            />
+          </Grid>
+          <Grid item xs={12} sm={5}>
+            <TextField
+              id="telOfi"
+              name="telOfi"
+              label="Teléfono Oficina"
+              fullWidth
+              autoComplete="off"
+              onChange={onChange}
+              variant="standard"
+            />
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <TextField
+              required
+              id="email"
+              name="email"
+              label="Correo"
+              fullWidth
+              autoComplete="off"
+              onChange={onChange}
+              variant="standard"
+            />
+          </Grid>
+          <Grid item xs={12} sm={5}>
+            <TextField
+              required
+              id="nss"
+              name="nss"
+              label="NSS"
+              fullWidth
+              autoComplete="off"
+              onChange={onChange}
+              variant="standard"
+            />
+          </Grid>
 
-                    <div className="campo-form">
-                        <label htmlFor="telOfi">Número de la oficina</label>
-                        <input 
-                            type="tel"
-                            autoComplete="off"
-                            id="telOfi"
-                            name="telOfi"
-                            placeholder="Tu número de la oficina"
-                            value={telOfi}
-                            onChange={onChange}
-                        />
-                    </div>
+          <Grid item xs={12}>
+          <Button variant="contained" color='primary' fullWidth 
+          sx={{ display:'flex', height: 50, maxWidth:400, marginLeft:"auto", mt:3, mb:3, mr:13}}
+          onClick={ () => { FormularioEnviado() } } >Envía tus Datos</Button>
+          </Grid>
 
-                    <div className="campo-form">
-                        <label htmlFor="password">Password</label>
-                        <input 
-                            type="password"
-                            autoComplete="off"
-                            id="password"
-                            name="password"
-                            placeholder="Tu password"
-                            value={password}
-                            onChange={onChange}
-                        />
-                    </div>
+        </Grid>
+        </Box>
 
-                    
+        </Box>
 
-                    <div className="campo-form">
-                        <label htmlFor="confirmar">Confirmar Password</label>
-                        <input 
-                            type="password"
-                            autoComplete="off"
-                            id="confirmar"
-                            name="confirmar"
-                            placeholder="Confirma tu password"
-                            value={confirmar}
-                            onChange={onChange}
-                        />
-                    </div>
+        </>
+      
 
-                    <div className="campo-form">
-                        <input type="submit" className="btn btn-primario btn-block" value="Registrarme" />
-                    </div>
-                </form>
-
-                <Link to={'/'} className='enlace-cuenta'>
-                    Volver a Iniciar Sésion
-                </Link>
-            </div>
-        </div>
      );
 }
  

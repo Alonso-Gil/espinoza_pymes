@@ -93,7 +93,7 @@ const UsuariosSA = () => {
     return ( 
     
         <   >
-          <Box sx={{ mb:2, mr:7 ,textAlign: 'right'}}>
+          <Box sx={{ mb:2, mr:7 ,textAlign: 'right', marginLeft:140   }}>
               <ModaReutilizable Boton={<Fab color="secondary" aria-label="edit" sx={{  }}>
                                     <PersonAddIcon />
                                 </Fab>}
@@ -144,7 +144,7 @@ const UsuariosSA = () => {
                             
                             />
                                 
-                                <IconButton style={{ color: '#b00020' }} 
+                                <IconButton style={{ color: '#b00020', marginLeft:35 }} 
                                    onClick={ () => { DeleteDialog("usuario", user.nombre) } } >
 
                                     <DeleteIcon  />            
