@@ -20,6 +20,7 @@ const SuperAdmin = () => {
           UsuariosContenido={<UsuariosSA />}
           CalendarioContenido={<CalendarioSA />}
           AvisosContenido={<AvisosSA />}
+          TipoUsuario={'SuperAdmin'}
         />
       );
 }

@@ -52,6 +52,8 @@ const AvisosSA = () => {
     const cargando = useSelector( (state) => state.avisos);
     const error = useSelector(state => state.avisos.error);
 
+    
+
     // Extraer  titulo y contenido del state de avisos
     const { titulo, contenido } = avisos;
 

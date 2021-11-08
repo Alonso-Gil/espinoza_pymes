@@ -8,6 +8,9 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import SwipeableViews from 'react-swipeable-views';
 import { useTheme } from '@mui/material/styles';
+import Stack from '@mui/material/Stack';
+import { Button } from '@mui/material';
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 
 const drawerWidth = 320;
 
@@ -44,7 +47,7 @@ function a11yProps(index) {
     };
   }
 
-const MainNavBar = ({NavBarContenido, InicioContenido, ClientesContenido, UsuariosContenido, CalendarioContenido, AvisosContenido}) => {
+const MainNavBar = ({NavBarContenido, InicioContenido, ClientesContenido, UsuariosContenido, CalendarioContenido, AvisosContenido, TipoUsuario}) => {
 
     const theme = useTheme();
     const { listaMenu } = NavBarContenido;
@@ -65,6 +68,13 @@ const MainNavBar = ({NavBarContenido, InicioContenido, ClientesContenido, Usuari
               sx={{ width: `calc(100% - ${drawerWidth}px)`, ml: `${drawerWidth}px` }}
           >  
               <Box sx={{ width: '100%' }}>
+              <Stack
+                  direction="row"
+                  justifyContent="space-between"
+                  alignItems="center"
+
+                >
+                  
                   <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                       <Tabs value={value} onChange={handleChange} textColor="inherit" indicatorColor="secondary" >
                           {Object.keys(listaMenu).map(menu => (
@@ -76,6 +86,13 @@ const MainNavBar = ({NavBarContenido, InicioContenido, ClientesContenido, Usuari
                           ))}
                       </Tabs>
                   </Box>
+      
+                  <Button variant="contained" color='secondary' sx={{ mr: 2 }}>
+                    {TipoUsuario}
+                   <ArrowDropDownIcon>
+                   </ArrowDropDownIcon>
+                  </Button>
+                  </Stack>
               </Box>
           </AppBar>
 
@@ -112,7 +129,9 @@ const MainNavBar = ({NavBarContenido, InicioContenido, ClientesContenido, Usuari
                 <TabPanel value={value} index={listaMenu.Avisos} dir={theme.direction}>
                     {AvisosContenido}
                 </TabPanel>
+
               </SwipeableViews>
+
             </Box>
         </> 
      );

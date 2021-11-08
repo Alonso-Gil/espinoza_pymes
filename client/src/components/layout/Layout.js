@@ -7,7 +7,7 @@ import Box from '@mui/material/Box';
 import CssBaseline from '@mui/material/CssBaseline';
 import { SnackbarProvider } from 'notistack';
 
-const Layout = ({NavBarContenido, InicioContenido, ClientesContenido, UsuariosContenido, CalendarioContenido, AvisosContenido}) => {
+const Layout = ({NavBarContenido, InicioContenido, ClientesContenido, UsuariosContenido, CalendarioContenido, AvisosContenido, TipoUsuario}) => {
 
     return ( 
         <Box sx={{ display: 'flex' }}>
@@ -24,6 +24,7 @@ const Layout = ({NavBarContenido, InicioContenido, ClientesContenido, UsuariosCo
                     UsuariosContenido={UsuariosContenido}
                     CalendarioContenido={CalendarioContenido}
                     AvisosContenido={AvisosContenido}
+                    TipoUsuario={TipoUsuario}
                 />
             </SnackbarProvider>
 

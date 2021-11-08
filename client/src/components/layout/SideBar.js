@@ -1,5 +1,5 @@
 import React from 'react';
-import logo from '../../logo.png';
+import espinozaLogo from '../../espinozaLogo.png';
 import Copyright from '../reutilizables/Copyright';
 
 // Material UI
@@ -22,6 +22,7 @@ const SideBar = () => {
         <Drawer
             sx={{
             width: drawerWidth,
+            overflowY: 'auto',
             flexShrink: 0,
             '& .MuiDrawer-paper': {
                 width: drawerWidth,
@@ -31,11 +32,11 @@ const SideBar = () => {
             variant="permanent"
             anchor="left"
         >
-            <Container fixed sx={{marginBottom: 3}}>
-                <Box component="img" src={logo} sx={{ height: 265 }} />
-                <Typography sx={{textAlign: 'center', fontWeight: 'bold'}} variant="h4" component="div">
+            <Container fixed sx={{marginBottom: 3, marginTop: 3}}>
+                <Box component="img" src={espinozaLogo} sx={{ height: 200 }} />
+                {/* <Typography sx={{textAlign: 'center', fontWeight: 'bold'}} variant="h4" component="div">
                     Espinoza Pymes
-                </Typography>
+                </Typography> */}
             </Container>
         
             <Divider />
@@ -64,7 +65,7 @@ const SideBar = () => {
                 </Stack>
             </Container>
 
-            <Pagination count={3} sx={{ display: 'flex', justifyContent: 'center', pb: 2.5}} color="primary" />
+            <Pagination count={3} sx={{ display: 'flex', justifyContent: 'center', mt: 10}} color="primary" />
 
             <Box
                 component="footer"
