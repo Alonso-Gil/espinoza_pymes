@@ -1,11 +1,3 @@
-.screen {
-  background: #999999
-  /* background-image: radial-gradient(circle at 50% -20.71%, #c5ffff 0, #bfffff 25%, #b5def2 50%, #a8bdc9 75%, #9a9fa3 100%); */
-}
-
-.form {
-  background: #FFFFFF
-}
 .sk-cube-grid {
   width: 80px;
   height: 80px;
