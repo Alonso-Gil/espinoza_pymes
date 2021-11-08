@@ -40,3 +40,36 @@ export function FormularioEnviado () {
   );
 
 }
+
+
+export function AgenteAceptado (correo, nombre) {
+
+  return(
+    Swal.fire({
+        title: `Agrega una contraseña inicial para ${correo}`,
+        input: "text",
+        showCancelButton: true,
+        confirmButtonText: "Guardar",
+        cancelButtonText: "Cancelar",
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        inputValidator: nombre => {
+          // Si el valor es válido, debes regresar undefined. Si no, una cadena
+          if (!nombre) {
+              return "Por favor escribe una contraseña inicial";
+          } else {
+              return undefined;
+          }
+      }
+    }).then((result) => {
+      if (result.isConfirmed) {
+
+        Swal.fire(
+          '¡Agente Difusor Agregado!',
+          `¡Ahora ${nombre} es parte de la familia EspinozaPymes!`,
+          'success'
+        )
+      }
+    })  
+  )
+}

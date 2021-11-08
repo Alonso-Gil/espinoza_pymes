@@ -185,7 +185,7 @@ const ClientesSA = () => {
         return(
           <Card sx={{ maxWidth: 275, background:"#E0E0E0", m:2}} key={i}>
           <CardContent>
-            <Typography gutterBottom variant="h5" component="div" key={"nombre"}>
+            <Typography gutterBottom variant="h5" component="div" key={"nombre"} sx={{minHeight: 65}}>
             {cliente.nombre}
             </Typography>
             <Typography variant="body2" color="text.secondary" key={"curp"}>

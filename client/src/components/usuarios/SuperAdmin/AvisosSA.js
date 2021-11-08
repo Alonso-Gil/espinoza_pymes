@@ -126,7 +126,7 @@ const AvisosSA = () => {
                                         <Typography sx={{textAlign: 'center', fontWeight: 'bold', marginBottom: 5}} color="black" variant="h3" component="div">
                                             Editar avisos
                                         </Typography>
-                                        <TextField fullWidth sx={{mb: 4}}
+                                        <TextField  sx={{mb: 4, width:'700px'}}
                                             multiline
                                             id="titulo"
                                             label="Titulo"
@@ -136,7 +136,7 @@ const AvisosSA = () => {
                                             value={titulo}
                                             onChange={handleChange}
                                         />
-                                        <TextField fullWidth sx={{mb: 5}}
+                                        <TextField  sx={{mb: 5, width:'700px'}}
                                             multiline
                                             rows={8}
                                             id="contenido"

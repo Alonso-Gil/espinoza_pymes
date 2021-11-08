@@ -16,7 +16,7 @@ const ClienteForm = (
         actualizado_por:'',
         actualizado_fecha:'',}, 
     titulo='Agregar'} ) => { //Desestructuramos al cliente y lo inicializamos en null todo por si las dudas
-                             //Si no manda el titulo será para Agregar Cliente, si es para editarlo deberá de mandar titulo="Editar"
+                             //Si no manda el titulo será para Agregar Cliente, si es para otro caso deberá de mandar titulo="Caso"
 
         
     const [cliente, setCliente] = React.useState(client);

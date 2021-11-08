@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react'
 import ModaReutilizable from '../../reutilizables/ModalReutilizable';
 import UserForm from '../../reutilizables/UserForm';
-import { DeleteDialog } from '../../reutilizables/utils';
+import { AgenteAceptado, DeleteDialog } from '../../reutilizables/utils';
 
 
 ///////////MATERIAL\\\\\\\\\\\\\\\\\\\
-import { IconButton } from '@mui/material';
+import { Card, CardActions, CardContent, IconButton, Typography } from '@mui/material';
 import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -19,6 +19,8 @@ import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import SpinnerKit from '../../reutilizables/SpinnerKit';
 import Fab from '@mui/material/Fab';
 import { Box } from '@mui/system';
+import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
+import AgenteView from '../../reutilizables/agenteView';
 
 
 
@@ -84,6 +86,53 @@ const UsuariosSA = () => {
     ]
     
     });
+
+    const [agente] = React.useState(
+      {
+        agentes: [
+          {
+            nombre: 'Eduardo González Montes',
+            curp:'GOEE190875HASNTRO4',
+            nss:'123456789',
+            lugar_nacimiento:'Aguascalientes, Ags',
+            fecha_nacimiento:'1975-08-19',
+            celular:'(449) 925 33 22',
+            oficina:'',
+            correo:'eduardo@gmail.com'
+          },
+          {
+            nombre: 'Francisco Sandoval Esparza',
+            curp:'SAEF220870HASNTRO4',
+            nss:'123456789',
+            lugar_nacimiento:'Aguascalientes, Ags',
+            fecha_nacimiento:'1970-08-22',
+            celular:'(449) 322 33 22',
+            oficina:'',
+            correo:'francisco@gmail.com'
+          },
+          {
+            nombre: 'José Guadalupe Rocha García',
+            curp:'ROGJ190498HASNTRO4',
+            nss:'123456789',
+            lugar_nacimiento:'Aguascalientes, Ags',
+            fecha_nacimiento:'1998-04-19',
+            celular:'(449) 775 46 99',
+            oficina:'',
+            correo:'lupe@gmail.com'
+          },
+          {
+            nombre: 'Gerardo Martínez Velázquez',
+            curp:'MAVG190892HASNTRO4',
+            nss:'123456789',
+            lugar_nacimiento:'Aguascalientes, Ags',
+            fecha_nacimiento:'1992-08-19',
+            celular:'(449) 925 33 22',
+            oficina:'',
+            correo:'princeso22@gmail.com'
+          }
+        ]
+      }
+    )
 
     useEffect( () => {
 
@@ -175,6 +224,65 @@ const UsuariosSA = () => {
             /> */}
           </Paper>
              )}
+
+      <Typography gutterBottom variant="h5" sx={{mt:2}}>
+        Solicitudes:
+        </Typography>
+      <Box sx={{ minWidth: 275, mt:1, display:'flex' }}>
+
+      {agente.agentes.map((agente, i) => { //Map a clientes para mostrarlos en Cartas
+
+            return(
+              <Card sx={{ maxWidth: 275, background:"#E0E0E0", m:2}} key={i}>
+              <CardContent>
+                <Typography gutterBottom variant="h5" component="div" key={"nombre"} sx={{minHeight: 70}}>
+                {agente.nombre}
+                </Typography>
+                <Typography variant="body2" color="text.secondary" key={"curp"}>
+                  CURP: {agente.curp}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary" key={"celular"}>
+                  Teléfono: {agente.celular}
+                </Typography>
+                
+              </CardContent>
+              <CardActions sx={{ background:'#184c7c', maxHeight:42 }}>
+
+                <Box sx={{  minWidth: 260, display: 'flex' }} >
+
+                  <IconButton style={{ color: '#E3F2FD'}} 
+                              onClick={ () => { DeleteDialog("Agente Difusor", agente.nombre) } } >
+                      <DeleteIcon />
+                  </IconButton> 
+
+
+                  <ModaReutilizable Boton={ <IconButton style={{ color: '#E3F2FD'}} >
+                                                        <RemoveRedEyeIcon />
+                                                    </IconButton> }
+                                              Contenido={
+                                                  <>
+                                                      <AgenteView 
+                                                          agente={agente} />
+                                                  </>
+                                              }
+                            
+                            />
+                   
+
+
+                  <IconButton style={{ color: '#E3F2FD', marginLeft:"auto" }} 
+                              onClick={ () => { AgenteAceptado(agente.correo, agente.nombre) } }>
+                      <PersonAddIcon />
+                  </IconButton>
+
+                </Box>
+              </CardActions>
+            </Card>
+            );
+
+            })}
+      </Box>
+
 
          </ >
      )

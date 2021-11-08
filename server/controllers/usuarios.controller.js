@@ -10,6 +10,14 @@ const getUser = async (req, res) => {
         
         const [results] = await db.query('CALL USget(?)', [correo]);
         const [user] = results.slice(0, results.length);
+
+        if(user.length === 0){
+            
+            res.status(202).json({
+                msg:"Usuario no encontrado"
+            })
+        }
+
         res.status(201).json(user);
 
     } catch (error) {

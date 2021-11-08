@@ -140,10 +140,32 @@ const listUsers = async(req, res) => {
     }
 }
 
+const listClientes = async(req, res) => {
+
+    try {
+        
+        const [results] = await db.query('CALL SA_ListClientes()');
+        const [clientes] = results.slice(0, results.length);
+        res.status(201).json(clientes);
+
+    } catch (error) {
+        
+        console.error(error);
+        return res.status(500).json({
+            errors: [{
+                msg: 'Error con la base de datos o el servidor'
+            }],
+            query: error.sql,
+            sqlMessage: error.sqlMessage
+        });
+    }
+}
+
 module.exports = {
 
     createUser, 
     deleteUser,
     modifyUser,
-    listUsers
+    listUsers,
+    listClientes
 }
