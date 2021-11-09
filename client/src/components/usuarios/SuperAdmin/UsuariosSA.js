@@ -3,7 +3,6 @@ import ModaReutilizable from '../../reutilizables/ModalReutilizable';
 import UserForm from '../../reutilizables/UserForm';
 import { AgenteAceptado, DeleteDialog } from '../../reutilizables/utils';
 
-
 ///////////MATERIAL\\\\\\\\\\\\\\\\\\\
 import { Card, CardActions, CardContent, IconButton, Typography } from '@mui/material';
 import Paper from '@mui/material/Paper';
