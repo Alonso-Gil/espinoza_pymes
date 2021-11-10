@@ -1,8 +1,10 @@
 import { Button, Grid, TextField, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import React, { useState } from 'react';
-//import { Link } from 'react-router-dom';
 import { FormularioEnviado } from '../reutilizables/utils';
+// import LocalizationProvider from '@mui/lab/LocalizationProvider';
+// import AdapterDateFns from '@mui/lab/AdapterDateFns';
+// import DesktopDatePicker from '@mui/lab/DesktopDatePicker';
 
 import logo from '../../espinozaLogo.png';
 import styled from '@emotion/styled';
@@ -106,6 +108,14 @@ const NuevaCuenta = () => {
             />
           </Grid>
           <Grid item xs={12} sm={5}>
+          {/* <LocalizationProvider dateAdapter={AdapterDateFns}>
+        <DesktopDatePicker
+          label="Date desktop"
+          inputFormat="MM/dd/yyyy"
+          onChange={onChange}
+          renderInput={(params) => <TextField {...params} />}
+        />
+        </LocalizationProvider> */}
             <TextField
               id="fechaNac"
               name="fechaNac"
