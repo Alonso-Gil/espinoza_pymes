@@ -2,7 +2,7 @@ const bcrypt = require('bcrypt');
 const db = require('../database/connection');
 
 const createUser = async (req, res) => {
-    let { nombre, correo, contra, tipo  } = req.body;
+    let { nombre, correo, contra, idTipo  } = req.body;
 
     try {
         // Encriptar contraseña
@@ -10,7 +10,7 @@ const createUser = async (req, res) => {
         contra = bcrypt.hashSync(contra, salt);
 
         // Insertar usuario a la DB
-        await db.query('CALL SA_setUser(?, ?, ?, ?)', [nombre, correo, contra, tipo]);
+        await db.query('CALL SA_setUser(?, ?, ?, ?)', [nombre, correo, contra, idTipo]);
         res.status(201).json({
             msg: 'Usuario creado correctamente',
         })
@@ -68,7 +68,7 @@ const deleteUser = async (req, res) => {
 const modifyUser = async(req, res) => {
 
     const { idUsuario } = req.params;
-    let { contra = '', tipo } = req.body;
+    let { contra = '', idTipo } = req.body;
 
     try {
         
@@ -78,7 +78,7 @@ const modifyUser = async(req, res) => {
             contra = bcrypt.hashSync(contra, salt);
         }
 
-        const [results] = await db.query('CALL SA_updateUser(?, ?, ?)', [idUsuario, contra, tipo]);
+        const [results] = await db.query('CALL SA_updateUser(?, ?, ?)', [idUsuario, contra, idTipo]);
 
         // Si no se modificó ninguna fila, significa que el usuario no existe
         if (results.affectedRows === 0) {
