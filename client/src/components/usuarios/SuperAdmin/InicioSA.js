@@ -1,7 +1,13 @@
 import React from 'react';
+import Spinner2 from '../../reutilizables/Spinner2';
+import Spinner3 from '../../reutilizables/Spinner3';
+import Spinner4 from '../../reutilizables/Spinner4';
+import SpinnerKit from '../../reutilizables/SpinnerKit';
 
 // Material UI
 import Typography from '@mui/material/Typography';
+import { Box } from '@mui/system';
+
 
 const InicioSA = () => {
 
@@ -39,6 +45,14 @@ const InicioSA = () => {
                 eleifend. Commodo viverra maecenas accumsan lacus vel facilisis. Nulla
                 posuere sollicitudin aliquam ultrices sagittis orci a.
             </Typography>
+
+            <Box sx={{ display: 'flex'}} >
+                <SpinnerKit />
+                <Spinner2 />
+                <Spinner3 />
+                <Spinner4 />
+            </Box>
+            
         </>
      );
 }
