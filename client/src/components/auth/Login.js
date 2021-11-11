@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { startLogin } from '../../redux/actions/auth';
 
 import logo from '../../espinozaLogo.png';
 import styled from '@emotion/styled';
@@ -17,6 +19,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
+
 const theme = createTheme();
 
 const Imagen = styled.img`
@@ -28,14 +31,16 @@ const Imagen = styled.img`
 
 const Login = () => {
 
+  const dispatch = useDispatch();
+
     // State para iniciar sesión
     const [usuario, guardarUsuario] = useState({
         email: '',
-        password: ''
+        contra: ''
     });
 
     // Extraer de usuario
-    const { email, password } = usuario;
+    const { email, contra } = usuario;
 
     const handleChange = e => {
         guardarUsuario({
@@ -45,12 +50,13 @@ const Login = () => {
     }
 
     // Cuando el usuario quiere iniciar sesión
-    const handleSubmit = e => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-
         // Valdidar que no haya campos vacios
-
+         
+        dispatch(startLogin(usuario));
         // Pasarlo al action
+
     }
 
     return (
@@ -87,12 +93,12 @@ const Login = () => {
                   margin="normal"
                   required
                   fullWidth
-                  name="password"
+                  name="contra"
                   label="Contraseña"
                   type="password"
-                  id="password"
-                  autoComplete="current-password"
-                  value={password}
+                  id="contra"
+                  autoComplete="current-contra"
+                  value={contra}
                   onChange={handleChange}
                 />
                 <FormControlLabel
@@ -150,13 +156,13 @@ export default Login;
 //                 </div>
 
 //                 <div className="campo-form">
-//                     <label htmlFor="password">Password</label>
+//                     <label htmlFor="contra">contra</label>
 //                     <input 
-//                         type="password"
-//                         id="password"
-//                         name="password"
-//                         placeholder="Tu password"
-//                         value={password}
+//                         type="contra"
+//                         id="contra"
+//                         name="contra"
+//                         placeholder="Tu contra"
+//                         value={contra}
 //                         onChange={onChange}
 //                     />
 //                 </div>

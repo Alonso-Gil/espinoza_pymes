@@ -15,7 +15,7 @@ const login = async (req, res) => {
         if (!usuario) {
             return res.status(404).json({
                 errors: [{
-                    msg: 'Email o contraseña incorrectos'
+                    msg: 'Email o Contraseña incorrectos'
                 }]
             })
         }
@@ -25,7 +25,7 @@ const login = async (req, res) => {
         if (!validPassword) {
             return res.status(400).json({
                 errors: [{
-                    msg: 'Email o contraseña incorrectos'
+                    msg: 'Email o Contraseña incorrectos'
                 }]
             })
         }
@@ -62,7 +62,7 @@ const renovarToken = async (req, res) => {
         const token = await generarJWT(uid)
 
         // Consultar el usuario
-        const [results] = await db.query('SELECT idUsuario, coordinador, email, idCentro  FROM Usuarios WHERE idUsuario = ?', [uid]);
+        const [results] = await db.query('SELECT idUsuario, nombre, email, idTipo  FROM Usuarios WHERE idUsuario = ?', [uid]);
         const usuario = results[0];
 
         res.json({
