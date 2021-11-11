@@ -8,15 +8,16 @@ import clienteAxios from '../../config/axios';
 
 // Crear nuevos productos
 export function crearNuevoUsuarioAction(usuario) {
-    return (dispatch) => {
+    return async (dispatch) => {
         dispatch( agregarUsuario(usuario) );
 
         try {
             // Insertar en la API
-            clienteAxios.post('/superAdmin/NuevoUsuario', usuario);
+            await clienteAxios.post('/superAdmin/NuevoUsuario', usuario);
 
             // Si no hay errores, actualiza el state
             dispatch( agregarUsuarioExito(usuario) );
+            
         } catch (error) {
             console.log(error);
             // Si hay un error, cambiar el state

@@ -1,23 +1,27 @@
-import { Box } from '@mui/system';
 import React from 'react';
-import Spinner2 from '../../reutilizables/Spinner2';
-import Spinner3 from '../../reutilizables/Spinner3';
-import Spinner4 from '../../reutilizables/Spinner4';
-import SpinnerKit from '../../reutilizables/SpinnerKit';
+import { Calendar, momentLocalizer } from 'react-big-calendar';
+import moment from 'moment';
+import 'react-big-calendar/lib/css/react-big-calendar.css'
+
+const localizer = momentLocalizer(moment);
+
+const events = [{
+    title: 'Cumple',
+    start: moment().toDate(),
+    end: moment().add( 2, 'hours' ).toDate(),
+    bgcolor: '#fafafa'
+}]
 
 const CalendarioSA = () => {
     return ( 
         < >
         <h1>Calendario</h1>
-
-        <Box sx={{ display: 'flex'}} >
-        <SpinnerKit />
-        <Spinner2 />
-        <Spinner3 />
-        <Spinner4 />
-        </Box>
-
-        
+        <Calendar
+            localizer={localizer}
+            events={events}
+            startAccessor="start"
+            endAccessor="end"
+        />
         </>
         
      );
