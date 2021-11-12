@@ -1,7 +1,10 @@
 import {
     AGREGAR_USUARIO,
     AGREGAR_USUARIO_EXITO,
-    AGREGAR_USUARIO_ERROR
+    AGREGAR_USUARIO_ERROR,
+    DESCARGA_USUARIOS,
+    DESCARGA_USUARIOS_EXITO,
+    DESCARGA_USUARIOS_ERROR
 } from '../types';
 
 // Cada reducer tiene su propio state
@@ -15,6 +18,7 @@ const initialState = {
 export default function(state = initialState, action){
     switch(action.type) {
         case AGREGAR_USUARIO:
+        case DESCARGA_USUARIOS:
             return {
                 ...state,
                 loading: action.payload
@@ -26,10 +30,18 @@ export default function(state = initialState, action){
                 usuarios: [...state.usuarios, action.payload]
             }
         case AGREGAR_USUARIO_ERROR:
+        case DESCARGA_USUARIOS_ERROR:
             return {
                 ...state,
                 loading: false,
                 error: action.payload
+            }
+        case DESCARGA_USUARIOS_EXITO:
+            return {
+                ...state,
+                loading: false,
+                error: null,
+                usuarios: action.payload
             }
 
         default:

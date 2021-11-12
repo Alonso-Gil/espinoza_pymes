@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import SpinnerKit from './SpinnerKit';
 
 // Actions de Redux
@@ -63,7 +63,7 @@ const UserForm = ( {
     enqueueSnackbar('Se ha creado el usuario correctamente!', { 
       variant: 'success',
     });
-    
+
   }
 
   const handleChange = e => {

@@ -3,6 +3,10 @@ import ModaReutilizable from '../../reutilizables/ModalReutilizable';
 import UserForm from '../../reutilizables/UserForm';
 import { AgenteAceptado, DeleteDialog } from '../../reutilizables/utils';
 
+// Actions de Redux
+import { obtenerUsuariosAction } from '../../../redux/actions/usuarioActions';
+import { useDispatch, useSelector } from 'react-redux';
+
 ///////////MATERIAL\\\\\\\\\\\\\\\\\\\
 import { Card, CardActions, CardContent, IconButton, Typography } from '@mui/material';
 import Paper from '@mui/material/Paper';
@@ -15,76 +19,30 @@ import TableRow from '@mui/material/TableRow';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
-import SpinnerKit from '../../reutilizables/SpinnerKit';
+// import SpinnerKit from '../../reutilizables/SpinnerKit';
 import Fab from '@mui/material/Fab';
 import { Box } from '@mui/system';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import AgenteView from '../../reutilizables/agenteView';
 
-
-
-
 const UsuariosSA = () => {
 
-    const [isLoading, setIsLoading] = React.useState(true);
-    const [usuario] = React.useState( //Usuarios iniciales simulando un JSON
+      // Utilizar useDispatch y te crea una función
+      const dispatch = useDispatch();
 
-      {
-      usuarios: [
+      useEffect(() => {
+          // Consultar la API
+        const cargarUsuarios = () => dispatch( obtenerUsuariosAction() );
+        cargarUsuarios();
+        
+        // eslint-disable-next-line
+      }, []);
+  
+    // Obtener el state
+    const usuarios = useSelector( state => state.usuarios.usuarios );
+    console.log(usuarios);    
 
-         {
-        nombre: 'Vero',
-        correo: 'vero@espinozapymes.com',
-        tipe: 'Super Admin',
-        idTipe: 9
-      },
-       {
-        nombre: 'Fernando',
-        correo: 'fernando@espinozapymes.com',
-        tipe: 'Agente Difusor',
-        idTipe: 1
-      },
-       {
-        nombre: 'Lucy',
-        correo: 'lucy@espinozapymes.com',
-        tipe: 'Recursos Humanos',
-        idTipe: 8
-      },
-      {
-        nombre: 'Gil',
-        correo: 'alonso@espinozapymes.com',
-        tipe: 'Manager',
-        idTipe: 2
-      },
-      {
-        nombre: 'Ceiri',
-        correo: 'ceiri@espinozapymes.com',
-        tipe: 'Recepción',
-        idTipe: 3
-      },
-      {
-        nombre: 'Sharon',
-        correo: 'sharon@espinozapymes.com',
-        tipe: 'Manager',
-        idTipe: 2
-      },
-      {
-        nombre: 'Mariana',
-        correo: 'mariana@espinozapymes.com',
-        tipe: 'Recepción',
-        idTipe: 3
-      },
-      {
-        nombre: 'Alberto',
-        correo: 'alberto@espinozapymes.com',
-        tipe: 'Agente Difusor',
-        idTipe: 1
-      },
-
-      
-    ]
-    
-    });
+    // const [isLoading, setIsLoading] = React.useState(true);
 
     const [agente] = React.useState(
       {
@@ -133,11 +91,6 @@ const UsuariosSA = () => {
       }
     )
 
-    useEffect( () => {
-
-      setIsLoading(false); //Se deja de mostrar el Spinner
-    }, [] )
-
     return ( 
     
         <   >
@@ -153,8 +106,6 @@ const UsuariosSA = () => {
                         />
             </Box>
 
-        {isLoading ? <SpinnerKit  />  //Si no se ha cargado se muestra el Spinner
-             : (
                   <Paper sx={{ width: '100%', overflow: 'hidden' }}>
             <TableContainer sx={{ maxHeight: 490 }}>
               <Table stickyHeader aria-label="sticky table">
@@ -168,47 +119,43 @@ const UsuariosSA = () => {
                   </TableRow>
 
                 </TableHead>
+
                 <TableBody>
-                {usuario.usuarios.map((user, i) => { //Hacemos un mapeo a todos los clientes para poder mostrarlos en la tabla
+                { usuarios.lenght === 0 ? 'No Hay usuarios' :
+                    usuarios.map((usuario, i) => ( //Hacemos un mapeo a todos los clientes para poder mostrarlos en la tabla
+                      <TableRow align="center" key={i}> 
+                        <TableCell align="center">{usuario.Nombre}</TableCell>
+                        <TableCell align="center">{usuario.Correo}</TableCell> 
+                        <TableCell align="center">{usuario.Tipo}</TableCell>
+                        <TableCell align="center"  >  
 
-                      return (
-                        <TableRow align="center" key={i} > 
-                            <TableCell key={"nombres"} align="center">{user.nombre}</TableCell>
-                            <TableCell key={"correos"} align="center">{user.correo}</TableCell> 
-                            <TableCell key={"tipos"}   align="center">{user.tipe}</TableCell>
-                            <TableCell key={"acciones"} align="center"  >  
+                        <Box sx={{  display: 'inline-flex' }} >
 
-                          <Box sx={{  display: 'inline-flex' }} >
-                            <ModaReutilizable Boton={ <IconButton style={{ color: '#09507a' }}>
-                                                          <EditIcon />
-                                                      </IconButton> }
-                                              Contenido={             //Caja para los botones de cada usuario
-                                                  <>
-                                                      <UserForm 
-                                                          titulo={'Editar'}
-                                                          user={user} />
-                                                  </>
-                                              }
-                            
-                            />
-                                
-                                <IconButton style={{ color: '#b00020', marginLeft:35 }} 
-                                   onClick={ () => { DeleteDialog("usuario", user.nombre) } } >
+                          <ModaReutilizable Boton={ <IconButton style={{ color: '#09507a' }}>
+                            <EditIcon />
+                            </IconButton> }
 
-                                    <DeleteIcon  />            
+                            Contenido={             //Caja para los botones de cada usuario
+                              <>
+                                <UserForm 
+                                titulo={'Editar'}
+                                usuario={usuario} />
+                              </>
+                            }
+                          />
 
-                                </IconButton>
-                                </Box>
+                          <IconButton style={{ color: '#b00020', marginLeft:35 }} 
+                          onClick={ () => { DeleteDialog("usuario", usuario.nombre) } } >
 
-                                
+                          <DeleteIcon  />            
 
-                            </TableCell>
-                        </TableRow>
-                        );
-                  
-                })}
-
-                    
+                          </IconButton>
+                        </Box>
+                        </TableCell>
+                      </TableRow>
+                    ))
+                          
+                }
                 </TableBody>
               </Table>
             </TableContainer>
@@ -222,8 +169,7 @@ const UsuariosSA = () => {
               onRowsPerPageChange={handleChangeRowsPerPage}
             /> */}
           </Paper>
-             )}
-
+             
       <Typography gutterBottom variant="h5" sx={{mt:2}}>
         Solicitudes:
         </Typography>

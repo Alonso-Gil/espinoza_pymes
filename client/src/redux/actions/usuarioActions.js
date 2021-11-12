@@ -1,7 +1,10 @@
 import {
     AGREGAR_USUARIO,
     AGREGAR_USUARIO_EXITO,
-    AGREGAR_USUARIO_ERROR
+    AGREGAR_USUARIO_ERROR,
+    DESCARGA_USUARIOS,
+    DESCARGA_USUARIOS_EXITO,
+    DESCARGA_USUARIOS_ERROR
 } from '../types';
 
 import clienteAxios from '../../config/axios';
@@ -9,7 +12,7 @@ import clienteAxios from '../../config/axios';
 // Crear nuevos productos
 export function crearNuevoUsuarioAction(usuario) {
     return async (dispatch) => {
-        dispatch( agregarUsuario(usuario) );
+        dispatch( agregarUsuario() );
 
         try {
             // Insertar en la API
@@ -42,3 +45,34 @@ const agregarUsuarioError = estado => ({
     type: AGREGAR_USUARIO_ERROR,
     payload: estado
 });
+
+///////////////////////////////////////////////////////////////////
+
+// Función que descarga los usuarios de la BD
+export function obtenerUsuariosAction() {
+    return async (dispatch) => {
+        dispatch( descargaUsuarios() );
+        try {
+            const respuesta = await clienteAxios.get('/superAdmin/usuarios')
+            dispatch( descargaUsuariosExitosa(respuesta.data.users) );
+        } catch (error) {
+            console.log(error);
+            dispatch( descargaUsuariosError() );
+        }
+    }
+}
+
+const descargaUsuarios = () => ({
+    type: DESCARGA_USUARIOS,
+    payload: true
+});
+
+const descargaUsuariosExitosa = usuarios => ({
+    type: DESCARGA_USUARIOS_EXITO,
+    payload: usuarios
+});
+
+const descargaUsuariosError = () => ({
+    type: DESCARGA_USUARIOS_ERROR,
+    payload: true
+})
