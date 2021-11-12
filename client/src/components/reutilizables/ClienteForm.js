@@ -1,7 +1,14 @@
 import * as React from 'react';
+
+// Actions de Redux
+import { crearNuevoClienteAction } from '../../redux/actions/clienteActions';
+import { useDispatch, useSelector } from 'react-redux';
+
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import { Button, FormControl, FormHelperText, Grid, Input, InputLabel, Typography } from '@mui/material';
+import { useSnackbar } from 'notistack';
+import SpinnerKit from './SpinnerKit';
 
 const ClienteForm = ( 
     {
@@ -23,9 +30,58 @@ const ClienteForm = (
 
     const {nombre, curp, nss, fecha_nacimiento, celular, oficina, actualizado_fecha, actualizado_por} = cliente; //Desestrucuramos los campos de cliente
 
-    const handleChange = (event) => {
-         setCliente({...cliente,
-            [event.target.name] : event.target.value}) 
+    const { enqueueSnackbar } = useSnackbar();
+
+    // Utilizar useDispatch y te crea una función
+    const dispatch = useDispatch();
+
+    // Acceder al state del store
+    const cargando = useSelector( state => state.clientes.loading );
+
+    // Mandar llamar el action de usuarioAction
+    const agregarCliente = cliente => dispatch( crearNuevoClienteAction(cliente) );
+
+    const submitNuevoCliente = e => {
+        e.preventDefault();
+
+        // Validar formulario
+        if(nombre.trim() === '' || curp.trim() === '' || nss === '' || fecha_nacimiento === '' || celular === '' || oficina.trim() === ''){
+            enqueueSnackbar('No se ha creado el usuario, todos los campos son obligatorios!', { 
+              variant: 'error',
+              anchorOrigin: {
+                  vertical: 'bottom',
+                  horizontal: 'center',
+              },
+            });
+            return;
+          }
+
+        // Crear el nuevo cliente
+        agregarCliente({
+            nombre,
+            curp,
+            nss,
+            fecha_nacimiento,
+            celular,
+            oficina,
+            actualizado_fecha: '2021-11-12',
+            actualizado_por: null,
+            registrado_por: 'SuperAdmin'
+        });
+
+        console.log(cliente);
+
+        // Mensaje al agregar el usuario correctamente
+        enqueueSnackbar('Se ha creado el cliente correctamente!', { 
+            variant: 'success',
+      });
+
+    }
+
+    const handleChange = e => {
+         setCliente({
+             ...cliente,
+            [e.target.name] : e.target.value}) 
       };
       
 
@@ -37,99 +93,108 @@ const ClienteForm = (
              {titulo} Cliente
         </Typography>
 
-        <div>
+        { cargando ? <SpinnerKit /> :
+        <form
+            onSubmit={submitNuevoCliente}
+        >
+            <div>
 
-        <Grid container spacing={2}>
+            <Grid container spacing={2}>
 
-        <Grid item xs={6} sm={4} >
-            <TextField 
-            id="nombre"
-            label="Nombre"
-            variant="filled"
-            value={ nombre }
-            onChange={handleChange}
-            sx={{ minWidth: 180 }}
-            />
-        </Grid>
-
-        <Grid item xs={6} sm={4} >
-            <TextField 
-            id="curp"
-            label="CURP"
-            variant="filled"
-            value={ curp }
-            onChange={handleChange}
-            sx={{ minWidth: 180 }}
-            />
-        </Grid>
-
-        <Grid item xs={6} sm={4} >
-            <TextField 
-            id="nss"
-            label="Nss"
-            variant="filled"
-            value={ nss }
-            onChange={handleChange}
-            sx={{ minWidth: 180 }}
-            />
-        </Grid>
-
-        <Grid item xs={6} sm={4} >
-            <TextField 
-            id="fecha_nacimiento"
-            label="Fecha de Nacimiento"
-            variant="filled"
-            value={ fecha_nacimiento }
-            onChange={handleChange}
-            sx={{ minWidth: 180 }}
-            />
-        </Grid>
-
-        <Grid item xs={6} sm={4} >
-            <TextField 
-            id="celular"
-            label="Celular"
-            variant="filled"
-            value={ celular }
-            onChange={handleChange}
-            sx={{ minWidth: 180 }}
-            />
-        </Grid>
-
-        <Grid item xs={6} sm={4} >
-            <TextField 
-            id="oficina"
-            label="Oficina"
-            variant="filled"
-            value={ oficina }
-            onChange={handleChange}
-            sx={{ minWidth: 180 }}
-            />
-        </Grid>
-
-        {titulo==='Editar' ? 
-
-        <Grid item xs={6} sm={4} >
-            <FormControl disabled variant="standard">
-            <InputLabel htmlFor="component-disabled">Última Actualización: </InputLabel>
-            <Input id="component-disabled" value={actualizado_fecha} onChange={handleChange} />
-            <FormHelperText>Actualizado por: {actualizado_por}</FormHelperText>
-            </FormControl>
+            <Grid item xs={6} sm={4} >
+                <TextField 
+                id="nombre"
+                name="nombre"
+                label="Nombre"
+                variant="filled"
+                value={ nombre }
+                onChange={handleChange}
+                sx={{ minWidth: 180 }}
+                />
             </Grid>
-            
 
-        : null }
+            <Grid item xs={6} sm={4} >
+                <TextField 
+                id="curp"
+                name="curp"
+                label="CURP"
+                variant="filled"
+                value={ curp }
+                onChange={handleChange}
+                sx={{ minWidth: 180 }}
+                />
+            </Grid>
 
-        
-        </Grid>
-        </div>
+            <Grid item xs={6} sm={4} >
+                <TextField 
+                id="nss"
+                name="nss"
+                label="Nss"
+                variant="filled"
+                value={ nss }
+                onChange={handleChange}
+                sx={{ minWidth: 180 }}
+                />
+            </Grid>
 
-        <Button variant="contained" color='secondary' fullWidth sx={{mt: 5, height: 50}}>Guardar</Button>
+            <Grid item xs={6} sm={4} >
+                <TextField 
+                id="fecha_nacimiento"
+                name="fecha_nacimiento"
+                label="Fecha de Nacimiento"
+                variant="filled"
+                value={ fecha_nacimiento }
+                onChange={handleChange}
+                sx={{ minWidth: 180 }}
+                />
+            </Grid>
 
+            <Grid item xs={6} sm={4} >
+                <TextField 
+                id="celular"
+                name="celular"
+                label="Celular"
+                variant="filled"
+                value={ celular }
+                onChange={handleChange}
+                sx={{ minWidth: 180 }}
+                />
+            </Grid>
+
+            <Grid item xs={6} sm={4} >
+                <TextField 
+                id="oficina"
+                name="oficina"
+                label="Oficina"
+                variant="filled"
+                value={ oficina }
+                onChange={handleChange}
+                sx={{ minWidth: 180 }}
+                />
+            </Grid>
+
+            {titulo==='Editar' ? 
+
+            <Grid item xs={6} sm={4} >
+                <FormControl disabled variant="standard">
+                <InputLabel htmlFor="component-disabled">Última Actualización: </InputLabel>
+                <Input id="component-disabled" value={actualizado_fecha} onChange={handleChange} />
+                <FormHelperText>Actualizado por: {actualizado_por}</FormHelperText>
+                </FormControl>
+                </Grid>
+                
+
+            : null }
+
+
+            </Grid>
+            </div>
+
+            <Button type="submit" variant="contained" color='secondary' fullWidth sx={{mt: 5, height: 50}}>Guardar</Button>
+        </form>
+
+        }
         </Box>
-
-
-
         </>
      );
 }
