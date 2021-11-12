@@ -11,13 +11,13 @@ router.post('/nuevoUsuario',  // TODO: Tipo checar que sea númerico para agrega
         check('nombre', 'El usuario debe de tener un nombre').notEmpty(),
         check('correo', 'El usuario debe de tener un correo asociado').notEmpty().isEmail(),
         check('contra', 'No puedes agregar un usuario sin contraseña').notEmpty(),
-        check('idTipo',   'El usuario debe de tener un rol').notEmpty(),
+        check('tipo', 'El usuario debe de tener un rol').notEmpty(),
         validarCampos
     ], createUser);
 
 router.put('/editarUsuario/:idUsuario',
     [
-        check('tipo', 'El usuario no puede quedar sin un rol').notEmpty(),
+        check('idTipo', 'El usuario no puede quedar sin un rol').notEmpty(),
         validarCampos
     ], modifyUser);
 

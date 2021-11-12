@@ -15,7 +15,10 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { SuperAdminRoute } from './SuperAdminRoute';
 import { renovarToken } from '../redux/actions/auth';
-// import { ProcesosRoute } from './ProcesosRoute';
+import { PublicRoute } from './PublicRoute';
+import { ProcesosRoute } from './ProcesosRoute';
+import PageNotFound from '../components/usuarios/PageNotFound';
+import SpinnerKit from '../components/reutilizables/SpinnerKit';
 
 const AppRouter = () => {
 
@@ -27,11 +30,7 @@ const AppRouter = () => {
         dispatch(renovarToken());
     }, [dispatch])
 
-    // console.log(usuario); //si tienes dudas de que pedo has el console.log
-
-    if (isLoading) {
-        return <h1>Espere...</h1>
-    }
+    if (isLoading) { return <SpinnerKit /> }
 
     return ( 
         // Creando las rutas
@@ -39,23 +38,27 @@ const AppRouter = () => {
         <Switch>
 
         {/* Iniciar sesión */}
-        <Route exact path="/" component={Login} />
+        <PublicRoute exact path="/" isAuthenticated={!!usuario} userId={usuario?.idTipo} component={Login} />
         <Route exact path="/nuevaCuenta" component={NuevaCuenta} />
 
         {/* Usuarios */}
-        {/* <Route exact path="/superAdmin" component={SuperAdmin} /> */}
         <SuperAdminRoute exact path="/superAdmin" userId={usuario?.idTipo} >
             <SuperAdmin />
         </SuperAdminRoute>
-        {/* <ProcesosRoute exact path="/procesos" >
+
+        <ProcesosRoute exact path="/procesos" userId={usuario?.idTipo}>
             <Procesos />
-        </ProcesosRoute> */} 
-        <Route exact path="/procesos" component={Procesos} />
+        </ProcesosRoute>
+
         <Route exact path="/manager" component={Manager} />
         <Route exact path="/agenteDifusor" component={AgenteDifusor} />
         <Route exact path="/recepcion" component={Recepcion} />
         <Route exact path="/agenteCerrador" component={AgenteCerrador} />
         <Route exact path="/finanzas" component={Finanzas} />
+
+        {/* 404 Not Found */}
+        <Route component={PageNotFound}/> 
+        
 
         </Switch>
     </Router>

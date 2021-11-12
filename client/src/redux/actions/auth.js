@@ -26,6 +26,8 @@ export const startLogin = (user={email:'', contra:''}) => {
 
             console.log(error.response.data);
             dispatch(errorFound(error.response.data));
+            localStorage.setItem('token', ''); //Dejamos vacío el token ante un error
+            
             Swal.fire('Error', `Usuario no encontrado o contraseña incorrecta
                                 Porfavor vuelve a intentarlo`, 'error');
             
@@ -42,13 +44,11 @@ const errorFound = (errors) => ({
 })
 
 export const login = (usuario) =>( {
-    
         type: types.login,
         payload: usuario  
 });
 
 export const logout = () => {
-
     localStorage.removeItem('token');
     return {
         type: types.logout
@@ -59,8 +59,8 @@ export const renovarToken = () => {
     return async (dispatch) => {
         const token = localStorage.getItem('token') || '';
         try {
-            dispatch(startLoading());
 
+            dispatch(startLoading());
             const response = await axios.get('/auth/renovarToken', { headers: { 'x-token': token } })
             const usuario = response.data.usuario;
             localStorage.setItem('token', response.data.token);
