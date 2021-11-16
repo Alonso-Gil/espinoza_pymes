@@ -26,7 +26,7 @@ export const startLogin = (user={email:'', contra:''}) => {
 
             console.log(error.response.data);
             dispatch(errorFound(error.response.data));
-            localStorage.setItem('token', ''); //Dejamos vacío el token ante un error
+            localStorage.removeItem('token') //Borramos el token ante un error
             
             Swal.fire('Error', `Usuario no encontrado o contraseña incorrecta
                                 Porfavor vuelve a intentarlo`, 'error');
