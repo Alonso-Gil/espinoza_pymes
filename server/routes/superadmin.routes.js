@@ -11,7 +11,7 @@ router.post('/nuevoUsuario',  // TODO: Tipo checar que sea númerico para agrega
         check('nombre', 'El usuario debe de tener un nombre').notEmpty(),
         check('correo', 'El usuario debe de tener un correo asociado').notEmpty().isEmail(),
         check('contra', 'No puedes agregar un usuario sin contraseña').notEmpty(),
-        check('tipo', 'El usuario debe de tener un rol').notEmpty(),
+        check('idTipo', 'El usuario debe de tener un rol').notEmpty().isNumeric(),
         validarCampos
     ], createUser);
 

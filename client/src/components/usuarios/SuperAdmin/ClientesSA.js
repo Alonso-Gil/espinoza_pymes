@@ -142,12 +142,12 @@ const ClientesSA = () => {
 
       )}
   
-  <Box sx={{ minWidth: 275, mt:2, display:'flex' }}>  
+  <Box sx={{ minWidth: 275, mt:2, display: 'flex', flexWrap: 'wrap', alignContent: 'flex-start' }}>  
 
       {clientes.map((cliente, i) => { //Map a clientes para mostrarlos en Cartas
 
         return(
-          <Card sx={{ maxWidth: 275, background:"#E0E0E0", m:2}} key={i}>
+          <Card sx={{ maxWidth: 265, background:"#E0E0E0", m:2}} key={i}>
           <CardContent>
             <Typography gutterBottom variant="h5" component="div" key={"nombre"} sx={{minHeight: 65}}>
             {cliente.nombre}
