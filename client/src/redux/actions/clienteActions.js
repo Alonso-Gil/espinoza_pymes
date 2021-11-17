@@ -1,7 +1,10 @@
 import {
     AGREGAR_CLIENTE,
     AGREGAR_CLIENTE_EXITO,
-    AGREGAR_CLIENTE_ERROR
+    AGREGAR_CLIENTE_ERROR,
+    DESCARGA_CLIENTES,
+    DESCARGA_CLIENTES_EXITO,
+    DESCARGA_CLIENTES_ERROR
 } from '../types';
 
 import clienteAxios from '../../config/axios';
@@ -38,4 +41,34 @@ const agregarClienteExito = cliente => ({
 const agregarClienteError = estado => ({
     type: AGREGAR_CLIENTE_ERROR,
     payload: estado
+});
+
+// Función que descarga los productos de la base de datos
+export function obtenerClientesAction() {
+    return async (dispatch) => {
+        dispatch( descargarClientes ());
+
+        try {
+            const respuesta = await clienteAxios.get('superAdmin/clientes');
+            dispatch( descargaClientesExitosa(respuesta.data) );
+        } catch (error) {
+            console.log(error);
+            dispatch( descargaClientesError() );
+        }
+    }
+}
+
+const descargarClientes = () => ({
+    type: DESCARGA_CLIENTES,
+    payload: true
+});
+
+const descargaClientesExitosa = clientes => ({
+    type: DESCARGA_CLIENTES_EXITO,
+    payload: clientes
+});
+
+const descargaClientesError = () => ({
+    type: DESCARGA_CLIENTES_ERROR,
+    payload: true
 });

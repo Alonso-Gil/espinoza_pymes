@@ -1,5 +1,9 @@
 import React, { useEffect } from 'react';
 
+// Redux 
+import { useDispatch, useSelector } from 'react-redux';
+import { obtenerClientesAction } from '../../../redux/actions/clienteActions';
+
 ///////////MATERIAL\\\\\\\\\\\\\\\\\\\
 import { Fab, IconButton } from '@mui/material';
 import Paper from '@mui/material/Paper';
@@ -29,59 +33,19 @@ import ClienteForm from '../../reutilizables/ClienteForm';
 const ClientesSA = () => {
 
   const [isLoading, setIsLoading] = React.useState(true);
-    const [cliente] = React.useState({
-        clientes: [ //Clientes iniciales simulando un JSON
-          {
-            nombre: 'Alan Emmanuel Delgado López',
-            curp: 'DELA990621HASNTR01',
-            nss: '123456789012',
-            fecha_nacimiento: '21/06/1999',
-            celular: '(449) 365 66 42',
-            oficina:'',
-            registrado_por:'Lucy',
-            actualizado_por:'Vero',
-            actualizado_fecha:'29/09/21'
-          },
-          {
-            nombre: 'Edna Montserrat Silva Aguilar',
-            curp: 'SIAE990414HASNTR01',
-            nss: '123456789012',
-            fecha_nacimiento: '21/06/1999',
-            celular: '(449) 788 77 42',
-            oficina:'',
-            registrado_por:'Mariana',
-            actualizado_por:'Lucy',
-            actualizado_fecha:'29/09/21'
-          },
-            {
-           nombre: 'Fernando Rafael González Soto',
-           curp: 'GOSF980507HASNTR01',
-           nss: '123456789012',
-           fecha_nacimiento: '05/07/1998',
-           celular: '(449) 230 46 75',
-           oficina:'',
-          registrado_por:'Vero',
-          actualizado_por:'Lucy',
-          actualizado_fecha:'29/10/21'
-         },
-        {
-          nombre: 'José Antonio Soto de Anda',
-          curp: 'SOTJ690321HASNTR01',
-          nss: '123456789012',
-          fecha_nacimiento: '03/21/1969',
-          celular: '(449) 254 82 56',
-          oficina:'',
-          registrado_por:'Fernando',
-          actualizado_por:'Fernando',
-          actualizado_fecha:'03/11/21'
-        }
-        ]
-    });
+
+    const dispatch = useDispatch();
 
     useEffect( () => {
-
+      // Consultar la API
+      const cargarClientes = () => dispatch( obtenerClientesAction() );
+      cargarClientes();
       setIsLoading(false); //Se deja de mostrar el Spinner, solo dura 1 seg o menos por ahora
+      // eslint-disable-next-line
     }, [] );
+
+    // Obtener los clientes
+    const clientes = useSelector( state => state.clientes.clientes); 
 
     return (
         
@@ -117,7 +81,7 @@ const ClientesSA = () => {
           <TableBody>
             
             
-           {cliente.clientes.map((cliente, i) => {  //Hacemos un map a todos los clientes para mostrarlos en la tabla
+           {clientes.map((cliente, i) => {  //Hacemos un map a todos los clientes para mostrarlos en la tabla
 
                 return (
 
@@ -180,7 +144,7 @@ const ClientesSA = () => {
   
   <Box sx={{ minWidth: 275, mt:2, display:'flex' }}>  
 
-      {cliente.clientes.map((cliente, i) => { //Map a clientes para mostrarlos en Cartas
+      {clientes.map((cliente, i) => { //Map a clientes para mostrarlos en Cartas
 
         return(
           <Card sx={{ maxWidth: 275, background:"#E0E0E0", m:2}} key={i}>

@@ -4,9 +4,13 @@ import {
     AGREGAR_USUARIO_ERROR,
     DESCARGA_USUARIOS,
     DESCARGA_USUARIOS_EXITO,
-    DESCARGA_USUARIOS_ERROR
+    DESCARGA_USUARIOS_ERROR,
+    ELIMINAR_USUARIO,
+    ELIMINAR_USUARIO_EXITO,
+    ELIMINAR_USUARIO_ERROR
 } from '../types';
 
+import Swal from 'sweetalert2';
 import clienteAxios from '../../config/axios';
 
 // Crear nuevos productos
@@ -15,10 +19,11 @@ export function crearNuevoUsuarioAction(usuario) {
         dispatch( agregarUsuario() );
 
         try {
+            console.log(usuario);
             // Insertar en la API
-            await clienteAxios.post('/superAdmin/NuevoUsuario', usuario);
-
+            await clienteAxios.post('/superAdmin/nuevoUsuario', usuario);
             // Si no hay errores, actualiza el state
+            
             dispatch( agregarUsuarioExito(usuario) );
             
         } catch (error) {
@@ -75,4 +80,40 @@ const descargaUsuariosExitosa = usuarios => ({
 const descargaUsuariosError = () => ({
     type: DESCARGA_USUARIOS_ERROR,
     payload: true
-})
+});
+
+// Selecciona y elimina el usuario
+export function borrarUsuarioAction(id) {
+    return async (dispatch) => {
+        dispatch( obtenerUsuarioEliminar(id) );
+        
+        try {
+            await clienteAxios.delete(`/superAdmin/eliminarUsuario/${id}`);
+            dispatch( eliminarUsuarioExito() );
+
+            // Si se elimina, mostrar alerta
+            Swal.fire(
+                'Eliminado!',
+                'El usuario ha sido eliminado.',
+                'success'
+              )
+        } catch (error) {
+            console.log(error);
+            dispatch( eliminarUsuarioError() );
+        }
+    }
+}
+
+const obtenerUsuarioEliminar = id => ({
+    type: ELIMINAR_USUARIO,
+    payload: id
+});
+
+const eliminarUsuarioExito = () => ({
+    type: ELIMINAR_USUARIO_EXITO
+});
+
+const eliminarUsuarioError = () => ({
+    type: ELIMINAR_USUARIO_ERROR,
+    payload: true
+});

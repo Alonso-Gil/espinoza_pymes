@@ -15,14 +15,14 @@ const UserForm = ( {
       nombre:'',
       correo:'',
       contra:'',
-      tipe:'',
+      tipo:'superAdmin',
       idTipo:''
   }, titulo='Crear', //Si no manda el titulo será para crear y si es para editar debe de mandar el titulo como "Editar"
   } ) => { //Desestructuramos al usuario y al titulo, el titulo debe ser "Crear" o "Editar", el usuario lo inicializamos todo en null por si las dudas
 
   const [usuario, setUsuario] = React.useState(user);
 
-  const {nombre, correo, contra, idTipo} = usuario; //Desestructuramos los campos de usuario
+  const {nombre, correo, contra, idTipo, tipo} = usuario; //Desestructuramos los campos de usuario
 
   const { enqueueSnackbar } = useSnackbar();
 
@@ -56,8 +56,11 @@ const UserForm = ( {
       nombre,
       correo, 
       contra,
-      idTipo
+      idTipo,
+      tipo
     });
+
+    console.log(usuario);
 
     // Mensaje al agregar el usuario correctamente
     enqueueSnackbar('Se ha creado el usuario correctamente!', { 

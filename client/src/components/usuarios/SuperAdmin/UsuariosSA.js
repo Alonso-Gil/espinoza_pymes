@@ -2,9 +2,10 @@ import React, { useEffect } from 'react'
 import ModaReutilizable from '../../reutilizables/ModalReutilizable';
 import UserForm from '../../reutilizables/UserForm';
 import { AgenteAceptado, DeleteDialog } from '../../reutilizables/utils';
+import Swal from 'sweetalert2';
 
 // Actions de Redux
-import { obtenerUsuariosAction } from '../../../redux/actions/usuarioActions';
+import { obtenerUsuariosAction, borrarUsuarioAction } from '../../../redux/actions/usuarioActions';
 import { useDispatch, useSelector } from 'react-redux';
 
 ///////////MATERIAL\\\\\\\\\\\\\\\\\\\
@@ -20,10 +21,12 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 // import SpinnerKit from '../../reutilizables/SpinnerKit';
+import Alert from '@mui/material/Alert';
 import Fab from '@mui/material/Fab';
 import { Box } from '@mui/system';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import AgenteView from '../../reutilizables/agenteView';
+import SpinnerKit from '../../reutilizables/SpinnerKit';
 
 const UsuariosSA = () => {
 
@@ -37,10 +40,31 @@ const UsuariosSA = () => {
         
         // eslint-disable-next-line
       }, []);
+
+    // Confirmar si desea eliminar
+    const confirmarEliminarUsuario = id => {
+      // Preguntar al usuario 
+        Swal.fire({
+          title: 'Estas seguro?',
+          text: "No podras revertirlo una vez borrado!",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Si, eliminar!',
+          cancelButtonText: 'Cancelar'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            // Pasarlo al action
+            dispatch( borrarUsuarioAction(id) );
+          }
+        });
+    }
   
     // Obtener el state
     const usuarios = useSelector( state => state.usuarios.usuarios );
-    console.log(usuarios);    
+    const error = useSelector(state => state.usuarios.error);
+    const cargando = useSelector( state => state.usuarios.loading)
 
     // const [isLoading, setIsLoading] = React.useState(true);
 
@@ -93,8 +117,10 @@ const UsuariosSA = () => {
 
     return ( 
     
-        <   >
-          <Box sx={{ mb:2, mr:7 ,textAlign: 'right', marginLeft:140   }}>
+        <>
+          { cargando ? <SpinnerKit /> : 
+            <>
+              <Box sx={{ mb:2, mr:7 ,textAlign: 'right', marginLeft:140   }}>
               <ModaReutilizable Boton={<Fab color="secondary" aria-label="edit" sx={{  }}>
                                     <PersonAddIcon />
                                 </Fab>}
@@ -105,6 +131,8 @@ const UsuariosSA = () => {
                                 }
                         />
             </Box>
+
+            { error ? <Alert severity="error" sx={{ mb: 4}}>Hubo un error! - Intentalo de nuevo o notifica al área de sistemas</Alert> : null }
 
                   <Paper sx={{ width: '100%', overflow: 'hidden' }}>
             <TableContainer sx={{ maxHeight: 490 }}>
@@ -145,7 +173,7 @@ const UsuariosSA = () => {
                           />
 
                           <IconButton style={{ color: '#b00020', marginLeft:35 }} 
-                          onClick={ () => { DeleteDialog("usuario", usuario.nombre) } } >
+                          onClick={() => confirmarEliminarUsuario(usuario.idUsuario)} >
 
                           <DeleteIcon  />            
 
@@ -227,6 +255,9 @@ const UsuariosSA = () => {
 
             })}
       </Box>
+            </>
+          }
+          
 
 
          </ >
