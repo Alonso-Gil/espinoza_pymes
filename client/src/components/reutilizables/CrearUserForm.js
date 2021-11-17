@@ -2,7 +2,7 @@ import React from 'react';
 import SpinnerKit from './SpinnerKit';
 
 // Actions de Redux
-import { crearNuevoUsuarioAction, editarUsuarioAction } from '../../redux/actions/usuarioActions';
+import { crearNuevoUsuarioAction } from '../../redux/actions/usuarioActions';
 import { useDispatch, useSelector } from 'react-redux';
 
 // Material UI
@@ -10,15 +10,15 @@ import { useSnackbar } from 'notistack';
 import TextField from '@mui/material/TextField';
 import { Button, FormControl, Grid, Input, InputLabel, MenuItem, Select, Typography } from '@mui/material';
 
-const UserForm = ( { 
+const EditUserForm = ( { 
   user={
       nombre:'',
       correo:'',
       contra:'',
       tipo:'superAdmin',
       idTipo:''
-  }, titulo='Crear', //Si no manda el titulo será para crear y si es para editar debe de mandar el titulo como "Editar"
-  } ) => { //Desestructuramos al usuario y al titulo, el titulo debe ser "Crear" o "Editar", el usuario lo inicializamos todo en null por si las dudas
+  }
+  } ) => { //Desestructuramos al usuario, inicializamos todo en null por si las dudas
 
   const [usuario, setUsuario] = React.useState(user);
 
@@ -33,10 +33,6 @@ const UserForm = ( {
   const cargando = useSelector( state => state.usuarios.loading );
 
   // Usuario a editar
-  const editarUsuario = useSelector( state => state.usuarios.productoeditar);
-  console.log(editarUsuario);
-  if(!editarUsuario) return null;
-  const { Nombre, Correo, IdTipo } = editarUsuario;
 
   // Mandar llamar el action de usuarioAction
   const agregarUsuario = usuario => dispatch( crearNuevoUsuarioAction(usuario) );
@@ -66,8 +62,6 @@ const UserForm = ( {
       tipo
     });
 
-    console.log(usuario);
-
     // Mensaje al agregar el usuario correctamente
     enqueueSnackbar('Se ha creado el usuario correctamente!', { 
       variant: 'success',
@@ -86,7 +80,7 @@ const UserForm = ( {
       { cargando ? <SpinnerKit /> : 
         <>
           <Typography sx={{textAlign: 'center', fontWeight: 'bold', marginBottom: 5}} color="black" variant="h3" component="div">
-              {titulo} Usuario
+              Agregar Usuario
           </Typography>
 
           <form
@@ -95,8 +89,6 @@ const UserForm = ( {
           <div>
             <Grid container spacing={2}>
 
-            {titulo==='Crear' 
-            ? 
             <Grid item xs={6} sm={4} >
               <TextField 
                 type="text"
@@ -110,17 +102,7 @@ const UserForm = ( {
                 autoComplete="off"
               />
             </Grid> 
-            : 
-            <Grid item xs={6} sm={4} >
-              <FormControl disabled variant="standard">
-              <InputLabel htmlFor="component-disabled">Nombre: </InputLabel>
-              <Input value={Nombre} />
-              </FormControl>
-            </Grid>
-            }
 
-            {titulo==='Crear' 
-            ? 
             <Grid item xs={6} sm={4}>
               <TextField
                 type="email"
@@ -134,23 +116,11 @@ const UserForm = ( {
               />
             </Grid>
 
-            : 
-            <Grid item xs={6} sm={4} >
-              <FormControl disabled variant="standard">
-              <InputLabel htmlFor="component-disabled">Correo: </InputLabel>
-              <Input value={Correo} />
-              </FormControl>
-            </Grid>
-            }
-
-
-
             <Grid item xs={6} sm={4}>
               <TextField
                 id="filled-password-input"
                 name="contra"
                 label="Contraseña"
-                placeholder="*********"
                 type="password"
                 value={ contra }
                 onChange={handleChange}
@@ -167,7 +137,7 @@ const UserForm = ( {
               labelId="demo-simple-select-standard-label"
               id="demo-simple-select-standard"
               name="idTipo"
-              value={IdTipo}
+              value={idTipo}
               onChange={handleChange}
               label="Tipo de Usuario"
             >
@@ -187,7 +157,7 @@ const UserForm = ( {
             </Grid>
           </div>
 
-          <Button type="submit" variant="contained" color='secondary' fullWidth sx={{mt: 5, height: 50}}>Guardar</Button>
+          <Button type="submit" variant="contained" color='secondary' fullWidth sx={{mt: 5, height: 50}}>Agregar</Button>
           </form>
         </>
       }
@@ -195,4 +165,4 @@ const UserForm = ( {
      );
     }
  
-export default UserForm;
+export default EditUserForm;

@@ -34,7 +34,7 @@ export function FormularioEnviado () {
 
     Swal.fire(
       '¡Gracias por confiar en nosotros!',
-      'Pronto recibirás un correo con más instrucciones',
+      'Pronto nos contactaremos contigo para darte más instrucciones',
       'success'
     )
   );

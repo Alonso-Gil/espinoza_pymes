@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import ModaReutilizable from '../../reutilizables/ModalReutilizable';
-import UserForm from '../../reutilizables/UserForm';
+import EditUserForm from '../../reutilizables/EditUserForm';
+import CrearUserForm from '../../reutilizables/CrearUserForm';
 import { AgenteAceptado, DeleteDialog } from '../../reutilizables/utils';
 import Swal from 'sweetalert2';
 
@@ -136,7 +137,7 @@ const UsuariosSA = () => {
                                 </Fab>}
                                 Contenido={ //Caja para agregar usuario con modal
                                     <>
-                                        <UserForm />
+                                        <CrearUserForm />
                                     </>
                                 }
                         />
@@ -178,7 +179,7 @@ const UsuariosSA = () => {
 
                             Contenido={             //Caja para los botones de cada usuario
                               <>
-                                <UserForm 
+                                <EditUserForm 
                                 titulo={'Editar'}
                                 usuario={usuario} />
                               </>
