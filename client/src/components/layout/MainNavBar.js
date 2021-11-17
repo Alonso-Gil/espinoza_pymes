@@ -10,7 +10,8 @@ import SwipeableViews from 'react-swipeable-views';
 import { useTheme } from '@mui/material/styles';
 import Stack from '@mui/material/Stack';
 import { Button } from '@mui/material';
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import MeetingRoomIcon from '@mui/icons-material/MeetingRoom';
+import { logout } from '../../redux/actions/auth';
 
 const drawerWidth = 320;
 
@@ -86,12 +87,12 @@ const MainNavBar = ({NavBarContenido, InicioContenido, ClientesContenido, Usuari
                           ))}
                       </Tabs>
                   </Box>
-      
-                  <Button variant="contained" color='secondary' sx={{ mr: 2 }}>
-                    {TipoUsuario}
-                   <ArrowDropDownIcon>
-                   </ArrowDropDownIcon>
-                  </Button>
+                  
+                  <Button variant="contained" color='secondary' sx={{ mr: 2 }} href="/"
+                          onClick={ () => { logout() } }>
+                    Cerrar Sesión 
+                    <MeetingRoomIcon sx={{ml:1}} />
+                  </Button>  
                   </Stack>
               </Box>
           </AppBar>
