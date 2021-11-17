@@ -2,7 +2,7 @@ import React from 'react';
 import SpinnerKit from './SpinnerKit';
 
 // Actions de Redux
-import { crearNuevoUsuarioAction } from '../../redux/actions/usuarioActions';
+import { crearNuevoUsuarioAction, editarUsuarioAction } from '../../redux/actions/usuarioActions';
 import { useDispatch, useSelector } from 'react-redux';
 
 // Material UI
@@ -31,6 +31,12 @@ const UserForm = ( {
 
   // Acceder al state del store
   const cargando = useSelector( state => state.usuarios.loading );
+
+  // Usuario a editar
+  const editarUsuario = useSelector( state => state.usuarios.productoeditar);
+  console.log(editarUsuario);
+  if(!editarUsuario) return null;
+  const { Nombre, Correo, IdTipo } = editarUsuario;
 
   // Mandar llamar el action de usuarioAction
   const agregarUsuario = usuario => dispatch( crearNuevoUsuarioAction(usuario) );
@@ -72,7 +78,7 @@ const UserForm = ( {
   const handleChange = e => {
     setUsuario({
       ...usuario,
-      [e.target.name] : e.target.value}) 
+      [e.target.name] : e.target.value})
   };
 
     return ( 
@@ -85,7 +91,7 @@ const UserForm = ( {
 
           <form
             onSubmit={submitNuevoUsuario}
-            >
+          >
           <div>
             <Grid container spacing={2}>
 
@@ -108,7 +114,7 @@ const UserForm = ( {
             <Grid item xs={6} sm={4} >
               <FormControl disabled variant="standard">
               <InputLabel htmlFor="component-disabled">Nombre: </InputLabel>
-              <Input value={nombre} />
+              <Input value={Nombre} />
               </FormControl>
             </Grid>
             }
@@ -132,7 +138,7 @@ const UserForm = ( {
             <Grid item xs={6} sm={4} >
               <FormControl disabled variant="standard">
               <InputLabel htmlFor="component-disabled">Correo: </InputLabel>
-              <Input value={correo} />
+              <Input value={Correo} />
               </FormControl>
             </Grid>
             }
@@ -144,6 +150,7 @@ const UserForm = ( {
                 id="filled-password-input"
                 name="contra"
                 label="Contraseña"
+                placeholder="*********"
                 type="password"
                 value={ contra }
                 onChange={handleChange}
@@ -160,7 +167,7 @@ const UserForm = ( {
               labelId="demo-simple-select-standard-label"
               id="demo-simple-select-standard"
               name="idTipo"
-              value={idTipo}
+              value={IdTipo}
               onChange={handleChange}
               label="Tipo de Usuario"
             >

@@ -5,7 +5,7 @@ import { AgenteAceptado, DeleteDialog } from '../../reutilizables/utils';
 import Swal from 'sweetalert2';
 
 // Actions de Redux
-import { obtenerUsuariosAction, borrarUsuarioAction } from '../../../redux/actions/usuarioActions';
+import { obtenerUsuariosAction, borrarUsuarioAction, obtenerUsuarioEditar } from '../../../redux/actions/usuarioActions';
 import { useDispatch, useSelector } from 'react-redux';
 
 ///////////MATERIAL\\\\\\\\\\\\\\\\\\\
@@ -57,8 +57,18 @@ const UsuariosSA = () => {
           if (result.isConfirmed) {
             // Pasarlo al action
             dispatch( borrarUsuarioAction(id) );
+            // Si se elimina, mostrar alerta
+            Swal.fire(
+              'Eliminado!',
+              'El usuario ha sido eliminado.',
+              'success'
+            )
           }
         });
+    }
+
+    const seleccionarEditarUsuario = id => {
+      dispatch( obtenerUsuarioEditar(id) );
     }
   
     // Obtener el state
@@ -159,8 +169,11 @@ const UsuariosSA = () => {
 
                         <Box sx={{  display: 'inline-flex' }} >
 
-                          <ModaReutilizable Boton={ <IconButton style={{ color: '#09507a' }}>
-                            <EditIcon />
+                          <ModaReutilizable Boton={ 
+                            <IconButton style={{ color: '#09507a' }}
+                              onClick={() => seleccionarEditarUsuario(usuario)}
+                            >
+                              <EditIcon />
                             </IconButton> }
 
                             Contenido={             //Caja para los botones de cada usuario

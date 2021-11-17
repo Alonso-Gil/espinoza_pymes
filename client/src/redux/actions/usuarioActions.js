@@ -7,10 +7,13 @@ import {
     DESCARGA_USUARIOS_ERROR,
     ELIMINAR_USUARIO,
     ELIMINAR_USUARIO_EXITO,
-    ELIMINAR_USUARIO_ERROR
+    ELIMINAR_USUARIO_ERROR,
+    EDITAR_USUARIO,
+    EDITAR_USUARIO_EXITO,
+    EDITAR_USUARIO_ERROR,
+    COMENZAR_EDICION_USUARIO
 } from '../types';
 
-import Swal from 'sweetalert2';
 import clienteAxios from '../../config/axios';
 
 // Crear nuevos productos
@@ -58,7 +61,7 @@ export function obtenerUsuariosAction() {
     return async (dispatch) => {
         dispatch( descargaUsuarios() );
         try {
-            const respuesta = await clienteAxios.get('/superAdmin/usuarios')
+            const respuesta = await clienteAxios.get('/superAdmin/usuarios');
             dispatch( descargaUsuariosExitosa(respuesta.data.users) );
         } catch (error) {
             console.log(error);
@@ -90,13 +93,6 @@ export function borrarUsuarioAction(id) {
         try {
             await clienteAxios.delete(`/superAdmin/eliminarUsuario/${id}`);
             dispatch( eliminarUsuarioExito() );
-
-            // Si se elimina, mostrar alerta
-            Swal.fire(
-                'Eliminado!',
-                'El usuario ha sido eliminado.',
-                'success'
-              )
         } catch (error) {
             console.log(error);
             dispatch( eliminarUsuarioError() );
@@ -116,4 +112,36 @@ const eliminarUsuarioExito = () => ({
 const eliminarUsuarioError = () => ({
     type: ELIMINAR_USUARIO_ERROR,
     payload: true
+});
+
+// Colocar producto en edición
+export function obtenerUsuarioEditar(usuario) {
+    return (dispatch) => {
+        dispatch( obtenerUsuarioEditarAction(usuario) );
+    }
+}
+
+const obtenerUsuarioEditarAction = usuario => ({
+    type: EDITAR_USUARIO,
+    payload: usuario
+});
+
+// Edita un registro den la API y state
+export function editarUsuarioAction(usuario) {
+    return async (dispatch) => {
+        dispatch( editarUsuario(usuario) );
+
+        try {
+            const resultado = clienteAxios.put(`/superAdmin/editarUsuario/${usuario.idUsuario}`, usuario);
+            console.log(resultado);
+
+        } catch (error) {
+            console.log(error);
+        }
+    }
+}
+
+const editarUsuario = usuario => ({
+    type: COMENZAR_EDICION_USUARIO,
+    payload: usuario
 });

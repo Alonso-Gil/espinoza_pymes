@@ -7,7 +7,10 @@ import {
     DESCARGA_USUARIOS_ERROR,
     ELIMINAR_USUARIO,
     ELIMINAR_USUARIO_EXITO,
-    ELIMINAR_USUARIO_ERROR
+    ELIMINAR_USUARIO_ERROR,
+    EDITAR_USUARIO,
+    EDITAR_USUARIO_EXITO,
+    EDITAR_USUARIO_ERROR
 } from '../types';
 
 // Cada reducer tiene su propio state
@@ -15,7 +18,8 @@ const initialState = {
     usuarios: [],
     error: null,
     loading: false,
-    usuarioeliminar: null
+    usuarioeliminar: null,
+    productoeditar: null
 }
 
 // eslint-disable-next-line
@@ -58,6 +62,11 @@ export default function(state = initialState, action){
                 ...state,
                 usuarios: state.usuarios.filter( usuario => usuario.idUsuario !== state.usuarioeliminar ),
                 usuarioeliminar: null
+            }
+        case EDITAR_USUARIO:
+            return {
+                ...state,
+                productoeditar: action.payload
             }
 
         default:
