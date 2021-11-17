@@ -72,7 +72,7 @@ const modifyUser = async(req, res) => {
 
     try {
         
-        // Encriptar contraseña solo si la enviarion
+        // Encriptar contraseña solo si la enviaron, si no la envía se queda la misma
         if (contra != '') {
             salt = bcrypt.genSaltSync();
             contra = bcrypt.hashSync(contra, salt);
@@ -96,7 +96,7 @@ const modifyUser = async(req, res) => {
         if (error.code === 'ER_DUP_ENTRY') {
             return res.status(400).json({
                 errors: [{
-                    msg: 'Ese Correo ya está registrado'
+                    msg: 'El Correo ya está registrado'
                 }]
             });
         }

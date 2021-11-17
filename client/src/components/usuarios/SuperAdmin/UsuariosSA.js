@@ -201,12 +201,12 @@ const UsuariosSA = () => {
       <Typography gutterBottom variant="h5" sx={{mt:2}}>
         Solicitudes:
         </Typography>
-      <Box sx={{ minWidth: 275, mt:1, display:'flex' }}>
+      <Box sx={{ minWidth: 275, mt:1, display: 'flex', flexWrap: 'wrap', alignContent: 'flex-start' }}>
 
-      {agente.agentes.map((agente, i) => { //Map a clientes para mostrarlos en Cartas
+      {agente.agentes.map((agente, i) => { //Map a los agentes para mostrarlos en Cartas
 
             return(
-              <Card sx={{ maxWidth: 275, background:"#E0E0E0", m:2}} key={i}>
+              <Card sx={{ maxWidth: 265, background:"#E0E0E0", m:2}} key={i}>
               <CardContent>
                 <Typography gutterBottom variant="h5" component="div" key={"nombre"} sx={{minHeight: 70}}>
                 {agente.nombre}
@@ -243,7 +243,7 @@ const UsuariosSA = () => {
                    
 
 
-                  <IconButton style={{ color: '#E3F2FD', marginLeft:"auto" }} 
+                  <IconButton style={{ color: '#E3F2FD', marginLeft:"auto"}} 
                               onClick={ () => { AgenteAceptado(agente.correo, agente.nombre) } }>
                       <PersonAddIcon />
                   </IconButton>
