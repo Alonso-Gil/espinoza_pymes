@@ -2,7 +2,7 @@ import React from 'react';
 import SpinnerKit from './SpinnerKit';
 
 // Actions de Redux
-import { editarUsuarioAction } from '../../redux/actions/usuarioActions';
+import { editarUsuarioAction, obtenerUsuariosAction } from '../../redux/actions/usuarioActions';
 import { useDispatch, useSelector } from 'react-redux';
 
 // Material UI
@@ -14,11 +14,9 @@ const UserForm = () => { //Desestructuramos al usuario, lo inicializamos todo en
 
   const [usuario, setUsuario] = React.useState({
     contra: '',
-    IdTipo: ''
+    IdTipo: '',
   });
-
-  console.log(usuario);
-
+  
   const { contra, IdTipo } = usuario;
 
   const { enqueueSnackbar } = useSnackbar();
@@ -32,6 +30,8 @@ const UserForm = () => { //Desestructuramos al usuario, lo inicializamos todo en
   // Usuario a editar
   const usuarioeditar = useSelector( state => state.usuarios.usuarioeditar);
 
+  const usuarios = useSelector( state => state.usuarios.usuarios );
+
   React.useEffect( () => {
     setUsuario(usuarioeditar);
   }, [usuarioeditar]);
@@ -42,19 +42,8 @@ const UserForm = () => { //Desestructuramos al usuario, lo inicializamos todo en
   const submitEditarUsuario = e => {
     e.preventDefault();
 
-    // Validar formulario
-    if(Nombre.trim() === ''){
-      enqueueSnackbar('No se ha editado el usuario, todos los campos son obligatorios!', { 
-        variant: 'error',
-        anchorOrigin: {
-            vertical: 'bottom',
-            horizontal: 'center',
-        },
-      });
-      return;
-    }
-
-    dispatch( editarUsuarioAction() );
+    dispatch( editarUsuarioAction(usuario) );
+    dispatch( obtenerUsuariosAction(usuarios) );
 
     // Mensaje al agregar el usuario correctamente
     enqueueSnackbar('Se ha editado el usuario correctamente!', { 

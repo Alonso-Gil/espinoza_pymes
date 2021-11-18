@@ -129,19 +129,29 @@ const obtenerUsuarioEditarAction = usuario => ({
 // Edita un registro den la API y state
 export function editarUsuarioAction(usuario) {
     return async (dispatch) => {
-        dispatch( editarUsuario(usuario) );
+        dispatch( editarUsuario() );
 
         try {
-            const resultado = clienteAxios.put(`/superAdmin/editarUsuario/${usuario.idUsuario}`, usuario);
-            console.log(resultado);
+            clienteAxios.put(`/superAdmin/editarUsuario/${usuario.idUsuario}`, usuario);
+            dispatch( editarUsuarioExito(usuario) );
 
         } catch (error) {
             console.log(error);
+            dispatch (editarUsuarioError() );
         }
     }
 }
 
-const editarUsuario = usuario => ({
+const editarUsuario = () => ({
     type: COMENZAR_EDICION_USUARIO,
+});
+
+const editarUsuarioExito = usuario => ({
+    type: EDITAR_USUARIO_EXITO,
     payload: usuario
+});
+
+const editarUsuarioError = () => ({
+    type: EDITAR_USUARIO_ERROR,
+    payload: true
 });

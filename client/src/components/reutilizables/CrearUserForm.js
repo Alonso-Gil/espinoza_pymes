@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 // Material UI
 import { useSnackbar } from 'notistack';
 import TextField from '@mui/material/TextField';
-import { Button, FormControl, Grid, Input, InputLabel, MenuItem, Select, Typography } from '@mui/material';
+import { Button, FormControl, Grid, InputLabel, MenuItem, Select, Typography } from '@mui/material';
 
 const EditUserForm = ( { 
   user={

@@ -40,6 +40,7 @@ export default function(state = initialState, action){
         case AGREGAR_USUARIO_ERROR:
         case DESCARGA_USUARIOS_ERROR:
         case ELIMINAR_USUARIO_ERROR:
+        case EDITAR_USUARIO_ERROR:
             return {
                 ...state,
                 loading: false,
@@ -67,6 +68,13 @@ export default function(state = initialState, action){
             return {
                 ...state,
                 usuarioeditar: action.payload
+            }
+        case EDITAR_USUARIO_EXITO: 
+            return {
+                ...state,
+                usuarios: state.usuarios.map( usuario => 
+                    usuario.idUsuario === action.payload.idUsuario ? usuario = action.payload : usuario
+                )
             }
 
         default:
