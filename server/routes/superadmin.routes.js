@@ -17,7 +17,7 @@ router.post('/nuevoUsuario',  // TODO: Tipo checar que sea númerico para agrega
 
 router.put('/editarUsuario/:idUsuario',
     [
-        check('idTipo', 'El usuario no puede quedar sin un rol').notEmpty(),
+        check('IdTipo', 'El usuario no puede quedar sin un rol').notEmpty(),
         validarCampos
     ], modifyUser);
 

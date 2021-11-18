@@ -80,18 +80,13 @@ const ClientesSA = () => {
           </TableHead>
           <TableBody>
             
-            
            {clientes.map((cliente, i) => {  //Hacemos un map a todos los clientes para mostrarlos en la tabla
-
                 return (
-
                     
                   <TableRow align="center" key={i} > 
-                  
                       <TableCell key={"nombres"} align="center">{cliente.nombre}</TableCell>
                       <TableCell key={"curps"}   align="center">{cliente.curp}</TableCell>
                       <TableCell key={"nsss"}    align="center">{cliente.nss}</TableCell>
-
                       <TableCell key={"acciones"} align="center">  
 
                       <Box sx={{  display: 'inline-flex' }} >  
@@ -113,19 +108,14 @@ const ClientesSA = () => {
                             
                                 />
 
-
                               <IconButton style={{ color: '#b00020', marginLeft:35 }} onClick={ () => { DeleteDialog("cliente", cliente.nombre) } }>
                                   <DeleteIcon />
                               </IconButton>
-
                       </Box>
-
                       </TableCell>
-                  
                   </TableRow>
                   );  
            })}
-
           </TableBody>
         </Table>
       </TableContainer>
@@ -145,7 +135,6 @@ const ClientesSA = () => {
   <Box sx={{ minWidth: 275, mt:2, display: 'flex', flexWrap: 'wrap', alignContent: 'flex-start' }}>  
 
       {clientes.map((cliente, i) => { //Map a clientes para mostrarlos en Cartas
-
         return(
           <Card sx={{ maxWidth: 265, background:"#E0E0E0", m:2}} key={i}>
           <CardContent>
@@ -158,10 +147,8 @@ const ClientesSA = () => {
               <Typography variant="body2" color="text.secondary" key={"celular"}>
               Teléfono: {cliente.celular}
             </Typography>
-            
           </CardContent>
           <CardActions sx={{ background:'#184c7c', maxHeight:42 }}>
-    
                     <Box sx={{  minWidth: 260, display: 'flex' }} >
     
               <IconButton style={{ color: '#E3F2FD'}} >
@@ -180,7 +167,6 @@ const ClientesSA = () => {
                                   }
                 
                     />
-    
     
                   <IconButton style={{ color: '#E3F2FD', marginLeft:"auto" }} 
                               onClick={ () => { DeleteDialog("cliente", cliente.nombre) } } >

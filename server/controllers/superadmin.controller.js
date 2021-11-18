@@ -68,7 +68,7 @@ const deleteUser = async (req, res) => {
 const modifyUser = async(req, res) => {
 
     const { idUsuario } = req.params;
-    let { contra = '', idTipo } = req.body;
+    let { contra = '', IdTipo } = req.body;
 
     try {
         
@@ -78,7 +78,7 @@ const modifyUser = async(req, res) => {
             contra = bcrypt.hashSync(contra, salt);
         }
 
-        const [results] = await db.query('CALL SA_updateUser(?, ?, ?)', [idUsuario, contra, idTipo]);
+        const [results] = await db.query('CALL SA_updateUser(?, ?, ?)', [idUsuario, contra, IdTipo]);
 
         // Si no se modificó ninguna fila, significa que el usuario no existe
         if (results.affectedRows === 0) {
@@ -117,14 +117,16 @@ const listUsers = async(req, res) => {
      
     try {
         
-        const [tipos] = await db.query('SELECT idTipo, descripcion as Tipo FROM tipoUsuarios');
-        //const [tipos] = results.slice(0, results.length);
-
         const [result] = await db.query('CALL SA_ListUsers()');
         const [users] = result.slice(0, result.length);
+        const contra ='';
+
+        users.forEach( ( user, i ) => { //Agregamos vacio el contra para evitar futuros warnings
+            user.contra=contra;
+        });
 
         res.status(201).json({
-            users, tipos
+            users
         });
 
     } catch (error) {
