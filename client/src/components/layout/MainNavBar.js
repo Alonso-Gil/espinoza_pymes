@@ -90,8 +90,8 @@ const MainNavBar = ({NavBarContenido, InicioContenido, ClientesContenido, Usuari
                   
                   <Button variant="contained" color='secondary' sx={{ mr: 2 }} href="/"
                           onClick={ () => { logout() } }>
-                    Cerrar Sesión 
-                    <MeetingRoomIcon sx={{ml:1}} />
+                      Cerrar Sesión 
+                      <MeetingRoomIcon sx={{ml:1}} />
                   </Button>  
                   </Stack>
               </Box>
