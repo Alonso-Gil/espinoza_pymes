@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 
 // Redux 
 import { useDispatch, useSelector } from 'react-redux';
-import { obtenerClientesAction } from '../../../redux/actions/clienteActions';
+import { obtenerClientesAction, borrarClienteAction } from '../../../redux/actions/clienteActions';
 
 ///////////MATERIAL\\\\\\\\\\\\\\\\\\\
 import { Fab, IconButton } from '@mui/material';
@@ -28,6 +28,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import ClienteForm from '../../reutilizables/ClienteForm';
+import Swal from 'sweetalert2';
 
 
 const ClientesSA = () => {
@@ -46,6 +47,31 @@ const ClientesSA = () => {
 
     // Obtener los clientes
     const clientes = useSelector( state => state.clientes.clientes); 
+
+    const confirmarEliminarCliente = cliente => {
+      // Preguntar al usuario 
+        Swal.fire({
+          title: `¿Seguro que quieres eliminar al cliente: ${cliente.nombre}?`,
+            text: `Una vez eliminado no podrás recuperar los datos del cliente`,
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Si, eliminar!',
+          cancelButtonText: 'Cancelar'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            // Pasarlo al action
+            dispatch( borrarClienteAction(cliente.idCliente) );
+            // Si se elimina, mostrar alerta
+            Swal.fire(
+              '¡Eliminado!',
+              `El cliente: ${cliente.Nombre} se ha eliminado exitosamente`,
+              'success'
+            )
+          }
+        });
+    }
 
     return (
         
@@ -108,7 +134,8 @@ const ClientesSA = () => {
                             
                                 />
 
-                              <IconButton style={{ color: '#b00020', marginLeft:35 }} onClick={ () => { DeleteDialog("cliente", cliente.nombre) } }>
+                              <IconButton style={{ color: '#b00020', marginLeft:35 }} 
+                                          onClick={ () => { confirmarEliminarCliente(cliente) } }>
                                   <DeleteIcon />
                               </IconButton>
                       </Box>

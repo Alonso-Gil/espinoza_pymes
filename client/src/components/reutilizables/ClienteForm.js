@@ -64,7 +64,7 @@ const ClienteForm = (
             fecha_nacimiento,
             celular,
             oficina,
-            actualizado_fecha: '2021-11-12',
+            actualizado_fecha: '',
             actualizado_por: null,
             registrado_por: 'SuperAdmin'
         });
@@ -142,7 +142,9 @@ const ClienteForm = (
                 id="fecha_nacimiento"
                 name="fecha_nacimiento"
                 label="Fecha de Nacimiento"
+                placeholder="1999/12/31"
                 variant="filled"
+                autoComplete="off"
                 value={ fecha_nacimiento }
                 onChange={handleChange}
                 sx={{ minWidth: 180 }}
