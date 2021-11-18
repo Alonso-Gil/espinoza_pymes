@@ -19,7 +19,7 @@ const initialState = {
     error: null,
     loading: false,
     usuarioeliminar: null,
-    productoeditar: null
+    usuarioeditar: null
 }
 
 // eslint-disable-next-line
@@ -66,7 +66,7 @@ export default function(state = initialState, action){
         case EDITAR_USUARIO:
             return {
                 ...state,
-                productoeditar: action.payload
+                usuarioeditar: action.payload
             }
 
         default:

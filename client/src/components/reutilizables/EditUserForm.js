@@ -2,7 +2,7 @@ import React from 'react';
 import SpinnerKit from './SpinnerKit';
 
 // Actions de Redux
-import { crearNuevoUsuarioAction, editarUsuarioAction } from '../../redux/actions/usuarioActions';
+import { editarUsuarioAction } from '../../redux/actions/usuarioActions';
 import { useDispatch, useSelector } from 'react-redux';
 
 // Material UI
@@ -10,18 +10,16 @@ import { useSnackbar } from 'notistack';
 import TextField from '@mui/material/TextField';
 import { Button, FormControl, Grid, Input, InputLabel, MenuItem, Select, Typography } from '@mui/material';
 
-const UserForm = ( { 
-  user={
-      nombre:'',
-      correo:'',
-      contra:'',
-      idTipo:''
-  }
-  } ) => { //Desestructuramos al usuario, lo inicializamos todo en null por si las dudas
+const UserForm = () => { //Desestructuramos al usuario, lo inicializamos todo en null por si las dudas
 
-  const [usuario, setUsuario] = React.useState(user);
+  const [usuario, setUsuario] = React.useState({
+    contra: '',
+    IdTipo: ''
+  });
 
-  const {nombre, correo, contra, idTipo, tipo} = usuario; //Desestructuramos los campos de usuario
+  console.log(usuario);
+
+  const { contra, IdTipo } = usuario;
 
   const { enqueueSnackbar } = useSnackbar();
 
@@ -32,19 +30,21 @@ const UserForm = ( {
   const cargando = useSelector( state => state.usuarios.loading );
 
   // Usuario a editar
-  const editarUsuario = useSelector( state => state.usuarios.productoeditar);
-  console.log(editarUsuario);
-  if(!editarUsuario) return null;
-  const { Nombre, Correo, IdTipo } = editarUsuario;
+  const usuarioeditar = useSelector( state => state.usuarios.usuarioeditar);
 
+  React.useEffect( () => {
+    setUsuario(usuarioeditar);
+  }, [usuarioeditar]);
+
+  const { Nombre, Correo } = usuarioeditar;
 
   // Cuando el usuario haga submit
-  const submitNuevoUsuario = e => {
+  const submitEditarUsuario = e => {
     e.preventDefault();
 
     // Validar formulario
-    if(nombre.trim() === '' || correo.trim() === '' || contra.trim() === '' || idTipo === 0 ){
-      enqueueSnackbar('No se ha creado el usuario, todos los campos son obligatorios!', { 
+    if(Nombre.trim() === ''){
+      enqueueSnackbar('No se ha editado el usuario, todos los campos son obligatorios!', { 
         variant: 'error',
         anchorOrigin: {
             vertical: 'bottom',
@@ -54,9 +54,10 @@ const UserForm = ( {
       return;
     }
 
+    dispatch( editarUsuarioAction() );
 
     // Mensaje al agregar el usuario correctamente
-    enqueueSnackbar('Se ha creado el usuario correctamente!', { 
+    enqueueSnackbar('Se ha editado el usuario correctamente!', { 
       variant: 'success',
     });
 
@@ -77,7 +78,7 @@ const UserForm = ( {
           </Typography>
 
           <form
-            onSubmit={submitNuevoUsuario}
+            onSubmit={submitEditarUsuario}
           >
           <div>
             <Grid container spacing={2}>
@@ -99,7 +100,7 @@ const UserForm = ( {
 
             <Grid item xs={6} sm={4}>
               <TextField
-                id="filled-password-input"
+                id="contra"
                 name="contra"
                 label="Contraseña"
                 placeholder="Solo si desea cambiarla"
@@ -117,8 +118,8 @@ const UserForm = ( {
             <InputLabel id="demo-simple-select-standard-label">Tipo de Usuario</InputLabel>
             <Select
               labelId="demo-simple-select-standard-label"
-              id="demo-simple-select-standard"
-              name="idTipo"
+              id="IdTipo"
+              name="IdTipo"
               value={IdTipo}
               onChange={handleChange}
               label="Tipo de Usuario"
