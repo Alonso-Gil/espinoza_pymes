@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 // Actions de Redux
-import { crearNuevoClienteAction } from '../../redux/actions/clienteActions';
+import {  editarClienteAction, obtenerClientesAction } from '../../redux/actions/clienteActions';
 import { useDispatch, useSelector } from 'react-redux';
 
 import Box from '@mui/material/Box';
@@ -10,7 +10,7 @@ import { Button, FormControl, FormHelperText, Grid, Input, InputLabel, Typograph
 import { useSnackbar } from 'notistack';
 import SpinnerKit from './SpinnerKit';
 
-const ClienteForm = ( 
+const EditClienteForm = ( 
     {
     client = {
         nombre:'',
@@ -21,10 +21,8 @@ const ClienteForm = (
         oficina:'',
         registrado_por:'',
         actualizado_por:'',
-        actualizado_fecha:'',}, 
-    titulo='Agregar'} ) => { //Desestructuramos al cliente y lo inicializamos en null todo por si las dudas
-                             //Si no manda el titulo será para Agregar Cliente, si es para otro caso deberá de mandar titulo="Caso"
-
+        actualizado_fecha:'',}
+    } ) => { //Desestructuramos al cliente y lo inicializamos en null todo por si las dudas
         
     const [cliente, setCliente] = React.useState(client);
 
@@ -34,49 +32,42 @@ const ClienteForm = (
 
     // Utilizar useDispatch y te crea una función
     const dispatch = useDispatch();
+    const cargarClientes = () => dispatch( obtenerClientesAction() );
 
     // Acceder al state del store
     const cargando = useSelector( state => state.clientes.loading );
 
-    // Mandar llamar el action de usuarioAction
-    const agregarCliente = cliente => dispatch( crearNuevoClienteAction(cliente) );
+    // const clientes = useSelector( state => state.clientes.clientes );
 
-    const submitNuevoCliente = e => {
-        e.preventDefault();
 
-        // Validar formulario
-        if(nombre.trim() === '' || curp.trim() === '' || nss === '' || fecha_nacimiento === '' || celular === '' || oficina.trim() === ''){
-            enqueueSnackbar('No se ha creado el usuario, todos los campos son obligatorios!', { 
-              variant: 'error',
-              anchorOrigin: {
-                  vertical: 'bottom',
-                  horizontal: 'center',
-              },
-            });
-            return;
-          }
 
-        // Crear el nuevo cliente
-        agregarCliente({
-            nombre,
-            curp,
-            nss,
-            fecha_nacimiento,
-            celular,
-            oficina,
-            actualizado_fecha: '',
-            actualizado_por: null,
-            registrado_por: 'SuperAdmin'
+    // Cuando el usuario haga submit
+  const submitEditarUsuario = e => {
+    e.preventDefault();
+
+    // Validar formulario
+    if(nombre.trim() === '' || curp.trim() === '' || nss === '' || fecha_nacimiento === '' || celular === '' ){
+        enqueueSnackbar('No se ha editado el cliente, algunos campos son obligatorios!', { 
+          variant: 'error',
+          anchorOrigin: {
+              vertical: 'bottom',
+              horizontal: 'center',
+          },
         });
+        return;
+      }
 
-        console.log(cliente);
+    dispatch( editarClienteAction(cliente) );
+    cargarClientes();
+    // console.log(clientes);
 
         // Mensaje al agregar el usuario correctamente
-        enqueueSnackbar('Se ha creado el cliente correctamente!', { 
+        enqueueSnackbar('Se ha editado el cliente correctamente!', { 
             variant: 'success',
       });
 
-    }
+  }
+
 
     const handleChange = e => {
          setCliente({
@@ -85,17 +76,16 @@ const ClienteForm = (
       };
       
 
-
     return (
         <>
         <Box>
         <Typography sx={{textAlign: 'center', fontWeight: 'bold', marginBottom: 5}} color="black" variant="h3" component="div">
-             {titulo} Cliente
+             Editar Cliente
         </Typography>
 
         { cargando ? <SpinnerKit /> :
         <form
-            onSubmit={submitNuevoCliente}
+            onSubmit={submitEditarUsuario}
         >
             <div>
 
@@ -142,7 +132,7 @@ const ClienteForm = (
                 id="fecha_nacimiento"
                 name="fecha_nacimiento"
                 label="Fecha de Nacimiento"
-                placeholder="1999/12/31"
+                placeholder="ej. 1999/12/31"
                 variant="filled"
                 autoComplete="off"
                 value={ fecha_nacimiento }
@@ -175,7 +165,6 @@ const ClienteForm = (
                 />
             </Grid>
 
-            {titulo==='Editar' ? 
 
             <Grid item xs={6} sm={4} >
                 <FormControl disabled variant="standard">
@@ -183,22 +172,17 @@ const ClienteForm = (
                 <Input id="component-disabled" value={actualizado_fecha} onChange={handleChange} />
                 <FormHelperText>Actualizado por: {actualizado_por}</FormHelperText>
                 </FormControl>
-                </Grid>
-                
-
-            : null }
-
+            </Grid>
 
             </Grid>
             </div>
 
-            <Button type="submit" variant="contained" color='secondary' fullWidth sx={{mt: 5, height: 50}}>Guardar</Button>
+            <Button type="submit" variant="contained" color='secondary' fullWidth sx={{mt: 5, height: 50}}>Guardar Cambios</Button>
         </form>
-
         }
         </Box>
         </>
      );
 }
  
-export default ClienteForm;
+export default EditClienteForm;

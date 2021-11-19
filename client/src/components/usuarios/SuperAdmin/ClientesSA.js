@@ -27,8 +27,9 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
-import ClienteForm from '../../reutilizables/ClienteForm';
 import Swal from 'sweetalert2';
+import CrearClienteForm from '../../reutilizables/CrearClienteForm';
+import EditClienteForm from '../../reutilizables/EditClientForm';
 
 
 const ClientesSA = () => {
@@ -83,7 +84,7 @@ const ClientesSA = () => {
                                           </Fab>} // Botón para agregar cliente con modal
                                           Contenido={
                                               <>
-                                                  <ClienteForm />
+                                                  <CrearClienteForm />
                                               </>
                                           }
                                   />
@@ -108,13 +109,11 @@ const ClientesSA = () => {
             
            {clientes.map((cliente, i) => {  //Hacemos un map a todos los clientes para mostrarlos en la tabla
                 return (
-                    
                   <TableRow align="center" key={i} > 
                       <TableCell key={"nombres"} align="center">{cliente.nombre}</TableCell>
                       <TableCell key={"curps"}   align="center">{cliente.curp}</TableCell>
                       <TableCell key={"nsss"}    align="center">{cliente.nss}</TableCell>
                       <TableCell key={"acciones"} align="center">  
-
                       <Box sx={{  display: 'inline-flex' }} >  
 
                           <IconButton style={{ color: '#09507a' }} >
@@ -126,12 +125,10 @@ const ClientesSA = () => {
                                                             </IconButton> }
                                               Contenido={                                       //Caja para mostrar los botones en un solo TableCell
                                                   <>
-                                                      <ClienteForm
-                                                          client={cliente}
-                                                          titulo="Editar" />
+                                                     <EditClienteForm
+                                                     client={cliente} />
                                                   </>
                                               }
-                            
                                 />
 
                               <IconButton style={{ color: '#b00020', marginLeft:35 }} 
@@ -187,9 +184,7 @@ const ClientesSA = () => {
                                                 </IconButton> }
                                   Contenido={
                                       <>
-                                          <ClienteForm
-                                              client={cliente}
-                                              titulo="Editar" />
+                                          <EditClienteForm client={cliente} />
                                       </>
                                   }
                 
