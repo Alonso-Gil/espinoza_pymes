@@ -2,7 +2,7 @@ const { Router } = require('express');
 const { check } = require('express-validator');
 const validarCampos = require('../middlewares/validar-campos');
 
-const { modifyUser, createUser, deleteUser, listUsers, listClientes } = require('../controllers/superadmin.controller');
+const { modifyUser, createUser, deleteUser, listUsers, listClientes, deleteCliente } = require('../controllers/superadmin.controller');
 
 const router = Router();
 
@@ -22,6 +22,8 @@ router.put('/editarUsuario/:idUsuario',
     ], modifyUser);
 
 router.delete('/eliminarUsuario/:idUsuario', deleteUser);
+
+router.delete('/eliminarCliente/:idCliente', deleteCliente);
 
 router.get('/usuarios', listUsers);
 

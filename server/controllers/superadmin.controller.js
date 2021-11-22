@@ -163,11 +163,37 @@ const listClientes = async(req, res) => {
     }
 }
 
+const deleteCliente = async (req, res) => {
+    const { idCliente } = req.params;
+    try {
+        const [results] = await db.query('CALL SA_deleteCliente(?)', [idCliente]);
+        // Si no se modificó ninguna fila, significa que el usuario no existe
+        if (results.affectedRows === 0) {
+            return res.status(400).json({
+                msg: 'El cliente a eliminar no existe'
+            });
+        }
+        res.status(202).json({
+            msg: 'Cliente eliminado correctamente'
+        })
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({
+            errors: [{
+                msg: 'Error con la base de datos o el servidor'
+            }],
+            query: error.sql,
+            sqlMessage: error.sqlMessage
+        });
+    }
+}
+
 module.exports = {
 
     createUser, 
     deleteUser,
     modifyUser,
     listUsers,
-    listClientes
+    listClientes,
+    deleteCliente
 }

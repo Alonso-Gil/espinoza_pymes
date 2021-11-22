@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 
 // Redux 
 import { useDispatch, useSelector } from 'react-redux';
-import { obtenerClientesAction } from '../../../redux/actions/clienteActions';
+import { obtenerClientesAction, borrarClienteAction } from '../../../redux/actions/clienteActions';
 
 ///////////MATERIAL\\\\\\\\\\\\\\\\\\\
 import { Fab, IconButton } from '@mui/material';
@@ -27,7 +27,9 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
-import ClienteForm from '../../reutilizables/ClienteForm';
+import Swal from 'sweetalert2';
+import CrearClienteForm from '../../reutilizables/CrearClienteForm';
+import EditClienteForm from '../../reutilizables/EditClientForm';
 
 
 const ClientesSA = () => {
@@ -47,6 +49,31 @@ const ClientesSA = () => {
     // Obtener los clientes
     const clientes = useSelector( state => state.clientes.clientes); 
 
+    const confirmarEliminarCliente = cliente => {
+      // Preguntar al usuario 
+        Swal.fire({
+          title: `¿Seguro que quieres eliminar al cliente: ${cliente.nombre}?`,
+            text: `Una vez eliminado no podrás recuperar los datos del cliente`,
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Si, eliminar!',
+          cancelButtonText: 'Cancelar'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            // Pasarlo al action
+            dispatch( borrarClienteAction(cliente.idCliente) );
+            // Si se elimina, mostrar alerta
+            Swal.fire(
+              '¡Eliminado!',
+              `El cliente: ${cliente.Nombre} se ha eliminado exitosamente`,
+              'success'
+            )
+          }
+        });
+    }
+
     return (
         
         < >
@@ -57,7 +84,7 @@ const ClientesSA = () => {
                                           </Fab>} // Botón para agregar cliente con modal
                                           Contenido={
                                               <>
-                                                  <ClienteForm />
+                                                  <CrearClienteForm />
                                               </>
                                           }
                                   />
@@ -82,13 +109,11 @@ const ClientesSA = () => {
             
            {clientes.map((cliente, i) => {  //Hacemos un map a todos los clientes para mostrarlos en la tabla
                 return (
-                    
                   <TableRow align="center" key={i} > 
                       <TableCell key={"nombres"} align="center">{cliente.nombre}</TableCell>
                       <TableCell key={"curps"}   align="center">{cliente.curp}</TableCell>
                       <TableCell key={"nsss"}    align="center">{cliente.nss}</TableCell>
                       <TableCell key={"acciones"} align="center">  
-
                       <Box sx={{  display: 'inline-flex' }} >  
 
                           <IconButton style={{ color: '#09507a' }} >
@@ -100,15 +125,14 @@ const ClientesSA = () => {
                                                             </IconButton> }
                                               Contenido={                                       //Caja para mostrar los botones en un solo TableCell
                                                   <>
-                                                      <ClienteForm
-                                                          client={cliente}
-                                                          titulo="Editar" />
+                                                     <EditClienteForm
+                                                     client={cliente} />
                                                   </>
                                               }
-                            
                                 />
 
-                              <IconButton style={{ color: '#b00020', marginLeft:35 }} onClick={ () => { DeleteDialog("cliente", cliente.nombre) } }>
+                              <IconButton style={{ color: '#b00020', marginLeft:35 }} 
+                                          onClick={ () => { confirmarEliminarCliente(cliente) } }>
                                   <DeleteIcon />
                               </IconButton>
                       </Box>
@@ -160,9 +184,7 @@ const ClientesSA = () => {
                                                 </IconButton> }
                                   Contenido={
                                       <>
-                                          <ClienteForm
-                                              client={cliente}
-                                              titulo="Editar" />
+                                          <EditClienteForm client={cliente} />
                                       </>
                                   }
                 

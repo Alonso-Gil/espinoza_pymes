@@ -43,11 +43,11 @@ const UsuariosSA = () => {
       }, []);
 
     // Confirmar si desea eliminar
-    const confirmarEliminarUsuario = id => {
+    const confirmarEliminarUsuario = usuario => {
       // Preguntar al usuario 
         Swal.fire({
-          title: 'Estas seguro?',
-          text: "No podras revertirlo una vez borrado!",
+          title: `¿Seguro que quieres eliminar al usuario: ${usuario.Nombre}?`,
+            text: `Una vez eliminado no podrás recuperar los datos del usuario`,
           icon: 'warning',
           showCancelButton: true,
           confirmButtonColor: '#3085d6',
@@ -57,11 +57,11 @@ const UsuariosSA = () => {
         }).then((result) => {
           if (result.isConfirmed) {
             // Pasarlo al action
-            dispatch( borrarUsuarioAction(id) );
+            dispatch( borrarUsuarioAction(usuario.idUsuario) );
             // Si se elimina, mostrar alerta
             Swal.fire(
-              'Eliminado!',
-              'El usuario ha sido eliminado.',
+              '¡Eliminado!',
+              `El usuario: ${usuario.Nombre} se ha eliminado exitosamente`,
               'success'
             )
           }
@@ -187,8 +187,7 @@ const UsuariosSA = () => {
                           />
 
                           <IconButton style={{ color: '#b00020', marginLeft:35 }} 
-                          onClick={() => confirmarEliminarUsuario(usuario.idUsuario)} >
-
+                          onClick={() => confirmarEliminarUsuario(usuario)}  >
                           <DeleteIcon  />            
 
                           </IconButton>

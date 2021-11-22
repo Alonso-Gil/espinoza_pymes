@@ -54,9 +54,10 @@ const updateCliente = async(req, res) => {
 }
 
 
+
 module.exports = {
 
     setCliente,
-    updateCliente
+    updateCliente,
 
 }
