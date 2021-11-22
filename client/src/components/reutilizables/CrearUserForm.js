@@ -2,7 +2,7 @@ import React from 'react';
 import SpinnerKit from './SpinnerKit';
 
 // Actions de Redux
-import { crearNuevoUsuarioAction } from '../../redux/actions/usuarioActions';
+import { crearNuevoUsuarioAction, obtenerUsuariosAction } from '../../redux/actions/usuarioActions';
 import { useDispatch, useSelector } from 'react-redux';
 
 // Material UI
@@ -32,7 +32,7 @@ const EditUserForm = ( {
   // Acceder al state del store
   const cargando = useSelector( state => state.usuarios.loading );
 
-  // Usuario a editar
+  const usuarios = useSelector( state => state.usuarios.usuarios );
 
   // Mandar llamar el action de usuarioAction
   const agregarUsuario = usuario => dispatch( crearNuevoUsuarioAction(usuario) );
@@ -61,6 +61,7 @@ const EditUserForm = ( {
       idTipo,
       tipo
     });
+    dispatch( obtenerUsuariosAction(usuarios) );
 
     // Mensaje al agregar el usuario correctamente
     enqueueSnackbar('Se ha creado el usuario correctamente!', { 
