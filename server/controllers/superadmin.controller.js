@@ -121,7 +121,7 @@ const listUsers = async(req, res) => {
         const [users] = result.slice(0, result.length);
         const contra ='';
 
-        users.forEach( ( user, i ) => { //Agregamos vacio el contra para evitar futuros warnings
+        users.forEach( ( user, i ) => { //Agregamos vacio la contra para evitar futuros warnings
             user.contra=contra;
         });
 

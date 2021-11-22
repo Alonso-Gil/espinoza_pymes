@@ -66,6 +66,7 @@ const AvisosSA = () => {
         })
     }
 
+
     // Cuando el usuario actualiza los avisos
     const onSubmitAvisos = e => {
         e.preventDefault();
@@ -101,6 +102,7 @@ const AvisosSA = () => {
             preserveAspectRatio: "xMidYMid slice"
         }
     };
+
       
     return ( 
         <>
