@@ -28,6 +28,7 @@ import { Box } from '@mui/system';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import AgenteView from '../../reutilizables/agenteView';
 import SpinnerKit from '../../reutilizables/SpinnerKit';
+import { obtenerSolicitudesAction } from '../../../redux/actions/solicitudesActions';
 
 const UsuariosSA = () => {
 
@@ -38,7 +39,8 @@ const UsuariosSA = () => {
           // Consultar la API
         const cargarUsuarios = () => dispatch( obtenerUsuariosAction() );
         cargarUsuarios();
-        
+        const cargarSolicitudes = () => dispatch( obtenerSolicitudesAction() );
+        cargarSolicitudes();
         // eslint-disable-next-line
       }, []);
 
@@ -71,15 +73,19 @@ const UsuariosSA = () => {
     const seleccionarEditarUsuario = id => {
       dispatch( obtenerUsuarioEditar(id) );
     }
+
   
-    // Obtener el state
+    // Obtener el state para usuarios
     const usuarios = useSelector( state => state.usuarios.usuarios );
     const error = useSelector(state => state.usuarios.error);
-    const cargando = useSelector( state => state.usuarios.loading)
+    const cargando = useSelector( state => state.usuarios.loading);
 
+    const solicitudes = useSelector( state => state.solicitudes.data.solicitudes);
+    // const s_error = useSelector( state => state.solicitudes.error);
+    // const s_cargando = useSelector(state => state.solicitudes.loading); 
     // const [isLoading, setIsLoading] = React.useState(true);
 
-    console.log(cargando);
+    console.log(solicitudes);
 
     const [agente] = React.useState(
       {
@@ -218,7 +224,8 @@ const UsuariosSA = () => {
         </Typography>
       <Box sx={{ minWidth: 275, mt:1, display: 'flex', flexWrap: 'wrap', alignContent: 'flex-start' }}>
 
-      {agente.agentes.map((agente, i) => { //Map a los agentes para mostrarlos en Cartas
+                        
+      {agente.agentes.map((agente, i) => { //Map a las solicitudes de los agentes para mostrarlos en Cartas
 
             return(
               <Card sx={{ maxWidth: 265, background:"#E0E0E0", m:2}} key={i}>

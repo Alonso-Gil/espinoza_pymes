@@ -28,7 +28,7 @@ const getAviso = async(req, res) => {
 
 const modifyAviso = async(req, res) => {
 
-    const { titulo, contenido, imagenes } = req.body;
+    const { titulo, contenido } = req.body; //TODO: Agregar imagenes cuando se requieran, por ahora dejarlo así
 
     try {
 
@@ -40,9 +40,8 @@ const modifyAviso = async(req, res) => {
             });
         }
 
-        await db.query('DELETE FROM ImagenesAviso WHERE idAviso=1');
-
-        await db.query('INSERT INTO ImagenesAviso(imagen, idAviso) VALUES ?', [imagenes]);
+        // await db.query('DELETE FROM ImagenesAviso WHERE idAviso=1'); //Eliminamos las anteriores
+        // await db.query('INSERT INTO ImagenesAviso(imagen, idAviso) VALUES ?', [imagenes]); //agregamos todas las imagenes 
 
         res.status(202).json({
             msg: 'Aviso editado exitosamente',
