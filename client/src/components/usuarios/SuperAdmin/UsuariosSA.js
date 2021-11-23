@@ -2,6 +2,8 @@ import React, { useEffect } from 'react'
 import ModaReutilizable from '../../reutilizables/ModalReutilizable';
 import EditUserForm from '../../reutilizables/EditUserForm';
 import CrearUserForm from '../../reutilizables/CrearUserForm';
+import AgenteView from '../../reutilizables/agenteView';
+import SpinnerKit from '../../reutilizables/SpinnerKit';
 import { AgenteAceptado, DeleteDialog } from '../../reutilizables/utils';
 import Swal from 'sweetalert2';
 
@@ -21,13 +23,10 @@ import TableRow from '@mui/material/TableRow';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
-// import SpinnerKit from '../../reutilizables/SpinnerKit';
 import Alert from '@mui/material/Alert';
 import Fab from '@mui/material/Fab';
 import { Box } from '@mui/system';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
-import AgenteView from '../../reutilizables/agenteView';
-import SpinnerKit from '../../reutilizables/SpinnerKit';
 
 const UsuariosSA = () => {
 

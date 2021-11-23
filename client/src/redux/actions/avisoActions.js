@@ -1,20 +1,24 @@
 import { 
     EDITAR_AVISO,
     EDITAR_AVISO_EXITO,
-    EDITAR_AVISO_ERROR
+    EDITAR_AVISO_ERROR,
+    DESCARGA_AVISO,
+    DESCARGA_AVISO_EXITO,
+    DESCARGA_AVISO_ERROR
 } from "../types";
+
+import clienteAxios from '../../config/axios';
 
 // Editar el aviso
 export function editarAvisoAction(aviso) {
-    return (dispatch) => {
+    return async (dispatch) => {
         dispatch( editarAviso(aviso) );
 
         try {
             // Insertar en la API
-
+            await clienteAxios.put('/avisos/editar');
             // Si todo sale bien, actualizar el state
             dispatch( editarAvisoExito(aviso));
-            console.log(aviso);
         } catch (error) {
             console.log(error);
             // Si hay un error, cambiar el state
@@ -26,15 +30,44 @@ export function editarAvisoAction(aviso) {
 const editarAviso = (aviso) => ({
     type: EDITAR_AVISO,
     payload: aviso
-})
+});
 
 // Si el producto se guarda en la base de datos
-const editarAvisoExito = (aviso) => ({
+const editarAvisoExito = () => ({
     type: EDITAR_AVISO_EXITO
-})
+});
 
 // Si hubo un error
 const editarAvisoError = (estado) => ({
     type: EDITAR_AVISO_ERROR,
     payload: estado
-})
+});
+
+export function obtenerAvisoAction() {
+    return async (dispatch) => {
+        dispatch( descargarAviso() );
+
+        try {
+            const respuesta = await clienteAxios.get('/avisos/');
+            dispatch( descargaAvisoExito(respuesta.data) );
+        } catch (error) {
+            console.log(error);
+            dispatch( descargaAvisoError() );
+        }
+    }
+}
+
+const descargarAviso = () => ({
+    type: DESCARGA_AVISO,
+    payload: true
+});
+
+const descargaAvisoExito = aviso => ({
+    type: DESCARGA_AVISO_EXITO,
+    payload: aviso
+});
+
+const descargaAvisoError = () => ({
+    type: DESCARGA_AVISO_ERROR,
+    payload: true
+});

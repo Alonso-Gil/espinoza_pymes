@@ -1,13 +1,15 @@
 import { 
     EDITAR_AVISO,
     EDITAR_AVISO_EXITO,
-    EDITAR_AVISO_ERROR
+    EDITAR_AVISO_ERROR,
+    DESCARGA_AVISO,
+    DESCARGA_AVISO_EXITO,
+    DESCARGA_AVISO_ERROR
 } from '../types';
 
 // Cada reducer tiene su propio state
 const initialState = {
-    titulo: 'El titulo del contenido',
-    contenido: 'Contenido que es editable',
+    aviso: {},
     error: null,
     loading: false,
     avisoeditar: null
@@ -17,24 +19,36 @@ const initialState = {
 export default function(state = initialState, action) {
     switch(action.type) {
         case EDITAR_AVISO:
-            return{
+            return {
                 ...state,
                 productoeditar: action.payload,
                 loading: action.payload
             }
         case EDITAR_AVISO_EXITO:
-            return{
+            return {
                 ...state,
                 loading: false,
-                titulo: [...state.titulo, action.payload]
+                aviso: [...state.aviso, action.payload]
             }
         case EDITAR_AVISO_ERROR:
-            return{
+        case DESCARGA_AVISO_ERROR:
+            return {
                 ...state,
                 loading: false,
                 error: action.payload
             }
-
+        case DESCARGA_AVISO:
+            return {
+                ...state,
+                loading: action.payload
+            }
+        case DESCARGA_AVISO_EXITO:
+            return {
+                ...state,
+                loading: false,
+                error: null,
+                aviso: action.payload
+            }
         default:
             return state;
     }
