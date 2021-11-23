@@ -1,15 +1,33 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import Spinner2 from '../../reutilizables/Spinner2';
 import Spinner3 from '../../reutilizables/Spinner3';
 import Spinner4 from '../../reutilizables/Spinner4';
 import SpinnerKit from '../../reutilizables/SpinnerKit';
 
+import { useDispatch } from 'react-redux';
+import { obtenerAvisoAction } from '../../../redux/actions/avisoActions';
+
 // Material UI
 import Typography from '@mui/material/Typography';
 import { Box } from '@mui/system';
+import { obtenerSolicitudesAction } from '../../../redux/actions/solicitudesActions';
+
+
 
 
 const InicioSA = () => {
+
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        // Consultar la API - Precarga de los datos de aviso
+        const cargarAviso = () => dispatch( obtenerAvisoAction() );
+        cargarAviso();
+        const cargarSolicitudes = () => dispatch( obtenerSolicitudesAction() );
+        cargarSolicitudes();
+        // eslint-disable-next-line
+    }, []);
+
 
     return ( 
         <>

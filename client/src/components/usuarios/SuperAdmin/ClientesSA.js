@@ -74,7 +74,7 @@ const ClientesSA = () => {
         });
     }
 
-    console.log(clientes);
+    // console.log(clientes);
     return (
         
         < >

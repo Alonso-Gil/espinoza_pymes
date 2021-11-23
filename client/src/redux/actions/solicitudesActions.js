@@ -2,6 +2,9 @@ import {
     AGREGAR_SOLICITUD,
     AGREGAR_SOLICITUD_ERROR,
     AGREGAR_SOLICITUD_EXITO,
+    AGREGAR_USUARIO_DE_SOLICITUD,
+    AGREGAR_USUARIO_DE_SOLICITUD_ERROR,
+    AGREGAR_USUARIO_DE_SOLICITUD_EXITO,
     DESCARGA_SOLICITUDES,
     DESCARGA_SOLICITUDES_ERROR,
     DESCARGA_SOLICITUDES_EXITO,
@@ -11,6 +14,38 @@ import {
 } from '../types'
 
 import clienteAxios from '../../config/axios';
+
+export function crearUsuarioSolicitud(solicitud) {
+    return async(dispatch) => {
+        dispatch( agregarUsuarioSolicitud() );
+        try {
+            console.log(solicitud);
+            await clienteAxios.post(`solicitudes/agregarUsuario/${solicitud.idSolicitud}`, solicitud);
+            dispatch( agregarUsuarioSolicitudExito(solicitud) );
+        } catch (error) {
+            console.log(error);
+            dispatch( agregarUsuarioSolicitudError(true));
+        }
+    }
+}
+
+const agregarUsuarioSolicitud = () => ({
+    type:AGREGAR_USUARIO_DE_SOLICITUD,
+    payload:true
+});
+
+//Si se guarda correctamente en la db
+const agregarUsuarioSolicitudExito = solicitud => ({
+    type:AGREGAR_USUARIO_DE_SOLICITUD_EXITO,
+    payload:solicitud
+});
+
+const agregarUsuarioSolicitudError = estado => ({
+    type:AGREGAR_USUARIO_DE_SOLICITUD_ERROR,
+    payload:estado
+});
+
+
 
 export function crearSolicitudAction(solicitud) {
     return async (dispatch) => {

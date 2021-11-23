@@ -2,7 +2,8 @@ import React, { useEffect } from 'react'
 import ModaReutilizable from '../../reutilizables/ModalReutilizable';
 import EditUserForm from '../../reutilizables/EditUserForm';
 import CrearUserForm from '../../reutilizables/CrearUserForm';
-import { AgenteAceptado, DeleteDialog } from '../../reutilizables/utils';
+import AgenteView from '../../reutilizables/agenteView';
+import SpinnerKit from '../../reutilizables/SpinnerKit';
 import Swal from 'sweetalert2';
 
 // Actions de Redux
@@ -21,30 +22,82 @@ import TableRow from '@mui/material/TableRow';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
-// import SpinnerKit from '../../reutilizables/SpinnerKit';
 import Alert from '@mui/material/Alert';
 import Fab from '@mui/material/Fab';
 import { Box } from '@mui/system';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
-import AgenteView from '../../reutilizables/agenteView';
-import SpinnerKit from '../../reutilizables/SpinnerKit';
-import { obtenerSolicitudesAction } from '../../../redux/actions/solicitudesActions';
+import { borrarSolicitudAction } from '../../../redux/actions/solicitudesActions';
 
 const UsuariosSA = () => {
 
       // Utilizar useDispatch y te crea una función
       const dispatch = useDispatch();
-
       useEffect(() => {
           // Consultar la API
         const cargarUsuarios = () => dispatch( obtenerUsuariosAction() );
         cargarUsuarios();
-        const cargarSolicitudes = () => dispatch( obtenerSolicitudesAction() );
-        cargarSolicitudes();
         // eslint-disable-next-line
       }, []);
 
-    // Confirmar si desea eliminar
+
+    //Confirmación para crear usuario de una solicitud
+    const AceptarAgente = agente => {
+      Swal.fire({
+        title: `Agrega una contraseña inicial para ${agente.email}`,
+        input: "text",
+        showCancelButton: true,
+        confirmButtonText: "Guardar",
+        cancelButtonText: "Cancelar",
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        inputValidator: contraseña => {
+          // Si el valor es válido, debes regresar undefined. Si no, una cadena
+          if (!contraseña) {
+              return "Por favor escribe una contraseña inicial";
+          } else {
+            agente.contra = contraseña;
+              return undefined;
+          }
+      }
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // console.log(agente); //TODO: REDUCER PARA CREAR USUARIO DE AGENTE
+        Swal.fire(
+          
+          '¡Agente Difusor Agregado!',
+          `¡Ahora ${agente.nombre} es parte de la familia EspinozaPymes!`,
+          'success'
+        )
+      }
+    })
+    }
+
+    //Confirmación para eliminar solicitud de agente
+    const confirmarEliminarAgente = solicitud => {
+      Swal.fire({ //Código JS para mostrar el dialog con animación de Sweet Alert, hecha función para poder reutilizarla
+        title: `¿Seguro que quieres eliminar al agente: ${solicitud.nombre}?`,
+        text: `Una vez eliminado no podrás recuperar los datos del agente`,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: `Eliminar agente`,
+        cancelButtonText: 'Cancelar'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          // Pasarlo al action
+        dispatch( borrarSolicitudAction(solicitud.idSolicitud) );
+        // Si se elimina, mostrar alerta
+          Swal.fire(
+            '¡Eliminado!',
+            `El agente: ${solicitud.nombre} se ha eliminado exitosamente`,
+            'success'
+          )
+        }
+      })  
+    }
+
+    // Confirmar si desea eliminar usuario
     const confirmarEliminarUsuario = usuario => {
       // Preguntar al usuario 
         Swal.fire({
@@ -80,59 +133,9 @@ const UsuariosSA = () => {
     const error = useSelector(state => state.usuarios.error);
     const cargando = useSelector( state => state.usuarios.loading);
 
-    const solicitudes = useSelector( state => state.solicitudes.data.solicitudes);
-    // const s_error = useSelector( state => state.solicitudes.error);
-    // const s_cargando = useSelector(state => state.solicitudes.loading); 
-    // const [isLoading, setIsLoading] = React.useState(true);
-
-    console.log(solicitudes);
-
-    const [agente] = React.useState(
-      {
-        agentes: [
-          {
-            nombre: 'Eduardo González Montes',
-            curp:'GOEE190875HASNTRO4',
-            nss:'123456789',
-            lugar_nacimiento:'Aguascalientes, Ags',
-            fecha_nacimiento:'1975-08-19',
-            celular:'(449) 925 33 22',
-            oficina:'',
-            correo:'eduardo@gmail.com'
-          },
-          {
-            nombre: 'Francisco Sandoval Esparza',
-            curp:'SAEF220870HASNTRO4',
-            nss:'123456789',
-            lugar_nacimiento:'Aguascalientes, Ags',
-            fecha_nacimiento:'1970-08-22',
-            celular:'(449) 322 33 22',
-            oficina:'',
-            correo:'francisco@gmail.com'
-          },
-          {
-            nombre: 'José Guadalupe Rocha García',
-            curp:'ROGJ190498HASNTRO4',
-            nss:'123456789',
-            lugar_nacimiento:'Aguascalientes, Ags',
-            fecha_nacimiento:'1998-04-19',
-            celular:'(449) 775 46 99',
-            oficina:'',
-            correo:'lupe@gmail.com'
-          },
-          {
-            nombre: 'Gerardo Martínez Velázquez',
-            curp:'MAVG190892HASNTRO4',
-            nss:'123456789',
-            lugar_nacimiento:'Aguascalientes, Ags',
-            fecha_nacimiento:'1992-08-19',
-            celular:'(449) 925 33 22',
-            oficina:'',
-            correo:'princeso22@gmail.com'
-          }
-        ]
-      }
-    )
+    const solicitudes = useSelector( state => state.solicitudes.solicitudes.data.solicitudes);
+    // const errorSolicitud = useSelector( state => state.solicitudes.error);
+    // const cargandoSolicitud = useSelector(state => state.solicitudes.loading); 
 
     return ( 
     
@@ -225,7 +228,7 @@ const UsuariosSA = () => {
       <Box sx={{ minWidth: 275, mt:1, display: 'flex', flexWrap: 'wrap', alignContent: 'flex-start' }}>
 
                         
-      {agente.agentes.map((agente, i) => { //Map a las solicitudes de los agentes para mostrarlos en Cartas
+      {solicitudes.map((agente, i) => { //Map a las solicitudes de los agentes para mostrarlos en Cartas
 
             return(
               <Card sx={{ maxWidth: 265, background:"#E0E0E0", m:2}} key={i}>
@@ -246,7 +249,7 @@ const UsuariosSA = () => {
                 <Box sx={{  minWidth: 260, display: 'flex' }} >
 
                   <IconButton style={{ color: '#E3F2FD'}} 
-                              onClick={ () => { DeleteDialog("Agente Difusor", agente.nombre) } } >
+                              onClick={ () => { confirmarEliminarAgente(agente) } } >
                       <DeleteIcon />
                   </IconButton> 
 
@@ -266,7 +269,7 @@ const UsuariosSA = () => {
 
 
                   <IconButton style={{ color: '#E3F2FD', marginLeft:"auto"}} 
-                              onClick={ () => { AgenteAceptado(agente.correo, agente.nombre) } }>
+                              onClick={ () => { AceptarAgente(agente) } }>
                       <PersonAddIcon />
                   </IconButton>
 

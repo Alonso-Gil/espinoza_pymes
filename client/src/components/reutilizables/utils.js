@@ -1,13 +1,16 @@
 //Este archivo llamado utils.js será para crear únicamente funciones que tengamos que reutilizar
+import { useDispatch } from 'react-redux';
 import * as Swal from 'sweetalert2';
+import { borrarSolicitudAction } from '../../redux/actions/solicitudesActions';
 
-export function DeleteDialog (  tipo="tipo", nombre="nombre"  )  {
+export function DeleteDialog (  tipo="tipo", solicitud  )  {
     
+  const dispatch = useDispatch();
     return (
 
         Swal.fire({ //Código JS para mostrar el dialog con animación de Sweet Alert, hecha función para poder reutilizarla
 
-            title: `¿Seguro que quieres eliminar al ${tipo}: ${nombre}?`,
+            title: `¿Seguro que quieres eliminar al ${tipo}: ${solicitud.nombre}?`,
             text: `Una vez eliminado no podrás recuperar los datos del ${tipo}`,
             icon: 'warning',
             showCancelButton: true,
@@ -17,10 +20,12 @@ export function DeleteDialog (  tipo="tipo", nombre="nombre"  )  {
             cancelButtonText: 'Cancelar'
           }).then((result) => {
             if (result.isConfirmed) {
-
+              // Pasarlo al action
+            dispatch( borrarSolicitudAction(solicitud.idSolicitud) );
+            // Si se elimina, mostrar alerta
               Swal.fire(
                 '¡Eliminado!',
-                `El ${tipo}: ${nombre} se ha eliminado exitosamente`,
+                `El ${tipo}: ${solicitud.nombre} se ha eliminado exitosamente`,
                 'success'
               )
             }
@@ -53,9 +58,9 @@ export function AgenteAceptado (correo, nombre) {
         cancelButtonText: "Cancelar",
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        inputValidator: nombre => {
+        inputValidator: contraseña => {
           // Si el valor es válido, debes regresar undefined. Si no, una cadena
-          if (!nombre) {
+          if (!contraseña) {
               return "Por favor escribe una contraseña inicial";
           } else {
               return undefined;

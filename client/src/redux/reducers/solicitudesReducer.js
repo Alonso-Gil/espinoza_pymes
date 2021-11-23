@@ -2,6 +2,9 @@ import {
     AGREGAR_SOLICITUD,
     AGREGAR_SOLICITUD_ERROR,
     AGREGAR_SOLICITUD_EXITO,
+    AGREGAR_USUARIO_DE_SOLICITUD,
+    AGREGAR_USUARIO_DE_SOLICITUD_ERROR,
+    AGREGAR_USUARIO_DE_SOLICITUD_EXITO,
     DESCARGA_SOLICITUDES,
     DESCARGA_SOLICITUDES_ERROR,
     DESCARGA_SOLICITUDES_EXITO,
@@ -20,6 +23,7 @@ const initialState = {
 // eslint-disable-next-line
 export default function(state = initialState, action){
     switch (action.type) {
+        case AGREGAR_USUARIO_DE_SOLICITUD:
         case AGREGAR_SOLICITUD:
         case DESCARGA_SOLICITUDES:
             return {
@@ -27,6 +31,7 @@ export default function(state = initialState, action){
                 loading: action.payload
             }
         case AGREGAR_SOLICITUD_ERROR:
+        case AGREGAR_USUARIO_DE_SOLICITUD_ERROR:
         case ELIMINAR_SOLICITUD_ERROR:
         case DESCARGA_SOLICITUDES_ERROR:
             return{
@@ -53,6 +58,12 @@ export default function(state = initialState, action){
                 solicitudes: action.payload
             }
         case AGREGAR_SOLICITUD_EXITO:
+            return {
+                ...state,
+                loading:false,
+                solicitudes:[...state.solicitudes, action.payload]
+            }
+        case AGREGAR_USUARIO_DE_SOLICITUD_EXITO:
             return {
                 ...state,
                 loading:false,

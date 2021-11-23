@@ -69,7 +69,7 @@ const AgenteView = (
                 <ListItemText primary={agente.oficina} secondary="Teléfono de Oficina" />
               </ListItem>
               <ListItem>
-                <ListItemText primary={agente.correo} secondary="Correo" />
+                <ListItemText primary={agente.email} secondary="Correo" />
               </ListItem>
             </List>
 
