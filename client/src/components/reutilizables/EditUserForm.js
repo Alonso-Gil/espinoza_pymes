@@ -43,12 +43,13 @@ const UserForm = () => { //Desestructuramos al usuario, lo inicializamos todo en
     e.preventDefault();
 
     dispatch( editarUsuarioAction(usuario) );
-    dispatch( obtenerUsuariosAction(usuarios) );
 
     // Mensaje al agregar el usuario correctamente
     enqueueSnackbar('Se ha editado el usuario correctamente!', { 
       variant: 'success',
     });
+
+    dispatch( obtenerUsuariosAction(usuarios) );
 
   }
 

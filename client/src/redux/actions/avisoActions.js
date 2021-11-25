@@ -12,7 +12,7 @@ import clienteAxios from '../../config/axios';
 // Editar el aviso
 export function editarAvisoAction(aviso) {
     return async (dispatch) => {
-        dispatch( editarAviso(aviso) );
+        dispatch( editarAviso() );
 
         try {
             // Insertar en la API
@@ -27,14 +27,15 @@ export function editarAvisoAction(aviso) {
     }
 }
 
-const editarAviso = (aviso) => ({
+const editarAviso = () => ({
     type: EDITAR_AVISO,
-    payload: aviso
+    payload: true
 });
 
 // Si el producto se guarda en la base de datos
-const editarAvisoExito = () => ({
-    type: EDITAR_AVISO_EXITO
+const editarAvisoExito = aviso => ({
+    type: EDITAR_AVISO_EXITO,
+    payload: aviso
 });
 
 // Si hubo un error

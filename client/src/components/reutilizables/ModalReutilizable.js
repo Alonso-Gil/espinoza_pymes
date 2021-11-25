@@ -12,6 +12,7 @@ const style = {
     left: '50%',
     overflowY: 'auto',
     transform: 'translate(-50%, -50%)',
+    minWidth: 800,
     maxWidth: 800,
     maxHeight: 870,
     display: 'block',
