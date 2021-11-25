@@ -1,6 +1,7 @@
 import React from 'react';
 import AppRouter from './routes/AppRouter';
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { SnackbarProvider } from 'notistack';
 
 // Redux 
 import { Provider } from 'react-redux';
@@ -22,7 +23,9 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <Provider store={store}>
-        <AppRouter />
+        <SnackbarProvider maxSnack={3}>
+          <AppRouter />
+        </SnackbarProvider>
       </Provider>
     </ThemeProvider>
   );
