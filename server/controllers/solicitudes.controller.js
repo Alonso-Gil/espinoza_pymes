@@ -114,7 +114,9 @@ const listSolicitudes = async(req, res) => {
         solicitudes.forEach( ( solicitud, i ) => { //Agregamos vacio contra para evitar futuros warnings
             solicitud.contra='';
         });
-        res.status(201).json({solicitudes});
+        res.status(201).json({
+            solicitudes
+        });
 
     } catch (error) {
         

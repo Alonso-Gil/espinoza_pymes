@@ -18,12 +18,13 @@ import clienteAxios from '../../config/axios';
 
 // Crear nuevos clientes
 export function crearNuevoClienteAction(cliente) {
+    const token = localStorage.getItem('token') || ''; //Obtenemos el token para ver si está autenticado para las peticiones
     return async (dispatch) => {
         dispatch( agregarCliente() );
 
         try {
             // Insertar en la API
-            await clienteAxios.post('/clientes/agregar', cliente)
+            await clienteAxios.post('/clientes/agregar', cliente, { headers: { 'x-token': token }})
 
             dispatch( agregarClienteExito(cliente) );
         } catch (error) {
@@ -35,11 +36,12 @@ export function crearNuevoClienteAction(cliente) {
 
 // Selecciona y elimina el usuario
 export function borrarClienteAction(idCliente) {
+    const token = localStorage.getItem('token') || '';
     return async (dispatch) => {
         dispatch( obtenerClienteEliminar(idCliente) );
         
         try {
-            await clienteAxios.delete(`/superAdmin/eliminarCliente/${idCliente}`);
+            await clienteAxios.delete(`/superAdmin/eliminarCliente/${idCliente}`, { headers: { 'x-token': token }});
             dispatch( eliminarClienteExito() );
         } catch (error) {
             console.log(error);
@@ -81,11 +83,12 @@ const agregarClienteError = estado => ({
 
 // Función que descarga los productos de la base de datos
 export function obtenerClientesAction() {
+    const token = localStorage.getItem('token') || '';
     return async (dispatch) => {
         dispatch( descargarClientes ());
 
         try {
-            const respuesta = await clienteAxios.get('superAdmin/clientes');
+            const respuesta = await clienteAxios.get('superAdmin/clientes', { headers: { 'x-token': token }});
             dispatch( descargaClientesExitosa(respuesta.data) );
         } catch (error) {
             console.log(error);
@@ -123,11 +126,12 @@ const obtenerClienteEditarAction = cliente => ({
 
 // Edita un registro den la API y state
 export function editarClienteAction(cliente) {
+    const token = localStorage.getItem('token') || '';
     return async (dispatch) => {
         dispatch( editarCliente() );
 
         try {
-            clienteAxios.put(`/clientes/editar/${cliente.idCliente}`, cliente);
+            clienteAxios.put(`/clientes/editar/${cliente.idCliente}`, cliente, { headers: { 'x-token': token }});
             dispatch( editarClienteExito(cliente) );
 
         } catch (error) {
