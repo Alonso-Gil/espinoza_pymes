@@ -77,7 +77,9 @@ const MainNavBar = ({NavBarContenido, InicioContenido, ClientesContenido, Usuari
                 >
                   
                   <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-                      <Tabs value={value} onChange={handleChange} textColor="inherit" indicatorColor="secondary" >
+                      <Tabs value={value} onChange={handleChange} textColor="inherit" indicatorColor="secondary" 
+                        variant="scrollable"
+                        scrollButtons="auto">
                           {Object.keys(listaMenu).map(menu => (
                             <Tab 
                               label={menu}

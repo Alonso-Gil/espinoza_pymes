@@ -17,13 +17,18 @@ const initialState = {
     solicitudes: [],
     error:null,
     loading:false,
-    solicitudeliminar:null
+    solicitudeliminar:null,
+    solicitudusuario:null,
 }
 
 // eslint-disable-next-line
 export default function(state = initialState, action){
     switch (action.type) {
         case AGREGAR_USUARIO_DE_SOLICITUD:
+            return {
+                ...state,
+                solicitudusuario:action.payload
+            }
         case AGREGAR_SOLICITUD:
         case DESCARGA_SOLICITUDES:
             return {
@@ -47,7 +52,7 @@ export default function(state = initialState, action){
         case ELIMINAR_SOLICITUD_EXITO:
             return {
                 ...state,
-                solicitudes:state.solicitudes.filter( solicitud => solicitud.idSolicitud !== state.solicitudeliminar),
+                solicitudes: state.solicitudes.solicitudes.data.solicitudes.filter( solicitud => solicitud.idSolicitud !== state.solicitudeliminar),
                 solicitudeliminar:null
             }
         case DESCARGA_SOLICITUDES_EXITO:
@@ -67,7 +72,8 @@ export default function(state = initialState, action){
             return {
                 ...state,
                 loading:false,
-                solicitudes:[...state.solicitudes, action.payload]
+                solicitudes: state.solicitudes.solicitudes.data.solicitudes.filter( solicitud => solicitud.idSolicitud !== state.solicitudusuario),
+                solicitudusuario:null
             }
     
         default:

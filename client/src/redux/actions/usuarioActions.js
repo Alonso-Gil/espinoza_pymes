@@ -18,13 +18,14 @@ import clienteAxios from '../../config/axios';
 
 // Crear nuevos productos
 export function crearNuevoUsuarioAction(usuario) {
+    const token = localStorage.getItem('token') || ''; //Obtenemos el token para ver si está autenticado para las peticiones
     return async (dispatch) => {
         dispatch( agregarUsuario() );
 
         try {
             console.log(usuario);
             // Insertar en la API
-            await clienteAxios.post('/superAdmin/nuevoUsuario', usuario);
+            await clienteAxios.post('/superAdmin/nuevoUsuario', usuario, { headers: { 'x-token': token }});
             // Si no hay errores, actualiza el state
             
             dispatch( agregarUsuarioExito(usuario) );
@@ -58,10 +59,11 @@ const agregarUsuarioError = estado => ({
 
 // Función que descarga los usuarios de la BD
 export function obtenerUsuariosAction() {
+    const token = localStorage.getItem('token') || '';
     return async (dispatch) => {
         dispatch( descargaUsuarios() );
         try {
-            const respuesta = await clienteAxios.get('/superAdmin/usuarios');
+            const respuesta = await clienteAxios.get('/superAdmin/usuarios', { headers: { 'x-token': token }});
             dispatch( descargaUsuariosExitosa(respuesta.data.users) );
         } catch (error) {
             console.log(error);
@@ -87,11 +89,12 @@ const descargaUsuariosError = () => ({
 
 // Selecciona y elimina el usuario
 export function borrarUsuarioAction(id) {
+    const token = localStorage.getItem('token') || '';
     return async (dispatch) => {
         dispatch( obtenerUsuarioEliminar(id) );
         
         try {
-            await clienteAxios.delete(`/superAdmin/eliminarUsuario/${id}`);
+            await clienteAxios.delete(`/superAdmin/eliminarUsuario/${id}`, { headers: { 'x-token': token }});
             dispatch( eliminarUsuarioExito() );
         } catch (error) {
             console.log(error);
@@ -128,11 +131,12 @@ const obtenerUsuarioEditarAction = usuario => ({
 
 // Edita un registro den la API y state
 export function editarUsuarioAction(usuario) {
+    const token = localStorage.getItem('token') || '';
     return async (dispatch) => {
         dispatch( editarUsuario() );
 
         try {
-            clienteAxios.put(`/superAdmin/editarUsuario/${usuario.idUsuario}`, usuario);
+            clienteAxios.put(`/superAdmin/editarUsuario/${usuario.idUsuario}`, usuario, { headers: { 'x-token': token }});
             dispatch( editarUsuarioExito(usuario) );
 
         } catch (error) {

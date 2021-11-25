@@ -54,7 +54,7 @@ export const renovarToken = () => {
         try {
 
             dispatch(startLoading());
-            const response = await axios.get('/auth/renovarToken', { headers: { 'x-token': token } })
+            const response = await axios.get('/auth/renovarToken', { headers: { 'x-token': token }} )
             const usuario = response.data.usuario;
             localStorage.setItem('token', response.data.token);
             dispatch(login(usuario));

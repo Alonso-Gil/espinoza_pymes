@@ -16,11 +16,12 @@ import {
 import clienteAxios from '../../config/axios';
 
 export function crearUsuarioSolicitud(solicitud) {
+    const token = localStorage.getItem('token') || ''; //Obtenemos el token para ver si está autenticado para las peticiones
     return async(dispatch) => {
         dispatch( agregarUsuarioSolicitud() );
         try {
             console.log(solicitud);
-            await clienteAxios.post(`solicitudes/agregarUsuario/${solicitud.idSolicitud}`, solicitud);
+            await clienteAxios.post(`solicitudes/agregarUsuario/${solicitud.idSolicitud}`, solicitud, { headers: { 'x-token': token }});
             dispatch( agregarUsuarioSolicitudExito(solicitud) );
         } catch (error) {
             console.log(error);
@@ -84,12 +85,13 @@ const agregarSolicitudError = estado => ({
 
 //Función para descargar las solicitudes de la db
 export function obtenerSolicitudesAction() {
+    const token = localStorage.getItem('token') || '';
     return async(dispatch) => {
 
         dispatch( descargaSolicitudes() );
         try {
             
-            const respuesta = await clienteAxios.get('solicitudes/listar');
+            const respuesta = await clienteAxios.get('solicitudes/listar', { headers: { 'x-token': token }});
             dispatch( descargaSolicitudesExito(respuesta));
         } catch (error) {
             console.log(error);
@@ -115,11 +117,12 @@ const descargaSolicitudesError = () => ({
 
 //Función para seleccionar y borrar la solicitud
 export function borrarSolicitudAction(id) {
+    const token = localStorage.getItem('token') || '';
     return async(dispatch) => {
         dispatch( obtenerSolicitudEliminar(id) );
         try {
             
-            await clienteAxios.delete(`solicitudes/eliminar/${id}`);
+            await clienteAxios.delete(`solicitudes/eliminar/${id}`, { headers: { 'x-token': token }});
             dispatch( eliminarSolicitudExito() );
         } catch (error) {
             console.log(error);

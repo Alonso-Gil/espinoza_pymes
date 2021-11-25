@@ -11,12 +11,13 @@ import clienteAxios from '../../config/axios';
 
 // Editar el aviso
 export function editarAvisoAction(aviso) {
+    const token = localStorage.getItem('token') || '';
     return async (dispatch) => {
         dispatch( editarAviso(aviso) );
 
         try {
             // Insertar en la API
-            await clienteAxios.put('/avisos/editar', aviso);
+            await clienteAxios.put('/avisos/editar', aviso, { headers: { 'x-token': token }});
             // Si todo sale bien, actualizar el state
             dispatch( editarAvisoExito(aviso));
         } catch (error) {
@@ -44,11 +45,12 @@ const editarAvisoError = (estado) => ({
 });
 
 export function obtenerAvisoAction() {
+    const token = localStorage.getItem('token') || ''; //Obtenemos el token para verificar que este autenticado para las peticiones
     return async (dispatch) => {
         dispatch( descargarAviso() );
 
         try {
-            const respuesta = await clienteAxios.get('/avisos/');
+            const respuesta = await clienteAxios.get('/avisos/', { headers: { 'x-token': token }});
             dispatch( descargaAvisoExito(respuesta.data) );
         } catch (error) {
             console.log(error);

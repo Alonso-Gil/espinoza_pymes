@@ -1,14 +1,13 @@
 const { Router } = require('express');
 const { check } = require('express-validator');
 const validarCampos = require('../middlewares/validar-campos');
-// const validarJWT = require('../middlewares/validar-jwt');
-// TODO: Agregar jwt a todas las rutas excepto post('/) (Registrar solicitud de Agente)
+const validarJWT = require('../middlewares/validar-jwt');
+
 
 const { setAgentUser, listSolicitudes, deleteSolicitud, createSolicitud} = require('../controllers/solicitudes.controller');
-
 const router = Router();
 
-router.get('/listar', listSolicitudes);
+router.get('/listar', validarJWT ,listSolicitudes);
 
 router.post('/agregar', 
     [
@@ -26,6 +25,6 @@ router.post('/agregarUsuario/:idSolicitud',
         check('email', 'El usuario debe tener un email para registrarlo').notEmpty(),
         check('contra', 'El usuario debe de tener una contraseña establecida').notEmpty(),
         validarCampos
-    ], setAgentUser);
+    ], validarJWT ,setAgentUser);
 
 module.exports = router;

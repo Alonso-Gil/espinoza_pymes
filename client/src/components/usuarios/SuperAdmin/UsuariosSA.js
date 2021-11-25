@@ -26,7 +26,7 @@ import Alert from '@mui/material/Alert';
 import Fab from '@mui/material/Fab';
 import { Box } from '@mui/system';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
-import { borrarSolicitudAction } from '../../../redux/actions/solicitudesActions';
+import { borrarSolicitudAction, crearUsuarioSolicitud } from '../../../redux/actions/solicitudesActions';
 
 const UsuariosSA = () => {
 
@@ -62,8 +62,10 @@ const UsuariosSA = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         // console.log(agente); //TODO: REDUCER PARA CREAR USUARIO DE AGENTE
+        dispatch( crearUsuarioSolicitud(agente));
+        const cargarUsuarios = () => dispatch( obtenerUsuariosAction() );
+        cargarUsuarios();
         Swal.fire(
-          
           '¡Agente Difusor Agregado!',
           `¡Ahora ${agente.nombre} es parte de la familia EspinozaPymes!`,
           'success'
@@ -75,13 +77,13 @@ const UsuariosSA = () => {
     //Confirmación para eliminar solicitud de agente
     const confirmarEliminarAgente = solicitud => {
       Swal.fire({ //Código JS para mostrar el dialog con animación de Sweet Alert, hecha función para poder reutilizarla
-        title: `¿Seguro que quieres eliminar al agente: ${solicitud.nombre}?`,
-        text: `Una vez eliminado no podrás recuperar los datos del agente`,
+        title: `¿Seguro que quieres eliminar la solicitud de: ${solicitud.nombre}?`,
+        text: `Una vez eliminado no podrás recuperar los datos.`,
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: `Eliminar agente`,
+        cancelButtonColor: '#d33',  
+        confirmButtonText: `Eliminar solicitud`,
         cancelButtonText: 'Cancelar'
       }).then((result) => {
         if (result.isConfirmed) {
@@ -90,7 +92,7 @@ const UsuariosSA = () => {
         // Si se elimina, mostrar alerta
           Swal.fire(
             '¡Eliminado!',
-            `El agente: ${solicitud.nombre} se ha eliminado exitosamente`,
+            `Se ha eliminado la solicitud de: ${solicitud.nombre} se ha eliminado exitosamente`,
             'success'
           )
         }
@@ -136,9 +138,8 @@ const UsuariosSA = () => {
     const solicitudes = useSelector( state => state.solicitudes.solicitudes.data.solicitudes);
     // const errorSolicitud = useSelector( state => state.solicitudes.error);
     // const cargandoSolicitud = useSelector(state => state.solicitudes.loading); 
-
-    return ( 
     
+    return ( 
         <>
           { cargando ? <SpinnerKit /> : 
             <>
@@ -160,14 +161,12 @@ const UsuariosSA = () => {
             <TableContainer sx={{ maxHeight: 490 }}>
               <Table stickyHeader aria-label="sticky table">
                 <TableHead>
-
                   <TableRow>
                       <TableCell key={"nombre"}  align="center"  style={{ minWidth:140, backgroundColor:"#09507a", color:"white"}} >Nombre</TableCell>
                       <TableCell key={"correo"}  align="center"  style={{ minWidth:150, backgroundColor:"#09507a", color:"white"}} >Correo</TableCell>
                       <TableCell key={"tipo"}    align="center"  style={{ minWidth:200, backgroundColor:"#09507a", color:"white"}} >Tipo de Usuario</TableCell>
                       <TableCell key={"accion"}  align="center"  style={{ minWidth:200, backgroundColor:"#09507a", color:"white"}} >Editar/Eliminar</TableCell>
                   </TableRow>
-
                 </TableHead>
 
                 <TableBody>
@@ -180,7 +179,6 @@ const UsuariosSA = () => {
                         <TableCell align="center"  >  
 
                         <Box sx={{  display: 'inline-flex' }} >
-
                           <ModaReutilizable Boton={ 
                             <IconButton style={{ color: '#09507a' }}
                               onClick={() => seleccionarEditarUsuario(usuario)}
@@ -254,26 +252,24 @@ const UsuariosSA = () => {
                   </IconButton> 
 
 
-                  <ModaReutilizable Boton={ <IconButton style={{ color: '#E3F2FD'}} >
-                                                        <RemoveRedEyeIcon />
-                                                    </IconButton> }
-                                              Contenido={
-                                                  <>
-                                                      <AgenteView 
-                                                          agente={agente} />
-                                                  </>
-                                              }
-                            
-                            />
-                   
+                  <ModaReutilizable 
+                    Boton={ <IconButton 
+                    style={{ color: '#E3F2FD'}} >
+                              <RemoveRedEyeIcon />
+                          </IconButton> }
+                    Contenido={
+                        <>
+                            <AgenteView 
+                                agente={agente} />
+                        </> } />
 
 
                   <IconButton style={{ color: '#E3F2FD', marginLeft:"auto"}} 
                               onClick={ () => { AceptarAgente(agente) } }>
                       <PersonAddIcon />
                   </IconButton>
-
                 </Box>
+                
               </CardActions>
             </Card>
             );
