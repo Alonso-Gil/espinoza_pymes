@@ -3,11 +3,13 @@ const { check } = require('express-validator');
 const validarCampos = require('../middlewares/validar-campos');
 const validarJWT = require('../middlewares/validar-jwt');
 
-
-const { setAgentUser, listSolicitudes, deleteSolicitud, createSolicitud} = require('../controllers/solicitudes.controller');
+const { setAgentUser, listSolicitudes, deleteSolicitud, 
+        createSolicitud, listManagerUsers} = require('../controllers/solicitudes.controller');
 const router = Router();
 
 router.get('/listar', validarJWT ,listSolicitudes);
+
+router.get('/manager', validarJWT ,listManagerUsers);
 
 router.post('/agregar', 
     [

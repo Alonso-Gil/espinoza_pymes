@@ -11,6 +11,9 @@ import {
     ELIMINAR_SOLICITUD,
     ELIMINAR_SOLICITUD_ERROR,
     ELIMINAR_SOLICITUD_EXITO,
+    DESCARGA_USUARIOS_MANAGER,
+    DESCARGA_USUARIOS_MANAGER_ERROR,
+    DESCARGA_USUARIOS_MANAGER_EXITO
 } from '../types'
 
 const initialState = {
@@ -31,6 +34,7 @@ export default function(state = initialState, action){
             }
         case AGREGAR_SOLICITUD:
         case DESCARGA_SOLICITUDES:
+        case DESCARGA_USUARIOS_MANAGER:
             return {
                 ...state,
                 loading: action.payload
@@ -39,6 +43,7 @@ export default function(state = initialState, action){
         case AGREGAR_USUARIO_DE_SOLICITUD_ERROR:
         case ELIMINAR_SOLICITUD_ERROR:
         case DESCARGA_SOLICITUDES_ERROR:
+        case DESCARGA_USUARIOS_MANAGER_ERROR:
             return{
                 ...state,
                 loading:false,
@@ -56,6 +61,7 @@ export default function(state = initialState, action){
                 solicitudeliminar:null
             }
         case DESCARGA_SOLICITUDES_EXITO:
+        case DESCARGA_USUARIOS_MANAGER_EXITO:
             return {
                 ...state,
                 loading:false,
