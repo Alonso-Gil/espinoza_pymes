@@ -6,7 +6,7 @@ import styled from '@emotion/styled';
 import image from '../../assets/lotties/404-notFound.json';
 import logo from '../../espinozaLogo.png'
 import { Link } from 'react-router-dom';
- import { Typography } from '@mui/material';
+import { Typography } from '@mui/material';
 
 const PageNotFound =() => {
 

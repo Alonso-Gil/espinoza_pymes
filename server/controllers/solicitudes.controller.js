@@ -132,10 +132,40 @@ const listSolicitudes = async(req, res) => {
     
 }
 
+const listManagerUsers = async(req, res) => {
+     
+    try {
+        
+        const [result] = await db.query('CALL M_ListUsers()');
+        const [users] = result.slice(0, result.length);
+        const contra ='';
+
+        users.forEach( ( user, i ) => { //Agregamos vacio un campo de contra para evitar futuros warnings en el front
+            user.contra=contra;
+        });
+
+        res.status(201).json({
+            users
+        });
+
+    } catch (error) {
+        
+        console.error(error);
+        return res.status(500).json({
+            errors: [{
+                msg: 'Error con la base de datos o el servidor'
+            }],
+            query: error.sql,
+            sqlMessage: error.sqlMessage
+        });
+    }
+}
+
 
 module.exports = { 
     createSolicitud, 
     deleteSolicitud,
     setAgentUser,
-    listSolicitudes
+    listSolicitudes,
+    listManagerUsers
 };

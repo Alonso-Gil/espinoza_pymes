@@ -1,3 +1,4 @@
+import clienteAxios from '../../config/axios';
 import {
     AGREGAR_SOLICITUD,
     AGREGAR_SOLICITUD_ERROR,
@@ -11,10 +12,12 @@ import {
     ELIMINAR_SOLICITUD,
     ELIMINAR_SOLICITUD_ERROR,
     ELIMINAR_SOLICITUD_EXITO,
+    DESCARGA_USUARIOS_MANAGER,
+    DESCARGA_USUARIOS_MANAGER_EXITO,
+    DESCARGA_USUARIOS_MANAGER_ERROR
 } from '../types'
 
-import clienteAxios from '../../config/axios';
-
+// Crear usuario de tipo agente difusor
 export function crearUsuarioSolicitud(solicitud) {
     const token = localStorage.getItem('token') || ''; //Obtenemos el token para ver si está autenticado para las peticiones
     return async(dispatch) => {
@@ -45,8 +48,6 @@ const agregarUsuarioSolicitudError = estado => ({
     type:AGREGAR_USUARIO_DE_SOLICITUD_ERROR,
     payload:estado
 });
-
-
 
 export function crearSolicitudAction(solicitud) {
     return async (dispatch) => {
@@ -82,15 +83,12 @@ const agregarSolicitudError = estado => ({
     payload:estado
 });
 
-
 //Función para descargar las solicitudes de la db
 export function obtenerSolicitudesAction() {
     const token = localStorage.getItem('token') || '';
     return async(dispatch) => {
-
         dispatch( descargaSolicitudes() );
         try {
-            
             const respuesta = await clienteAxios.get('solicitudes/listar', { headers: { 'x-token': token }});
             dispatch( descargaSolicitudesExito(respuesta));
         } catch (error) {
@@ -115,13 +113,42 @@ const descargaSolicitudesError = () => ({
     payload:true
 });
 
+//Función para descargar solo los usuarios de tipo agente difusor (Los únicos que puede ver manager).
+export function obtenerUsuariosManagerAction() {
+    const token = localStorage.getItem('token') || '';
+    return async(dispatch) => {
+        dispatch( descargaUsuariosManager() );
+        try {
+            const respuesta = await clienteAxios.get('solicitudes/manager', { headers: { 'x-token': token }});
+            dispatch( descargaUsuariosManagerExito(respuesta));
+        } catch (error) {
+            console.log(error);
+            dispatch(descargaUsuariosManagerError() );
+        }
+    }
+}
+
+const descargaUsuariosManager = () => ({
+    type: DESCARGA_USUARIOS_MANAGER,
+    payload:true
+});
+
+const descargaUsuariosManagerExito = solicitudes => ({
+    type:DESCARGA_USUARIOS_MANAGER_EXITO,
+    payload:solicitudes
+});
+
+const descargaUsuariosManagerError = () => ({
+    type:DESCARGA_USUARIOS_MANAGER_ERROR,
+    payload:true
+});
+
 //Función para seleccionar y borrar la solicitud
 export function borrarSolicitudAction(id) {
     const token = localStorage.getItem('token') || '';
     return async(dispatch) => {
         dispatch( obtenerSolicitudEliminar(id) );
         try {
-            
             await clienteAxios.delete(`solicitudes/eliminar/${id}`, { headers: { 'x-token': token }});
             dispatch( eliminarSolicitudExito() );
         } catch (error) {
