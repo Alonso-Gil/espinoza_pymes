@@ -87,10 +87,8 @@ const agregarSolicitudError = estado => ({
 export function obtenerSolicitudesAction() {
     const token = localStorage.getItem('token') || '';
     return async(dispatch) => {
-
         dispatch( descargaSolicitudes() );
         try {
-            
             const respuesta = await clienteAxios.get('solicitudes/listar', { headers: { 'x-token': token }});
             dispatch( descargaSolicitudesExito(respuesta));
         } catch (error) {
@@ -121,7 +119,6 @@ export function borrarSolicitudAction(id) {
     return async(dispatch) => {
         dispatch( obtenerSolicitudEliminar(id) );
         try {
-            
             await clienteAxios.delete(`solicitudes/eliminar/${id}`, { headers: { 'x-token': token }});
             dispatch( eliminarSolicitudExito() );
         } catch (error) {

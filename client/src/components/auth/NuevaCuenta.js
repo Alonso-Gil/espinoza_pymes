@@ -77,7 +77,7 @@ const NuevaCuenta = () => {
           return;
         }
 
-        if(fecha_nacimiento.length!=10){
+        if(fecha_nacimiento.length!==10){
           enqueueSnackbar('La fecha debe de estar en el formato: dd/mm/aaaa', { 
             variant: 'error',
             anchorOrigin: {

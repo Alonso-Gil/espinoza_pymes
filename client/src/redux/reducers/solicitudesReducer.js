@@ -52,7 +52,7 @@ export default function(state = initialState, action){
         case ELIMINAR_SOLICITUD_EXITO:
             return {
                 ...state,
-                solicitudes: state.solicitudes.solicitudes.data.solicitudes.filter( solicitud => solicitud.idSolicitud !== state.solicitudeliminar),
+                solicitudes: state.solicitudes.data.filter( solicitud => solicitud.idSolicitud !== state.solicitudeliminar),
                 solicitudeliminar:null
             }
         case DESCARGA_SOLICITUDES_EXITO:

@@ -26,7 +26,7 @@ import Alert from '@mui/material/Alert';
 import Fab from '@mui/material/Fab';
 import { Box } from '@mui/system';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
-import { borrarSolicitudAction, crearUsuarioSolicitud } from '../../../redux/actions/solicitudesActions';
+import { borrarSolicitudAction, crearUsuarioSolicitud, obtenerSolicitudesAction } from '../../../redux/actions/solicitudesActions';
 
 const UsuariosSA = () => {
 
@@ -35,7 +35,9 @@ const UsuariosSA = () => {
       useEffect(() => {
           // Consultar la API
         const cargarUsuarios = () => dispatch( obtenerUsuariosAction() );
+        const cargarSolicitudes = () => dispatch( obtenerSolicitudesAction());
         cargarUsuarios();
+        cargarSolicitudes();
         // eslint-disable-next-line
       }, []);
 
@@ -129,7 +131,6 @@ const UsuariosSA = () => {
       dispatch( obtenerUsuarioEditar(id) );
     }
 
-  
     // Obtener el state para usuarios
     const usuarios = useSelector( state => state.usuarios.usuarios );
     const error = useSelector(state => state.usuarios.error);
@@ -279,8 +280,6 @@ const UsuariosSA = () => {
             </>
           }
           
-
-
          </ >
      )
 
