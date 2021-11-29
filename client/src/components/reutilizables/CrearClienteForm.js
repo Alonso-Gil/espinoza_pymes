@@ -41,7 +41,7 @@ const CrearClienteForm = (
         e.preventDefault();
 
         // Validar formulario
-        if(nombre.trim() === '' || curp.trim() === '' || nss === '' || fecha_nacimiento === '' || celular === '' || oficina.trim() === ''){
+        if(nombre.trim() === '' || curp.trim() === '' || nss === '' || fecha_nacimiento === '' || celular === ''){
             enqueueSnackbar('No se ha creado el usuario, todos los campos son obligatorios!', { 
               variant: 'error',
               anchorOrigin: {
