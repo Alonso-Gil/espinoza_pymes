@@ -14,10 +14,7 @@ import SpinnerKit from '../../reutilizables/SpinnerKit';
 import { Box } from '@mui/system';
 import ModalReutilizable from '../../reutilizables/ModalReutilizable';
 import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
-import { DeleteDialog } from '../../reutilizables/utils';
 
 ///////////ICONS\\\\\\\\\\\\\\\\\\\\\
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -27,6 +24,7 @@ import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import Swal from 'sweetalert2';
 import CrearClienteForm from '../../reutilizables/CrearClienteForm';
 import EditClienteForm from '../../reutilizables/EditClientForm';
+import Tarjetas from '../../reutilizables/Tarjetas';
 
 
 const ClientesSA = () => {
@@ -133,11 +131,12 @@ const ClientesSA = () => {
   
       <Box sx={{ minWidth: 275, mt:2, display: 'flex', flexWrap: 'wrap', alignContent: 'flex-start' }}>  
 
-          {clientes.map((cliente, i) => { //Map a clientes para mostrarlos en Cartas
-            return(
-              <Card sx={{ maxWidth: 265, background:"#E0E0E0", m:2}} key={i}>
-                <CardContent>
-
+      {clientes.map((cliente, i) => { //Map a clientes para mostrarlos en las tarjetas
+        return(
+          <Card sx={{ maxWidth: 265, background:"#E0E0E0", m:2}} key={i}>
+            <Tarjetas 
+              Contenido = {
+                <>
                   <Typography gutterBottom variant="h5" component="div" key={"nombre"} sx={{minHeight: 65}}>
                     {cliente.nombre}
                   </Typography>
@@ -149,12 +148,10 @@ const ClientesSA = () => {
                   <Typography variant="body2" color="text.secondary" key={"celular"}>
                     Teléfono: {cliente.celular}
                   </Typography>
-
-                </CardContent>
-
-                <CardActions sx={{ background:'#184c7c', maxHeight:42 }}>
-                  <Box sx={{  minWidth: 260, display: 'flex' }} >
-          
+                </>
+              }
+              Botones = {
+                <>
                     <IconButton style={{ color: '#E3F2FD'}} >
                       <RemoveRedEyeIcon />
                     </IconButton> 
@@ -172,16 +169,15 @@ const ClientesSA = () => {
                     />
           
                       <IconButton style={{ color: '#E3F2FD', marginLeft:"auto" }} 
-                          onClick={ () => { DeleteDialog("cliente", cliente.nombre) } } >
-                            
+                          onClick={ () => { confirmarEliminarCliente(cliente) } } >
                           <DeleteIcon />
                       </IconButton>
-                  </Box>
-                </CardActions>
-              </Card>
-            );
-          })}
-
+                </>
+              }
+            />
+          </Card>
+        ); //Fin del return y del map abajo
+      })}; 
       </Box>
     </>
   );
