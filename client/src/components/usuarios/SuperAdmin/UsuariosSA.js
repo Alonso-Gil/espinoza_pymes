@@ -136,6 +136,7 @@ const UsuariosSA = () => {
     const error = useSelector(state => state.usuarios.error);
     const cargando = useSelector( state => state.usuarios.loading);
 
+    console.log(usuarios);
     const solicitudes = useSelector( state => state.solicitudes.solicitudes.data.solicitudes);
     // const errorSolicitud = useSelector( state => state.solicitudes.error);
     // const cargandoSolicitud = useSelector(state => state.solicitudes.loading); 

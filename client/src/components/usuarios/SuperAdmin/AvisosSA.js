@@ -2,10 +2,10 @@ import React from 'react';
 import Lottie from 'react-lottie';
 import Skull from '../../../assets/lotties/Navidad.json';
 import ModalReutilizable from '../../reutilizables/ModalReutilizable';
-import Spinner2 from '../../reutilizables/Spinner2';
+import SpinnerKit from '../../reutilizables/SpinnerKit';
 
 // Actions de Redux
-import { editarAvisoAction } from '../../../redux/actions/avisoActions';
+import { editarAvisoAction, obtenerAvisoAction } from '../../../redux/actions/avisoActions';
 import { useDispatch, useSelector } from 'react-redux';
 
 // Material UI
@@ -23,7 +23,7 @@ const AvisosSA = () => {
     // State para el contenido de los avisos
     const [avisos, setAvisos] = React.useState({
         titulo: '',
-        contenido: '',
+        contenido: ''
     });
 
     // Extraer  titulo y contenido del state de avisos
@@ -35,7 +35,7 @@ const AvisosSA = () => {
     const dispatch = useDispatch();
 
     // Acceder al state del store
-    const cargando = useSelector( (state) => state.avisos);
+    const cargando = useSelector( (state) => state.avisos.loading);
     const error = useSelector(state => state.avisos.error);
     const aviso = useSelector(state => state.avisos.aviso.aviso);
     const mostrarAviso = (aviso[0]);
@@ -75,6 +75,7 @@ const AvisosSA = () => {
 
         console.log(avisos);
         dispatch( editarAvisoAction(avisos) );
+        dispatch( obtenerAvisoAction(aviso) );
 
         enqueueSnackbar('Se ha actualizado el contenido correctamente!', { 
             variant: 'success',
@@ -106,7 +107,7 @@ const AvisosSA = () => {
                                 { error ? <Alert sx={{mb: 2}} variant="filled" severity="error">
                                     Error, algo ha salido mal!
                                 </Alert> : null}
-                                { cargando.loading ? <Spinner2 /> :
+                                { cargando.loading ? <SpinnerKit /> :
                                     <form
                                         onSubmit={onSubmitAvisos}
                                     >
