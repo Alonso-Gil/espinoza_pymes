@@ -163,10 +163,10 @@ const UsuariosSA = () => {
               <Table stickyHeader aria-label="sticky table">
                 <TableHead>
                   <TableRow>
-                      <TableCell key={"nombre"}  align="center"  style={{ minWidth:140, backgroundColor:"#09507a", color:"white"}} >Nombre</TableCell>
-                      <TableCell key={"correo"}  align="center"  style={{ minWidth:150, backgroundColor:"#09507a", color:"white"}} >Correo</TableCell>
-                      <TableCell key={"tipo"}    align="center"  style={{ minWidth:200, backgroundColor:"#09507a", color:"white"}} >Tipo de Usuario</TableCell>
-                      <TableCell key={"accion"}  align="center"  style={{ minWidth:200, backgroundColor:"#09507a", color:"white"}} >Editar/Eliminar</TableCell>
+                      <TableCell key={"nombre"} align="center" style={{ minWidth:140, backgroundColor:"#09507a", color:"white"}}>Nombre</TableCell>
+                      <TableCell key={"correo"} align="center" style={{ minWidth:150, backgroundColor:"#09507a", color:"white"}}>Correo</TableCell>
+                      <TableCell key={"tipo"} align="center" style={{ minWidth:200, backgroundColor:"#09507a", color:"white"}}>Tipo de Usuario</TableCell>
+                      <TableCell key={"accion"} align="center" style={{ minWidth:200, backgroundColor:"#09507a", color:"white"}}>Editar/Eliminar</TableCell>
                   </TableRow>
                 </TableHead>
 
@@ -178,34 +178,32 @@ const UsuariosSA = () => {
                         <TableCell align="center">{usuario.Correo}</TableCell> 
                         <TableCell align="center">{usuario.Tipo}</TableCell>
                         <TableCell align="center"  >  
+                          <Box sx={{  display: 'inline-flex' }} >
+                            <ModaReutilizable 
+                              Boton={ 
+                                <IconButton style={{ color: '#09507a' }}
+                                  onClick={() => seleccionarEditarUsuario(usuario)}
+                                >
+                                  <EditIcon />
+                                </IconButton>  
+                              }
 
-                        <Box sx={{  display: 'inline-flex' }} >
-                          <ModaReutilizable Boton={ 
-                            <IconButton style={{ color: '#09507a' }}
-                              onClick={() => seleccionarEditarUsuario(usuario)}
-                            >
-                              <EditIcon />
-                            </IconButton> }
-
-                            Contenido={             //Caja para los botones de cada usuario
-                              <>
+                              Contenido={// Caja para los botones de cada usuario
                                 <EditUserForm 
-                                titulo={'Editar'}
-                                usuario={usuario} />
-                              </>
-                            }
-                          />
+                                  titulo={'Editar'}
+                                  usuario={usuario} 
+                                />
+                              }
+                            />
 
-                          <IconButton style={{ color: '#b00020', marginLeft:35 }} 
-                          onClick={() => confirmarEliminarUsuario(usuario)}  >
-                          <DeleteIcon  />            
-
-                          </IconButton>
-                        </Box>
+                            <IconButton style={{ color: '#b00020', marginLeft:35 }} 
+                              onClick={() => confirmarEliminarUsuario(usuario)}  >
+                              <DeleteIcon />            
+                            </IconButton>
+                          </Box>
                         </TableCell>
                       </TableRow>
-                    ))
-                          
+                    ))       
                 }
                 </TableBody>
               </Table>
