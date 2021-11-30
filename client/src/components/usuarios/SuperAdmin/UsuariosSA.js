@@ -11,7 +11,7 @@ import { obtenerUsuariosAction, borrarUsuarioAction, obtenerUsuarioEditar } from
 import { useDispatch, useSelector } from 'react-redux';
 
 ///////////MATERIAL\\\\\\\\\\\\\\\\\\\
-import { Card, CardActions, CardContent, IconButton, Typography } from '@mui/material';
+import { Card, IconButton, Typography } from '@mui/material';
 import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -146,7 +146,7 @@ const UsuariosSA = () => {
         <>
           { cargando ? <SpinnerKit /> : 
             <>
-              <Box sx={{ mb:2, mr:7 ,textAlign: 'right', marginLeft:140   }}>
+              <Box sx={{ mb:2, mr:7 ,textAlign: 'right', marginLeft:'95%'   }}>
               <ModaReutilizable Boton={<Fab color="secondary" aria-label="edit" sx={{  }}>
                                     <PersonAddIcon />
                                 </Fab>}

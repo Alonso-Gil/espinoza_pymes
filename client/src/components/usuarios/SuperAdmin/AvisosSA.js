@@ -96,7 +96,7 @@ const AvisosSA = () => {
         <>
             <Box sx={{ }}>
                     <ModalReutilizable Boton={
-                        <Box sx={{ }}>
+                        <Box sx={{ mr:'95%' }}>
                             <Fab color="secondary" aria-label="edit">
                                 <EditIcon />
                             </Fab>

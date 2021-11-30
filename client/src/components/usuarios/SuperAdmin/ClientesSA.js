@@ -71,7 +71,7 @@ const ClientesSA = () => {
 
   return ( 
     <>
-      <Box sx={{ mb:2, mr:7 ,textAlign: 'right', marginLeft:140 }}>
+      <Box sx={{ mb:2, mr:7 ,textAlign: 'right', marginLeft:'95%' }}>
         <ModalReutilizable 
           Boton={
             <Fab color="secondary" aria-label="edit"> 
