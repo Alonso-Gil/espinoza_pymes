@@ -19,7 +19,7 @@ const CrearClienteForm = (
         fecha_nacimiento:'',
         celular:'',
         oficina:'',
-        registrado_por:''}
+        registrado_por:''}, creador = ''
     } ) => { //Desestructuramos al cliente y lo inicializamos en null todo por si las dudas
         
     const [cliente, setCliente] = React.useState(client);
@@ -62,7 +62,7 @@ const CrearClienteForm = (
             oficina,
             actualizado_fecha: '',
             actualizado_por: null,
-            registrado_por: 'SuperAdmin'
+            registrado_por: creador
         });
 
         console.log(cliente);

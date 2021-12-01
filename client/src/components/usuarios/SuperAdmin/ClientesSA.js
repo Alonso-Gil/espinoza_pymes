@@ -44,6 +44,10 @@ const ClientesSA = () => {
     // Obtener los clientes
     const clientes = useSelector( state => state.clientes.clientes); 
 
+    //Obtenemos el nombre del usuario de la autenticación para mandarlo en el formulario en caso de que actualice información de un cliente
+    const user = useSelector( state => state.auth.usuario);
+    const name_user = user.nombre;
+
     const confirmarEliminarCliente = cliente => {
       // Preguntar al usuario 
         Swal.fire({
@@ -78,7 +82,7 @@ const ClientesSA = () => {
               <PersonAddIcon />
             </Fab>} // Botón para agregar cliente con modal
           Contenido={
-            <CrearClienteForm />
+            <CrearClienteForm creador={name_user}/>
           }
         />
       </Box>
@@ -129,7 +133,7 @@ const ClientesSA = () => {
         </Paper>
       )}
   
-      <Box sx={{ minWidth: 275, mt:2, display: 'flex', flexWrap: 'wrap', alignContent: 'flex-start' }}>  
+      <Box sx={{ minWidth: 275, mt:2, display: 'flex', flexWrap: 'wrap', alignContent: 'flex-start', justifyContent:'center' }}>  
 
       {clientes.map((cliente, i) => { //Map a clientes para mostrarlos en las tarjetas
         return(
@@ -163,7 +167,7 @@ const ClientesSA = () => {
                         </IconButton> 
                       }
                       Contenido={
-                        <EditClienteForm client={cliente} />
+                        <EditClienteForm client={cliente} editor={name_user}/>
                       }
 
                     />

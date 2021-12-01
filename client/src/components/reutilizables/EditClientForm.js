@@ -21,7 +21,7 @@ const EditClienteForm = (
         oficina:'',
         registrado_por:'',
         actualizado_por:'',
-        actualizado_fecha:'',}
+        actualizado_fecha:''}, editor=''
     } ) => { //Desestructuramos al cliente y lo inicializamos en null todo por si las dudas
         
     const [cliente, setCliente] = React.useState(client);
@@ -56,7 +56,9 @@ const EditClienteForm = (
         });
         return;
       }
-
+      //Agregamos el nombre del usuario que lo editó
+      cliente.actualizado_por=editor;
+      
     dispatch( editarClienteAction(cliente) );
     cargarClientes();
     // console.log(clientes);
@@ -170,7 +172,8 @@ const EditClienteForm = (
                 <FormControl disabled variant="standard">
                 <InputLabel htmlFor="component-disabled">Última Actualización: </InputLabel>
                 <Input id="component-disabled" value={actualizado_fecha} onChange={handleChange} />
-                <FormHelperText>Actualizado por: {actualizado_por}</FormHelperText>
+                 <FormHelperText>Actualizado por: {actualizado_por}</FormHelperText>
+                {/* <FormHelperText>Actualizado por: {actualizado_por}</FormHelperText> */}
                 </FormControl>
             </Grid>
 
