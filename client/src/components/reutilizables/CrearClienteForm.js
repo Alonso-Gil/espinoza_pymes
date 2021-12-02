@@ -51,6 +51,49 @@ const CrearClienteForm = (
             });
             return;
           }
+          if(curp.length!==18){
+            enqueueSnackbar('La CURP debe de contener 18 digitos', { 
+              variant: 'error',
+              anchorOrigin: {
+                  vertical: 'bottom',
+                  horizontal: 'center',
+              },
+            });
+            return;
+          }
+    
+          if(nss.length>12 || nss.length<11){
+            enqueueSnackbar('El NSS debe de contener 11', { 
+              variant: 'error',
+              anchorOrigin: {
+                  vertical: 'bottom',
+                  horizontal: 'center',
+              },
+            });
+            return;
+          }
+    
+          if(fecha_nacimiento.length!==10){
+            enqueueSnackbar('La fecha debe de estar en el formato: dd/mm/aaaa', { 
+              variant: 'error',
+              anchorOrigin: {
+                  vertical: 'bottom',
+                  horizontal: 'center',
+              },
+            });
+            return;
+          }
+    
+          if(celular.length<10){
+            enqueueSnackbar('El celular debe tener 10 dígitos', { 
+              variant: 'error',
+              anchorOrigin: {
+                  vertical: 'bottom',
+                  horizontal: 'center',
+              },
+            });
+            return;
+          }
 
         // Crear el nuevo cliente
         agregarCliente({

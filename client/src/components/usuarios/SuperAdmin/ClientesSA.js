@@ -44,7 +44,7 @@ const ClientesSA = () => {
     // Obtener los clientes
     const clientes = useSelector( state => state.clientes.clientes); 
 
-    //Obtenemos el nombre del usuario de la autenticación para mandarlo en el formulario en caso de que actualice información de un cliente
+    //Obtenemos el nombre del usuario de la autenticación para mandarlo en el formulario en caso de que actualice o agregue un cliente
     const user = useSelector( state => state.auth.usuario);
     const name_user = user.nombre;
 

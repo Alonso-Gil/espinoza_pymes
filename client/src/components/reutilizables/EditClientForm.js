@@ -56,9 +56,53 @@ const EditClienteForm = (
         });
         return;
       }
-      //Agregamos el nombre del usuario que lo editó
-      cliente.actualizado_por=editor;
-      
+
+      if(curp.length!==18){
+        enqueueSnackbar('La CURP debe de contener 18 digitos', { 
+          variant: 'error',
+          anchorOrigin: {
+              vertical: 'bottom',
+              horizontal: 'center',
+          },
+        });
+        return;
+      }
+
+      if(nss.length>12 || nss.length<11){
+        enqueueSnackbar('El NSS debe de contener 11', { 
+          variant: 'error',
+          anchorOrigin: {
+              vertical: 'bottom',
+              horizontal: 'center',
+          },
+        });
+        return;
+      }
+
+      if(fecha_nacimiento.length!==10){
+        enqueueSnackbar('La fecha debe de estar en el formato: dd/mm/aaaa', { 
+          variant: 'error',
+          anchorOrigin: {
+              vertical: 'bottom',
+              horizontal: 'center',
+          },
+        });
+        return;
+      }
+
+      if(celular.length<10){
+        enqueueSnackbar('El celular debe tener 10 dígitos', { 
+          variant: 'error',
+          anchorOrigin: {
+              vertical: 'bottom',
+              horizontal: 'center',
+          },
+        });
+        return;
+      }
+
+    //Si pasaron las validaciones agregamos el nombre del usuario que lo editó
+    cliente.actualizado_por=editor;      
     dispatch( editarClienteAction(cliente) );
     cargarClientes();
     // console.log(clientes);
