@@ -108,7 +108,6 @@ const CrearClienteForm = (
             registrado_por: creador
         });
 
-        console.log(cliente);
 
         // Mensaje al agregar el usuario correctamente
         enqueueSnackbar('Se ha creado el cliente correctamente!', { 

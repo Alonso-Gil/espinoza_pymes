@@ -113,7 +113,7 @@ const ClientesSA = () => {
                                       </IconButton> }
 
                                   Contenido={
-                                      <EditClienteForm client={cliente} />
+                                      <EditClienteForm client={cliente} editor={name_user}/>
                                   }
                               />
 
