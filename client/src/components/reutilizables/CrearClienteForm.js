@@ -143,7 +143,7 @@ const CrearClienteForm = (
                 <TextField 
                 id="nombre"
                 name="nombre"
-                label="Nombre"
+                label="Nombre *"
                 variant="filled"
                 value={ nombre }
                 onChange={handleChange}
@@ -155,7 +155,7 @@ const CrearClienteForm = (
                 <TextField 
                 id="curp"
                 name="curp"
-                label="CURP"
+                label="CURP *"
                 variant="filled"
                 value={ curp }
                 onChange={handleChange}
@@ -167,7 +167,7 @@ const CrearClienteForm = (
                 <TextField 
                 id="nss"
                 name="nss"
-                label="Nss"
+                label="Nss *"
                 variant="filled"
                 value={ nss }
                 onChange={handleChange}
@@ -179,8 +179,8 @@ const CrearClienteForm = (
                 <TextField 
                 id="fecha_nacimiento"
                 name="fecha_nacimiento"
-                label="Fecha de Nacimiento"
-                placeholder="ej. 1999/12/31"
+                label="Fecha de Nacimiento *"
+                placeholder="ej. 31/12/1992"
                 variant="filled"
                 autoComplete="off"
                 value={ fecha_nacimiento }
@@ -193,7 +193,7 @@ const CrearClienteForm = (
                 <TextField 
                 id="celular"
                 name="celular"
-                label="Celular"
+                label="Celular *"
                 variant="filled"
                 value={ celular }
                 onChange={handleChange}

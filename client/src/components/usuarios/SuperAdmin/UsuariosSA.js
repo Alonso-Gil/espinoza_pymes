@@ -5,6 +5,7 @@ import CrearUserForm from '../../reutilizables/CrearUserForm';
 import AgenteView from '../../reutilizables/agenteView';
 import SpinnerKit from '../../reutilizables/SpinnerKit';
 import Swal from 'sweetalert2';
+import { makeStyles } from '@mui/styles';
 
 // Actions de Redux
 import { obtenerUsuariosAction, borrarUsuarioAction, obtenerUsuarioEditar } from '../../../redux/actions/usuarioActions';
@@ -19,13 +20,14 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
+import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
+import RemoveRedEyeOutlinedIcon from '@mui/icons-material/RemoveRedEyeOutlined';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import Alert from '@mui/material/Alert';
 import Fab from '@mui/material/Fab';
 import { Box } from '@mui/system';
-import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import { borrarSolicitudAction, crearUsuarioSolicitud, obtenerSolicitudesAction } from '../../../redux/actions/solicitudesActions';
 import Tarjetas from '../../reutilizables/Tarjetas';
 
@@ -142,6 +144,14 @@ const UsuariosSA = () => {
     // const errorSolicitud = useSelector( state => state.solicitudes.error);
     // const cargandoSolicitud = useSelector(state => state.solicitudes.loading); 
     
+    const useStyles = makeStyles({
+      tarjetaSolicitud: {
+        background: 'radial-gradient(circle at 95.45% -4.17%, #656881 0, #1f3b6f 50%, #00175c 100%)',
+      },
+    });
+
+    const classes = useStyles();
+
     return ( 
         <>
           { cargando ? <SpinnerKit /> : 
@@ -228,17 +238,17 @@ const UsuariosSA = () => {
 
       {solicitudes.map((agente, i) => { //Map a las solicitudes de los agentes para mostrarlos en Cartas
             return(
-              <Card sx={{ maxWidth: 265, background:"#E0E0E0", m:2}} key={i}>
+              <Card sx={{ maxWidth: 265, m:2}} key={i} className={classes.tarjetaSolicitud}>
                 <Tarjetas 
                   Contenido = {
                     <>
-                      <Typography gutterBottom variant="h5" component="div" key={"nombre"} sx={{minHeight: 70}}>
+                      <Typography gutterBottom variant="h5" component="div" key={"nombre"} sx={{minHeight: 70}} color="white">
                       {agente.nombre}
                       </Typography>
-                      <Typography variant="body2" color="text.secondary" key={"curp"}>
+                      <Typography variant="body2" color="white" key={"curp"}>
                         CURP: {agente.curp}
                         </Typography>
-                        <Typography variant="body2" color="text.secondary" key={"celular"}>
+                        <Typography variant="body2" color="white" key={"celular"}>
                         Teléfono: {agente.celular}
                       </Typography>
                     </>
@@ -247,13 +257,13 @@ const UsuariosSA = () => {
                     <>
                         <IconButton style={{ color: '#E3F2FD'}} 
                           onClick={ () => { confirmarEliminarAgente(agente) } } >
-                          <DeleteIcon />
+                          <DeleteOutlineOutlinedIcon />
                         </IconButton> 
 
                         <ModaReutilizable 
                           Boton={ <IconButton 
                           style={{ color: '#E3F2FD'}} >
-                                    <RemoveRedEyeIcon />
+                                    <RemoveRedEyeOutlinedIcon />
                                 </IconButton> }
                           Contenido={
                               <>

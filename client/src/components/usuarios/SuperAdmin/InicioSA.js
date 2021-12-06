@@ -20,7 +20,7 @@ const InicioSA = () => {
     useEffect(() => {
         // Consultar la API - Precarga de los datos de aviso
         const cargarAviso = () => dispatch( obtenerAvisoAction() );
-        cargarAviso();
+        cargarAviso(); //Precarga datos de solicitudes también por molestias que esta causando hacerlo desde usuarios
         const cargarSolicitudes = () => dispatch( obtenerSolicitudesAction() );
         cargarSolicitudes();
         // eslint-disable-next-line

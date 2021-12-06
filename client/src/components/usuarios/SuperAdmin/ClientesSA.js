@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
-import TablaClientes from '../../reutilizables/TablaClientes';
+import { makeStyles } from '@mui/styles';
+// import TablaClientes from '../../reutilizables/TablaClientes';
 
 // Redux 
 import { useDispatch, useSelector } from 'react-redux';
@@ -7,9 +8,9 @@ import { obtenerClientesAction, borrarClienteAction } from '../../../redux/actio
 
 ///////////MATERIAL\\\\\\\\\\\\\\\\\\\
 import { Fab, IconButton } from '@mui/material';
-import Paper from '@mui/material/Paper';
-import TableCell from '@mui/material/TableCell';
-import TableRow from '@mui/material/TableRow';
+// import Paper from '@mui/material/Paper';
+// import TableCell from '@mui/material/TableCell';
+// import TableRow from '@mui/material/TableRow';
 import SpinnerKit from '../../reutilizables/SpinnerKit';
 import { Box } from '@mui/system';
 import ModalReutilizable from '../../reutilizables/ModalReutilizable';
@@ -17,9 +18,9 @@ import Card from '@mui/material/Card';
 import Typography from '@mui/material/Typography';
 
 ///////////ICONS\\\\\\\\\\\\\\\\\\\\\
-import DeleteIcon from '@mui/icons-material/Delete';
-import EditIcon from '@mui/icons-material/Edit';
-import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
+import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
+import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
+import RemoveRedEyeOutlinedIcon from '@mui/icons-material/RemoveRedEyeOutlined';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import Swal from 'sweetalert2';
 import CrearClienteForm from '../../reutilizables/CrearClienteForm';
@@ -73,6 +74,18 @@ const ClientesSA = () => {
         });
     }
 
+    const useStyles = makeStyles({
+      tarjeta: {
+        maxWidth: 265, 
+        margin:2
+      },
+      tarjetaAzul: {
+        background: 'linear-gradient(210deg, #0095cf 0, #156892 50%, #183f58 100%)',
+      },
+    });
+
+    const classes = useStyles();
+
   return ( 
     <>
       <Box sx={{ mb:2, mr:7 ,textAlign: 'right', marginLeft:'95%' }}>
@@ -87,7 +100,7 @@ const ClientesSA = () => {
         />
       </Box>
 
-      {isLoading ? <SpinnerKit  />  //Mientras el spinner este activo no muestra nada
+      {/* {isLoading ? <SpinnerKit  />  //Mientras el spinner este activo no muestra nada
       : (
         <Paper sx={{ width: '100%', overflow: 'hidden' }}>
           <TablaClientes 
@@ -131,25 +144,28 @@ const ClientesSA = () => {
             }
           />
         </Paper>
-      )}
+      )} */}
   
+  {isLoading ? <SpinnerKit />
+  :
+
       <Box sx={{ minWidth: 275, mt:2, display: 'flex', flexWrap: 'wrap', alignContent: 'flex-start', justifyContent:'center' }}>  
 
       {clientes.map((cliente, i) => { //Map a clientes para mostrarlos en las tarjetas
         return(
-          <Card sx={{ maxWidth: 265, background:"#E0E0E0", m:2}} key={i}>
+          <Card sx={{ maxWidth: 265, m:2}} key={i} className={classes.tarjetaAzul} >
             <Tarjetas 
               Contenido = {
                 <>
-                  <Typography gutterBottom variant="h5" component="div" key={"nombre"} sx={{minHeight: 65}}>
+                  <Typography gutterBottom variant="h5" component="div" key={"nombre"} sx={{minHeight: 65}} color="white">
                     {cliente.nombre}
                   </Typography>
 
-                  <Typography variant="body2" color="text.secondary" key={"curp"}>
+                  <Typography variant="body2" color="white" key={"curp"} >
                     CURP: {cliente.curp}
                   </Typography>
 
-                  <Typography variant="body2" color="text.secondary" key={"celular"}>
+                  <Typography variant="body2" color="white" key={"celular"} >
                     Teléfono: {cliente.celular}
                   </Typography>
                 </>
@@ -157,13 +173,13 @@ const ClientesSA = () => {
               Botones = {
                 <>
                     <IconButton style={{ color: '#E3F2FD'}} >
-                      <RemoveRedEyeIcon />
+                      <RemoveRedEyeOutlinedIcon />
                     </IconButton> 
           
                     <ModalReutilizable 
                       Boton={ 
                         <IconButton style={{ color: '#E3F2FD' }}>
-                          <EditIcon />
+                          <EditOutlinedIcon />
                         </IconButton> 
                       }
                       Contenido={
@@ -174,15 +190,16 @@ const ClientesSA = () => {
           
                       <IconButton style={{ color: '#E3F2FD', marginLeft:"auto" }} 
                           onClick={ () => { confirmarEliminarCliente(cliente) } } >
-                          <DeleteIcon />
+                          <DeleteOutlineOutlinedIcon />
                       </IconButton>
                 </>
               }
             />
           </Card>
-        ); //Fin del return y del map abajo
-      })}; 
+        ) //Fin del return y del map abajo
+      })}
       </Box>
+}
     </>
   );
 }
