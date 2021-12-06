@@ -145,21 +145,22 @@ const UsuariosSA = () => {
         <>
           { cargando ? <SpinnerKit /> : 
             <>
-              <Box sx={{ mb:2, mr:7 ,textAlign: 'right', marginLeft:140   }}>
-              <ModaReutilizable Boton={<Fab color="secondary" aria-label="edit" sx={{  }}>
-                                    <PersonAddIcon />
-                                </Fab>}
-                                Contenido={ //Caja para agregar usuario con modal
-                                    <>
-                                        <CrearUserForm />
-                                    </>
-                                }
-                        />
+            <Box sx={{ mb:2, mr:7 ,textAlign: 'right', marginLeft:140   }}>
+              <ModaReutilizable 
+                Boton={
+                  <Fab color="secondary" aria-label="edit">
+                      <PersonAddIcon />
+                  </Fab>
+                }
+                Contenido={ //Caja para agregar usuario con modal
+                  <CrearUserForm />
+                }
+              />
             </Box>
 
-            { error ? <Alert severity="error" sx={{ mb: 4}}>Hubo un error! - Intentalo de nuevo o notifica al área de sistemas</Alert> : null }
+          { error ? <Alert severity="error" sx={{ mb: 4}}>Hubo un error! - Intentalo de nuevo o notifica al área de sistemas</Alert> : null }
 
-                  <Paper sx={{ width: '100%', overflow: 'hidden' }}>
+          <Paper sx={{ width: '100%', overflow: 'hidden' }}>
             <TableContainer sx={{ maxHeight: 490 }}>
               <Table stickyHeader aria-label="sticky table">
                 <TableHead>
@@ -209,15 +210,6 @@ const UsuariosSA = () => {
                 </TableBody>
               </Table>
             </TableContainer>
-            {/* <TablePagination
-              rowsPerPageOptions={[5, 10, 15]}    
-              component="div"
-              count={rows.length}
-              rowsPerPage={rowsPerPage}
-              page={page}
-              onPageChange={handleChangePage}
-              onRowsPerPageChange={handleChangeRowsPerPage}
-            /> */}
           </Paper>
              
       <Typography gutterBottom variant="h5" sx={{mt:2}}>
