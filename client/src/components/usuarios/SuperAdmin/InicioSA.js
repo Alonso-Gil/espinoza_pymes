@@ -13,8 +13,6 @@ import { Box } from '@mui/system';
 import { obtenerSolicitudesAction } from '../../../redux/actions/solicitudesActions';
 
 
-
-
 const InicioSA = () => {
 
     const dispatch = useDispatch();
@@ -28,7 +26,6 @@ const InicioSA = () => {
         // eslint-disable-next-line
     }, []);
 
-
     return ( 
         <>
             <Typography sx={{textAlign: 'center', fontWeight: 'bold', marginBottom: 5}} color="black" variant="h3" component="div">
@@ -36,32 +33,35 @@ const InicioSA = () => {
             </Typography>
 
             <Typography align="justify" paragraph color="black">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                tempor incididunt ut labore et dolore magna aliqua. Rhoncus dolor purus non
-                enim praesent elementum facilisis leo vel. Risus at ultrices mi tempus
-                imperdiet. Semper risus in hendrerit gravida rutrum quisque non tellus.
-                Convallis convallis tellus id interdum velit laoreet id donec ultrices.
-                Odio morbi quis commodo odio aenean sed adipiscing. Amet nisl suscipit
-                adipiscing bibendum est ultricies integer quis. Cursus euismod quis viverra
-                nibh cras. Metus vulputate eu scelerisque felis imperdiet proin fermentum
-                leo. Mauris commodo quis imperdiet massa tincidunt. Cras tincidunt lobortis
-                feugiat vivamus at augue. At augue eget arcu dictum varius duis at
-                consectetur lorem. Velit sed ullamcorper morbi tincidunt. Lorem donec massa
-                sapien faucibus et molestie ac.
+                Ser super Administrador te da los privilegios de ver todos los clientes y sus documentos así que ten cuidado y se responsable
+                mientras estés dentro de la página. En la sección "Clientes" se encuentra un listado de los clientes de manera alfábetica, en un fututo
+                se encontrarán los filtros para una búsqueda rápida y sencilla. Por el momento solo se pueden agregar los datos básicos del cliente, editarlos,
+                eliminar o agregar un cliente, sin embargo esta conotemplado que en el botón en forma de ojo redirija a una pantalla la cuál será de la información
+                del cliente y sus documentos. 
+                En la sección "Usuarios", están los usuarios que tienen acceso al sistema, se puede ver su correo y el rol que tiene dentro del sistema.
+                Cada rol es diferente y por lo tanto solo podrán realizar las acciones que se le permitan y le correspondan. Usted como Super Administrador puede 
+                entrar y modificar el tipo de usuario y su contraseña en caso de que se requiera. Por cuestiones de privacidad usted no podrá ver la contraseña 
+                actual de los usuarios, pero si tendrá el permiso de concederle una nueva a un usuario en caso que no la recuerde. Porfavor recuerdele al usuario
+                CAMBIAR LA CONTRASEÑA EN CUANTO TENGA ACCESO A SU CUENTA, esto para evitar futuros conflictos los cuáles pudieran ocasionarte, ya que cambiaste la contraseña
+                y ambos la saben, acusarte a ti que hiciste cambios o movimientos dentro de su cuenta, si te es posible porfavor verifica que ya no puedes acceder con
+                la contraseña que tú le otorgaste para recuperar su contraseña. Es importante que la legalidad y la privacidad se mantenga en orden en cada usuario.
             </Typography>
 
             <Typography align="justify" paragraph color="black">
-                Consequat mauris nunc congue nisi vitae suscipit. Fringilla est ullamcorper
-                eget nulla facilisi etiam dignissim diam. Pulvinar elementum integer enim
-                neque volutpat ac tincidunt. Ornare suspendisse sed nisi lacus sed viverra
-                tellus. Purus sit amet volutpat consequat mauris. Elementum eu facilisis
-                sed odio morbi. Euismod lacinia at quis risus sed vulputate odio. Morbi
-                tincidunt ornare massa eget egestas purus viverra accumsan in. In hendrerit
-                gravida rutrum quisque non tellus orci ac. Pellentesque nec nam aliquam sem
-                et tortor. Habitant morbi tristique senectus et. Adipiscing elit duis
-                tristique sollicitudin nibh sit. Ornare aenean euismod elementum nisi quis
-                eleifend. Commodo viverra maecenas accumsan lacus vel facilisis. Nulla
-                posuere sollicitudin aliquam ultrices sagittis orci a.
+                En la sección de "Calendario" podrás ver las citas del día, semana o mes, cada cita estará representada por un color, el cuál 
+                significará el motivo de la cita, los colores representan: 
+                Morado  - Cita Informativa
+                Verde   - Cita para retirar
+                Azul    - Cita para entrega de documentos de Finanzas.
+                Naranja - Cita para hacer cita con el  Notario.
+                Rosa    - Cita para retiro de inversión.
+                Rojo    - Cita para entrega de inversión.
+
+                En la sección de "Avisos" los usuarios de Recursos Humanos estarán publicando avisos para TODOS los usuarios, en estos avisos 
+                se compartirá información relevante a la semana o mes, en estos pueden dar avisos generales o avisos específicos a un rol de usuario,
+                también podrá compartir imágenes y/o documentos para que todos lo visualicen y/o puedan descargarlo. La sección de Avisos también contará con
+                una sección para agregar imágenes similares a los GIFs, las cuáles solo el editor del aviso podrá agregar para una mejor comunicación visual y 
+                un mejor diseño de los mismos.
             </Typography>
 
             <Box sx={{ display: 'flex'}} >

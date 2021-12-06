@@ -11,7 +11,7 @@ import { obtenerUsuariosAction, borrarUsuarioAction, obtenerUsuarioEditar } from
 import { useDispatch, useSelector } from 'react-redux';
 
 ///////////MATERIAL\\\\\\\\\\\\\\\\\\\
-import { Card, CardActions, CardContent, IconButton, Typography } from '@mui/material';
+import { Card, IconButton, Typography } from '@mui/material';
 import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -27,6 +27,7 @@ import Fab from '@mui/material/Fab';
 import { Box } from '@mui/system';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import { borrarSolicitudAction, crearUsuarioSolicitud, obtenerSolicitudesAction } from '../../../redux/actions/solicitudesActions';
+import Tarjetas from '../../reutilizables/Tarjetas';
 
 const UsuariosSA = () => {
 
@@ -145,22 +146,21 @@ const UsuariosSA = () => {
         <>
           { cargando ? <SpinnerKit /> : 
             <>
-            <Box sx={{ mb:2, mr:7 ,textAlign: 'right', marginLeft:140   }}>
-              <ModaReutilizable 
-                Boton={
-                  <Fab color="secondary" aria-label="edit">
-                      <PersonAddIcon />
-                  </Fab>
-                }
-                Contenido={ //Caja para agregar usuario con modal
-                  <CrearUserForm />
-                }
-              />
+              <Box sx={{ mb:2, mr:7 ,textAlign: 'right', marginLeft:'95%'   }}>
+              <ModaReutilizable Boton={<Fab color="secondary" aria-label="edit" sx={{  }}>
+                                    <PersonAddIcon />
+                                </Fab>}
+                                Contenido={ //Caja para agregar usuario con modal
+                                    <>
+                                        <CrearUserForm />
+                                    </>
+                                }
+                        />
             </Box>
 
-          { error ? <Alert severity="error" sx={{ mb: 4}}>Hubo un error! - Intentalo de nuevo o notifica al área de sistemas</Alert> : null }
+            { error ? <Alert severity="error" sx={{ mb: 4}}>Hubo un error! - Intentalo de nuevo o notifica al área de sistemas</Alert> : null }
 
-          <Paper sx={{ width: '100%', overflow: 'hidden' }}>
+                  <Paper sx={{ width: '100%', overflow: 'hidden' }}>
             <TableContainer sx={{ maxHeight: 490 }}>
               <Table stickyHeader aria-label="sticky table">
                 <TableHead>
@@ -210,6 +210,15 @@ const UsuariosSA = () => {
                 </TableBody>
               </Table>
             </TableContainer>
+            {/* <TablePagination
+              rowsPerPageOptions={[5, 10, 15]}    
+              component="div"
+              count={rows.length}
+              rowsPerPage={rowsPerPage}
+              page={page}
+              onPageChange={handleChangePage}
+              onRowsPerPageChange={handleChangeRowsPerPage}
+            /> */}
           </Paper>
              
       <Typography gutterBottom variant="h5" sx={{mt:2}}>
@@ -217,52 +226,50 @@ const UsuariosSA = () => {
         </Typography>
       <Box sx={{ minWidth: 275, mt:1, display: 'flex', flexWrap: 'wrap', alignContent: 'flex-start' }}>
 
-                        
       {solicitudes.map((agente, i) => { //Map a las solicitudes de los agentes para mostrarlos en Cartas
-
             return(
               <Card sx={{ maxWidth: 265, background:"#E0E0E0", m:2}} key={i}>
-              <CardContent>
-                <Typography gutterBottom variant="h5" component="div" key={"nombre"} sx={{minHeight: 70}}>
-                {agente.nombre}
-                </Typography>
-                <Typography variant="body2" color="text.secondary" key={"curp"}>
-                  CURP: {agente.curp}
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary" key={"celular"}>
-                  Teléfono: {agente.celular}
-                </Typography>
+                <Tarjetas 
+                  Contenido = {
+                    <>
+                      <Typography gutterBottom variant="h5" component="div" key={"nombre"} sx={{minHeight: 70}}>
+                      {agente.nombre}
+                      </Typography>
+                      <Typography variant="body2" color="text.secondary" key={"curp"}>
+                        CURP: {agente.curp}
+                        </Typography>
+                        <Typography variant="body2" color="text.secondary" key={"celular"}>
+                        Teléfono: {agente.celular}
+                      </Typography>
+                    </>
+                  }
+                  Botones= {
+                    <>
+                        <IconButton style={{ color: '#E3F2FD'}} 
+                          onClick={ () => { confirmarEliminarAgente(agente) } } >
+                          <DeleteIcon />
+                        </IconButton> 
+
+                        <ModaReutilizable 
+                          Boton={ <IconButton 
+                          style={{ color: '#E3F2FD'}} >
+                                    <RemoveRedEyeIcon />
+                                </IconButton> }
+                          Contenido={
+                              <>
+                                  <AgenteView 
+                                      agente={agente} />
+                              </> } 
+                        />
+
+                        <IconButton style={{ color: '#E3F2FD', marginLeft:"auto"}} 
+                                    onClick={ () => { AceptarAgente(agente) } }>
+                            <PersonAddIcon />
+                        </IconButton>
+                    </>
+                  }
+                />
                 
-              </CardContent>
-              <CardActions sx={{ background:'#184c7c', maxHeight:42 }}>
-
-                <Box sx={{  minWidth: 260, display: 'flex' }} >
-
-                  <IconButton style={{ color: '#E3F2FD'}} 
-                              onClick={ () => { confirmarEliminarAgente(agente) } } >
-                      <DeleteIcon />
-                  </IconButton> 
-
-
-                  <ModaReutilizable 
-                    Boton={ <IconButton 
-                    style={{ color: '#E3F2FD'}} >
-                              <RemoveRedEyeIcon />
-                          </IconButton> }
-                    Contenido={
-                        <>
-                            <AgenteView 
-                                agente={agente} />
-                        </> } />
-
-
-                  <IconButton style={{ color: '#E3F2FD', marginLeft:"auto"}} 
-                              onClick={ () => { AceptarAgente(agente) } }>
-                      <PersonAddIcon />
-                  </IconButton>
-                </Box>
-                
-              </CardActions>
             </Card>
             );
 
@@ -273,8 +280,6 @@ const UsuariosSA = () => {
           
          </ >
      )
-
-
 }
  
 export default UsuariosSA;

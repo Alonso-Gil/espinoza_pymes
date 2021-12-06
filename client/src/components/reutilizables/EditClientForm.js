@@ -21,7 +21,7 @@ const EditClienteForm = (
         oficina:'',
         registrado_por:'',
         actualizado_por:'',
-        actualizado_fecha:'',}
+        actualizado_fecha:''}, editor=''
     } ) => { //Desestructuramos al cliente y lo inicializamos en null todo por si las dudas
         
     const [cliente, setCliente] = React.useState(client);
@@ -57,6 +57,52 @@ const EditClienteForm = (
         return;
       }
 
+      if(curp.length!==18){
+        enqueueSnackbar('La CURP debe de contener 18 digitos', { 
+          variant: 'error',
+          anchorOrigin: {
+              vertical: 'bottom',
+              horizontal: 'center',
+          },
+        });
+        return;
+      }
+
+      if(nss.length>12 || nss.length<11){
+        enqueueSnackbar('El NSS debe de contener 11', { 
+          variant: 'error',
+          anchorOrigin: {
+              vertical: 'bottom',
+              horizontal: 'center',
+          },
+        });
+        return;
+      }
+
+      if(fecha_nacimiento.length!==10){
+        enqueueSnackbar('La fecha debe de estar en el formato: dd/mm/aaaa', { 
+          variant: 'error',
+          anchorOrigin: {
+              vertical: 'bottom',
+              horizontal: 'center',
+          },
+        });
+        return;
+      }
+
+      if(celular.length<10){
+        enqueueSnackbar('El celular debe tener 10 dígitos', { 
+          variant: 'error',
+          anchorOrigin: {
+              vertical: 'bottom',
+              horizontal: 'center',
+          },
+        });
+        return;
+      }
+
+    //Si pasaron las validaciones agregamos el nombre del usuario que lo editó
+    cliente.actualizado_por=editor;      
     dispatch( editarClienteAction(cliente) );
     cargarClientes();
     // console.log(clientes);
@@ -170,7 +216,8 @@ const EditClienteForm = (
                 <FormControl disabled variant="standard">
                 <InputLabel htmlFor="component-disabled">Última Actualización: </InputLabel>
                 <Input id="component-disabled" value={actualizado_fecha} onChange={handleChange} />
-                <FormHelperText>Actualizado por: {actualizado_por}</FormHelperText>
+                 <FormHelperText>Actualizado por: {actualizado_por}</FormHelperText>
+                {/* <FormHelperText>Actualizado por: {actualizado_por}</FormHelperText> */}
                 </FormControl>
             </Grid>
 

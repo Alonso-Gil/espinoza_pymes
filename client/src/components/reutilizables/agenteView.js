@@ -9,7 +9,7 @@ import { Box } from '@mui/system';
 
 const AgenteView = (
     {
-    agente = {
+      agente = {
         nombre:'',
         curp:'',
         correo:'',
@@ -17,13 +17,11 @@ const AgenteView = (
         fecha_nacimiento:'',
         celular:'',
         oficina:'',
-        lugar_nacimiento:''}, 
-    titulo='Agregar'}) => {
+        lugar_nacimiento:''} 
+      }) => {
 
         return (
-
             <Box>
-
         <Typography gutterBottom variant="h5">
             Datos del Agente Difusor
         </Typography>

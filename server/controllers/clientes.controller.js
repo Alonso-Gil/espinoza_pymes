@@ -39,6 +39,10 @@ const updateCliente = async(req, res) => {
                 msg: `El cliente ${nombre} con id: ${idUsuario} a modificar no existe`
             });
         }
+
+        res.status(202).json({
+            msg:"El cliente se ha actualizado exitosamente"
+        })
     } catch (error) {
         
         console.error(error);

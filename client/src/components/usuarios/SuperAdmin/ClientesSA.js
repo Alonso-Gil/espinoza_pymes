@@ -1,11 +1,5 @@
 import React, { useEffect } from 'react';
 import TablaClientes from '../../reutilizables/TablaClientes';
-import ModalReutilizable from '../../reutilizables/ModalReutilizable';
-import SpinnerKit from '../../reutilizables/SpinnerKit';
-import { DeleteDialog } from '../../reutilizables/utils';
-import Swal from 'sweetalert2';
-import CrearClienteForm from '../../reutilizables/CrearClienteForm';
-import EditClienteForm from '../../reutilizables/EditClientForm';
 
 // Redux 
 import { useDispatch, useSelector } from 'react-redux';
@@ -16,30 +10,43 @@ import { Fab, IconButton } from '@mui/material';
 import Paper from '@mui/material/Paper';
 import TableCell from '@mui/material/TableCell';
 import TableRow from '@mui/material/TableRow';
+import SpinnerKit from '../../reutilizables/SpinnerKit';
 import { Box } from '@mui/system';
+import ModalReutilizable from '../../reutilizables/ModalReutilizable';
 import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
+
+///////////ICONS\\\\\\\\\\\\\\\\\\\\\
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
+import Swal from 'sweetalert2';
+import CrearClienteForm from '../../reutilizables/CrearClienteForm';
+import EditClienteForm from '../../reutilizables/EditClientForm';
+import Tarjetas from '../../reutilizables/Tarjetas';
+
 
 const ClientesSA = () => {
 
-    const dispatch = useDispatch(); 
+  const [isLoading, setIsLoading] = React.useState(true);
+
+    const dispatch = useDispatch();
 
     useEffect( () => {
       // Consultar la API
       const cargarClientes = () => dispatch( obtenerClientesAction() );
       cargarClientes();
+      setIsLoading(false); //Se deja de mostrar el Spinner, solo dura 1 seg o menos por ahora
       // eslint-disable-next-line
     }, [] );
 
     // Obtener los clientes
     const clientes = useSelector( state => state.clientes.clientes); 
-    const cargando = useSelector( state => state.clientes.loading);
+
+    //Obtenemos el nombre del usuario de la autenticación para mandarlo en el formulario en caso de que actualice o agregue un cliente
+    const user = useSelector( state => state.auth.usuario);
+    const name_user = user.nombre;
 
     const confirmarEliminarCliente = cliente => {
       // Preguntar al usuario 
@@ -68,114 +75,114 @@ const ClientesSA = () => {
 
   return ( 
     <>
-      { cargando ? <SpinnerKit /> :
-        <>
-          <Box sx={{ mb:2, mr:7 ,textAlign: 'right', marginLeft:140 }}>
-            <ModalReutilizable 
-              Boton={
-                <Fab color="secondary" aria-label="edit"> 
-                  <PersonAddIcon />
-                </Fab>} // Botón para agregar cliente con modal
-              Contenido={
-                <CrearClienteForm />
-              }
-            />
-          </Box>
-          
-          <Paper sx={{ width: '100%', overflow: 'hidden' }}>
-            <TablaClientes 
-              Contenido={
+      <Box sx={{ mb:2, mr:7 ,textAlign: 'right', marginLeft:'95%' }}>
+        <ModalReutilizable 
+          Boton={
+            <Fab color="secondary" aria-label="edit"> 
+              <PersonAddIcon />
+            </Fab>} // Botón para agregar cliente con modal
+          Contenido={
+            <CrearClienteForm creador={name_user}/>
+          }
+        />
+      </Box>
+
+      {isLoading ? <SpinnerKit  />  //Mientras el spinner este activo no muestra nada
+      : (
+        <Paper sx={{ width: '100%', overflow: 'hidden' }}>
+          <TablaClientes 
+            Contenido={
+              <>
+                {clientes.map((cliente, i) => {  //Hacemos un map a todos los clientes para mostrarlos en la tabla
+                  return (
+                    <TableRow align="center" key={i} > 
+                        <TableCell key={"nombres"} align="center">{cliente.nombre}</TableCell>
+                        <TableCell key={"curps"}   align="center">{cliente.curp}</TableCell>
+                        <TableCell key={"nsss"}    align="center">{cliente.nss}</TableCell>
+                        <TableCell key={"acciones"} align="center">  
+                          <Box sx={{  display: 'inline-flex' }} >  
+
+                              <IconButton style={{ color: '#09507a' }} >
+                                  <RemoveRedEyeIcon />
+                              </IconButton> 
+
+                              <ModalReutilizable 
+                                  Boton={ 
+                                      <IconButton style={{ color: '#09507a' }}>
+                                          <EditIcon />
+                                      </IconButton> }
+
+                                  Contenido={
+                                      <EditClienteForm client={cliente} editor={name_user}/>
+                                  }
+                              />
+
+                              <IconButton style={{ color: '#b00020', marginLeft:35 }} 
+                                  onClick={ () => { confirmarEliminarCliente(cliente) } }>
+                                  <DeleteIcon />
+                              </IconButton>
+                              
+                          </Box>
+                        </TableCell>
+                    </TableRow>
+                  );  
+                })}
+              </>
+            }
+          />
+        </Paper>
+      )}
+  
+      <Box sx={{ minWidth: 275, mt:2, display: 'flex', flexWrap: 'wrap', alignContent: 'flex-start', justifyContent:'center' }}>  
+
+      {clientes.map((cliente, i) => { //Map a clientes para mostrarlos en las tarjetas
+        return(
+          <Card sx={{ maxWidth: 265, background:"#E0E0E0", m:2}} key={i}>
+            <Tarjetas 
+              Contenido = {
                 <>
-                  {clientes.map((cliente, i) => {  //Hacemos un map a todos los clientes para mostrarlos en la tabla
-                    return (
-                      <TableRow align="center" key={i} > 
-                          <TableCell key={"nombres"} align="center">{cliente.nombre}</TableCell>
-                          <TableCell key={"curps"}   align="center">{cliente.curp}</TableCell>
-                          <TableCell key={"nsss"}    align="center">{cliente.nss}</TableCell>
-                          <TableCell key={"acciones"} align="center">  
-                            <Box sx={{  display: 'inline-flex' }} >  
+                  <Typography gutterBottom variant="h5" component="div" key={"nombre"} sx={{minHeight: 65}}>
+                    {cliente.nombre}
+                  </Typography>
 
-                                <IconButton style={{ color: '#09507a' }} >
-                                    <RemoveRedEyeIcon />
-                                </IconButton> 
+                  <Typography variant="body2" color="text.secondary" key={"curp"}>
+                    CURP: {cliente.curp}
+                  </Typography>
 
-                                <ModalReutilizable 
-                                    Boton={ 
-                                        <IconButton style={{ color: '#09507a' }}>
-                                            <EditIcon />
-                                        </IconButton> }
+                  <Typography variant="body2" color="text.secondary" key={"celular"}>
+                    Teléfono: {cliente.celular}
+                  </Typography>
+                </>
+              }
+              Botones = {
+                <>
+                    <IconButton style={{ color: '#E3F2FD'}} >
+                      <RemoveRedEyeIcon />
+                    </IconButton> 
+          
+                    <ModalReutilizable 
+                      Boton={ 
+                        <IconButton style={{ color: '#E3F2FD' }}>
+                          <EditIcon />
+                        </IconButton> 
+                      }
+                      Contenido={
+                        <EditClienteForm client={cliente} editor={name_user}/>
+                      }
 
-                                    Contenido={
-                                        <EditClienteForm client={cliente} />
-                                    }
-                                />
-
-                                <IconButton style={{ color: '#b00020', marginLeft:35 }} 
-                                    onClick={ () => { confirmarEliminarCliente(cliente) } }>
-                                    <DeleteIcon />
-                                </IconButton>
-                                
-                            </Box>
-                          </TableCell>
-                      </TableRow>
-                    );  
-                  })}
+                    />
+          
+                      <IconButton style={{ color: '#E3F2FD', marginLeft:"auto" }} 
+                          onClick={ () => { confirmarEliminarCliente(cliente) } } >
+                          <DeleteIcon />
+                      </IconButton>
                 </>
               }
             />
-          </Paper>
-      
-          <Box sx={{ minWidth: 275, mt:2, display: 'flex', flexWrap: 'wrap', alignContent: 'flex-start' }}>
-              {clientes.map((cliente, i) => { //Map a clientes para mostrarlos en Cartas
-                return(
-                  <Card sx={{ maxWidth: 265, background:"#E0E0E0", m:2}} key={i}>
-                    <CardContent>
-
-                      <Typography gutterBottom variant="h5" component="div" key={"nombre"} sx={{minHeight: 65}}>
-                        {cliente.nombre}
-                      </Typography>
-
-                      <Typography variant="body2" color="text.secondary" key={"curp"}>
-                        CURP: {cliente.curp}
-                      </Typography>
-
-                      <Typography variant="body2" color="text.secondary" key={"celular"}>
-                        Teléfono: {cliente.celular}
-                      </Typography>
-
-                    </CardContent>
-
-                    <CardActions sx={{ background:'#184c7c', maxHeight:42 }}>
-                      <Box sx={{  minWidth: 260, display: 'flex' }} >
-              
-                        <IconButton style={{ color: '#E3F2FD'}} >
-                          <RemoveRedEyeIcon />
-                        </IconButton> 
-              
-                        <ModalReutilizable 
-                          Boton={ 
-                            <IconButton style={{ color: '#E3F2FD' }}>
-                              <EditIcon />
-                            </IconButton> 
-                          }
-                          Contenido={
-                            <EditClienteForm client={cliente} />
-                          }
-
-                        />
-              
-                        <IconButton style={{ color: '#E3F2FD', marginLeft:"auto" }} 
-                            onClick={ () => { DeleteDialog("cliente", cliente.nombre) } } >
-                            <DeleteIcon />
-                        </IconButton>
-                      </Box>
-                    </CardActions>
-                  </Card>
-                );
-              })}
-          </Box>
-        </>
-      }
+          </Card>
+        ) //Fin del return y del map abajo
+      })}
+      </Box>
     </>
   );
 }
