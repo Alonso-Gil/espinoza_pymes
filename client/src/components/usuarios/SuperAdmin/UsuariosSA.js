@@ -83,7 +83,7 @@ const UsuariosSA = () => {
     const confirmarEliminarAgente = solicitud => {
       Swal.fire({ //Código JS para mostrar el dialog con animación de Sweet Alert, hecha función para poder reutilizarla
         title: `¿Seguro que quieres eliminar la solicitud de: ${solicitud.nombre}?`,
-        text: `Una vez eliminado no podrás recuperar los datos.`,
+        text: `Una vez eliminada no podrás recuperar los datos.`,
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',

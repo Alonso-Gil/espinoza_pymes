@@ -3,10 +3,6 @@
   font-size: small;
 }
 
-.tarjeta-solicitud {
-  background-image: radial-gradient(circle at 50% -20.71%, #7e6f4a 0, #766b42 10%, #6c6739 20%, #606330 30%, #545e28 40%, #45591f 50%, #355418 60%, #234f12 70%, #084b10 80%, #004710 90%, #004312 100%);
-}
-
 .sk-cube-grid {
   width: 80px;
   height: 80px;

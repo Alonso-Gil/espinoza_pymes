@@ -185,7 +185,6 @@ const ClientesSA = () => {
                       Contenido={
                         <EditClienteForm client={cliente} editor={name_user}/>
                       }
-
                     />
           
                       <IconButton style={{ color: '#E3F2FD', marginLeft:"auto" }} 

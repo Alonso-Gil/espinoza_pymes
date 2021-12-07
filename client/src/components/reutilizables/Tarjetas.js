@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import { Box } from '@mui/system';
+// import { CardActionArea } from '@mui/material';
 
 const Tarjetas = ({Contenido, Botones}) => {
 
@@ -14,7 +15,7 @@ const Tarjetas = ({Contenido, Botones}) => {
                 {Contenido}
             </CardContent>
 
-            <CardActions sx={{ background:'#184c7c', maxHeight:42 }}>
+            <CardActions sx={{ maxHeight:42 }}  >
                 <Box sx={{  minWidth: 260, display: 'flex' }} >
                 {Botones}
                 </Box>
