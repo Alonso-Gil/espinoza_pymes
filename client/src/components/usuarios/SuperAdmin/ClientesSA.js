@@ -88,8 +88,12 @@ const ClientesSA = () => {
 
   return ( 
     <>
-      <Box sx={{ mb:2, mr:7 ,textAlign: 'right', marginLeft:'95%' }}>
-        <ModalReutilizable 
+      <Box sx={{ mb:2 }}>
+
+      <Typography variant="h4" fontWeight="bold" sx={{position:'absolute'}}> Clientes </Typography>
+
+      <Box sx={{marginLeft:'95%'}}>
+        <ModalReutilizable
           Boton={
             <Fab color="secondary" aria-label="edit"> 
               <PersonAddIcon />
@@ -98,6 +102,7 @@ const ClientesSA = () => {
             <CrearClienteForm creador={name_user}/>
           }
         />
+        </Box>
       </Box>
 
       {/* {isLoading ? <SpinnerKit  />  //Mientras el spinner este activo no muestra nada

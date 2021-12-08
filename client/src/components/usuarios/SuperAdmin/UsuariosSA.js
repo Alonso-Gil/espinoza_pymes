@@ -75,9 +75,9 @@ const UsuariosSA = () => {
 
         dispatch( crearUsuarioSolicitud(agente));
         emailjs.send(emjs.service, emjs.template, { //Enviamos correo al usuario confirmandole su contraseña incial
-                                                              nombre: agente.nombre, 
-                                                              email: agente.email, 
-                                                              contra: agente.contra}, emjs.user);
+                                                   nombre: agente.nombre, 
+                                                   email: agente.email, 
+                                                   contra: agente.contra}, emjs.user);
         const cargarUsuarios = () => dispatch( obtenerUsuariosAction() );
         cargarUsuarios();
         Swal.fire(
