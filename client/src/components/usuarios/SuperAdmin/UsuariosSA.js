@@ -6,6 +6,7 @@ import AgenteView from '../../reutilizables/agenteView';
 import SpinnerKit from '../../reutilizables/SpinnerKit';
 import Swal from 'sweetalert2';
 import { makeStyles } from '@mui/styles';
+import emailjs from 'emailjs-com'; //Para enviar correos en automático
 
 // Actions de Redux
 import { obtenerUsuariosAction, borrarUsuarioAction, obtenerUsuarioEditar } from '../../../redux/actions/usuarioActions';
@@ -44,6 +45,11 @@ const UsuariosSA = () => {
         // eslint-disable-next-line
       }, []);
 
+      const emjs = {
+        service:'service_hqkwhi8',
+        template:'template_k6rpmgp',
+        user:'user_WG5h5zwQuSEjHb0JnSBrQ'
+    }
 
     //Confirmación para crear usuario de una solicitud
     const AceptarAgente = agente => {
@@ -66,8 +72,12 @@ const UsuariosSA = () => {
       }
     }).then((result) => {
       if (result.isConfirmed) {
-        // console.log(agente); //TODO: REDUCER PARA CREAR USUARIO DE AGENTE
+
         dispatch( crearUsuarioSolicitud(agente));
+        emailjs.send(emjs.service, emjs.template, { //Enviamos correo al usuario confirmandole su contraseña incial
+                                                              nombre: agente.nombre, 
+                                                              email: agente.email, 
+                                                              contra: agente.contra}, emjs.user);
         const cargarUsuarios = () => dispatch( obtenerUsuariosAction() );
         cargarUsuarios();
         Swal.fire(
