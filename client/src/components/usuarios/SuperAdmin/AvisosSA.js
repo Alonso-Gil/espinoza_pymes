@@ -56,11 +56,9 @@ const AvisosSA = () => {
         })
     }
 
-
     // Cuando el usuario actualiza los avisos
     const onSubmitAvisos = e => {
         e.preventDefault();
-
         // Validar el aviso
         if(titulo.trim() === '' || contenido.trim() === ''){
             enqueueSnackbar('No se ha actualizado el contenido, todos los campos son obligatorios!', { 
@@ -72,11 +70,8 @@ const AvisosSA = () => {
             });
             return;
         }
-
-        console.log(avisos);
         dispatch( editarAvisoAction(avisos) );
         dispatch( obtenerAvisoAction(aviso) );
-
         enqueueSnackbar('Se ha actualizado el contenido correctamente!', { 
             variant: 'success',
         });
@@ -95,61 +90,61 @@ const AvisosSA = () => {
     return ( 
         <>
             <Box sx={{ }}>
-                    <ModalReutilizable Boton={
-                        <Box sx={{ mr:'95%' }}>
-                            <Fab color="secondary" aria-label="edit">
-                                <EditIcon />
-                            </Fab>
-                        </Box>
-                        }
-                        Contenido={
-                            <>
-                                { error ? <Alert sx={{mb: 2}} variant="filled" severity="error">
-                                    Error, algo ha salido mal!
-                                </Alert> : null}
-                                { cargando.loading ? <SpinnerKit /> :
-                                    <form
-                                        onSubmit={onSubmitAvisos}
+                <ModalReutilizable Boton={
+                    <Box sx={{ mr:'95%' }}>
+                        <Fab color="secondary" aria-label="edit">
+                            <EditIcon />
+                        </Fab>
+                    </Box>
+                    }
+                    Contenido={
+                        <>
+                            { error ? <Alert sx={{mb: 2}} variant="filled" severity="error">
+                                Error, algo ha salido mal!
+                            </Alert> : null}
+                            { cargando.loading ? <SpinnerKit /> :
+                                <form
+                                    onSubmit={onSubmitAvisos}
+                                >
+                                    <Typography sx={{textAlign: 'center', fontWeight: 'bold', marginBottom: 5}} color="black" variant="h3" component="div">
+                                        Editar avisos
+                                    </Typography>
+                                    <TextField  sx={{mb: 4, width:'700px'}}
+                                        multiline
+                                        id="titulo"
+                                        label="Titulo"
+                                        name="titulo"
+                                        autoComplete="titulo"
+                                        autoFocus
+                                        value={titulo}
+                                        onChange={handleChange}
+                                    />
+                                    <TextField  sx={{mb: 5, width:'700px'}}
+                                        multiline
+                                        rows={8}
+                                        id="contenido"
+                                        label="Contenido"
+                                        name="contenido"
+                                        autoComplete="contenido"
+                                        autoFocus
+                                        value={contenido}
+                                        onChange={handleChange}
                                     >
-                                        <Typography sx={{textAlign: 'center', fontWeight: 'bold', marginBottom: 5}} color="black" variant="h3" component="div">
-                                            Editar avisos
-                                        </Typography>
-                                        <TextField  sx={{mb: 4, width:'700px'}}
-                                            multiline
-                                            id="titulo"
-                                            label="Titulo"
-                                            name="titulo"
-                                            autoComplete="titulo"
-                                            autoFocus
-                                            value={titulo}
-                                            onChange={handleChange}
-                                        />
-                                        <TextField  sx={{mb: 5, width:'700px'}}
-                                            multiline
-                                            rows={8}
-                                            id="contenido"
-                                            label="Contenido"
-                                            name="contenido"
-                                            autoComplete="contenido"
-                                            autoFocus
-                                            value={contenido}
-                                            onChange={handleChange}
-                                        >
-                                        </TextField>
-                                        <Lottie options={defaultOptions} height={200} width={200}/>
-                                        <Button
-                                            type="submit"
-                                            variant="contained" 
-                                            color='secondary' 
-                                            fullWidth 
-                                            sx={{mt: 5, height: 50 }}
-                                        >Actualizar
-                                        </Button>
-                                    </form>
-                                }
-                            </>
-                        }
-                    />
+                                    </TextField>
+                                    <Lottie options={defaultOptions} height={200} width={200}/>
+                                    <Button
+                                        type="submit"
+                                        variant="contained" 
+                                        color='secondary' 
+                                        fullWidth 
+                                        sx={{mt: 5, height: 50 }}
+                                    >Actualizar
+                                    </Button>
+                                </form>
+                            }
+                        </>
+                    }
+                />
             </Box>
 
             <Typography sx={{textAlign: 'center', fontWeight: 'bold', marginBottom: 5}} color="black" variant="h3" component="div">

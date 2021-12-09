@@ -53,7 +53,7 @@ const ClientesSA = () => {
       // Preguntar al usuario 
         Swal.fire({
           title: `¿Seguro que quieres eliminar al cliente: ${cliente.nombre}?`,
-            text: `Una vez eliminado no podrás recuperar los datos del cliente`,
+          text: `Una vez eliminado no podrás recuperar los datos del cliente`,
           icon: 'warning',
           showCancelButton: true,
           confirmButtonColor: '#3085d6',
@@ -89,19 +89,18 @@ const ClientesSA = () => {
   return ( 
     <>
       <Box sx={{ mb:2 }}>
-
-      <Typography variant="h4" fontWeight="bold" sx={{position:'absolute'}}> Clientes </Typography>
-
-      <Box sx={{marginLeft:'95%'}}>
-        <ModalReutilizable
-          Boton={
-            <Fab color="secondary" aria-label="edit"> 
-              <PersonAddIcon />
-            </Fab>} // Botón para agregar cliente con modal
-          Contenido={
-            <CrearClienteForm creador={name_user}/>
-          }
-        />
+        <Typography variant="h4" fontWeight="bold" sx={{position:'absolute'}}> Clientes </Typography>
+        <Box sx={{marginLeft:'95%'}}>
+          <ModalReutilizable
+            Boton={
+              <Fab color="secondary" aria-label="edit"> 
+                <PersonAddIcon />
+              </Fab>
+            } // Botón para agregar cliente con modal
+            Contenido={
+              <CrearClienteForm creador={name_user}/>
+            }
+          />
         </Box>
       </Box>
 
@@ -151,61 +150,58 @@ const ClientesSA = () => {
         </Paper>
       )} */}
   
-  {isLoading ? <SpinnerKit />
-  :
+      {isLoading ? <SpinnerKit />
+        :
+          <Box sx={{ minWidth: 275, mt:2, display: 'flex', flexWrap: 'wrap', alignContent: 'flex-start', justifyContent:'center' }}>  
+            {clientes.map((cliente, i) => { //Map a clientes para mostrarlos en las tarjetas
+              return(
+                  <Card sx={{ maxWidth: 265, m:2}} key={i} className={classes.tarjetaAzul} >
+                    <Tarjetas 
+                      Contenido = {
+                        <>
+                          <Typography gutterBottom variant="h5" component="div" key={"nombre"} sx={{minHeight: 65}} color="white">
+                            {cliente.nombre}
+                          </Typography>
 
-      <Box sx={{ minWidth: 275, mt:2, display: 'flex', flexWrap: 'wrap', alignContent: 'flex-start', justifyContent:'center' }}>  
+                          <Typography variant="body2" color="white" key={"curp"} >
+                            CURP: {cliente.curp}
+                          </Typography>
 
-      {clientes.map((cliente, i) => { //Map a clientes para mostrarlos en las tarjetas
-        return(
-          <Card sx={{ maxWidth: 265, m:2}} key={i} className={classes.tarjetaAzul} >
-            <Tarjetas 
-              Contenido = {
-                <>
-                  <Typography gutterBottom variant="h5" component="div" key={"nombre"} sx={{minHeight: 65}} color="white">
-                    {cliente.nombre}
-                  </Typography>
-
-                  <Typography variant="body2" color="white" key={"curp"} >
-                    CURP: {cliente.curp}
-                  </Typography>
-
-                  <Typography variant="body2" color="white" key={"celular"} >
-                    Teléfono: {cliente.celular}
-                  </Typography>
-                </>
-              }
-              Botones = {
-                <>
-                    <IconButton style={{ color: '#E3F2FD'}} >
-                      <RemoveRedEyeOutlinedIcon />
-                    </IconButton> 
-          
-                    <ModalReutilizable 
-                      Boton={ 
-                        <IconButton style={{ color: '#E3F2FD' }}>
-                          <EditOutlinedIcon />
-                        </IconButton> 
+                          <Typography variant="body2" color="white" key={"celular"} >
+                            Teléfono: {cliente.celular}
+                          </Typography>
+                        </>
                       }
-                      Contenido={
-                        <EditClienteForm client={cliente} editor={name_user}/>
+                      Botones = {
+                        <>
+                            <IconButton style={{ color: '#E3F2FD'}} >
+                              <RemoveRedEyeOutlinedIcon />
+                            </IconButton> 
+                  
+                            <ModalReutilizable 
+                              Boton={ 
+                                <IconButton style={{ color: '#E3F2FD' }}>
+                                  <EditOutlinedIcon />
+                                </IconButton> 
+                              }
+                              Contenido={
+                                <EditClienteForm client={cliente} editor={name_user}/>
+                              }
+                            />
+                  
+                              <IconButton style={{ color: '#E3F2FD', marginLeft:"auto" }} 
+                                  onClick={ () => { confirmarEliminarCliente(cliente) } } >
+                                  <DeleteOutlineOutlinedIcon />
+                              </IconButton>
+                        </>
                       }
                     />
-          
-                      <IconButton style={{ color: '#E3F2FD', marginLeft:"auto" }} 
-                          onClick={ () => { confirmarEliminarCliente(cliente) } } >
-                          <DeleteOutlineOutlinedIcon />
-                      </IconButton>
-                </>
-              }
-            />
-          </Card>
-        ) //Fin del return y del map abajo
-      })}
-      </Box>
-}
+                  </Card>
+              ) //Fin del return, del map abajo y del spinner
+            })} 
+          </Box>
+      }
     </>
   );
 }
-
 export default ClientesSA;

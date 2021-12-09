@@ -69,24 +69,24 @@ const UsuariosSA = () => {
             agente.contra = contraseña;
               return undefined;
           }
-      }
-    }).then((result) => {
-      if (result.isConfirmed) {
-
-        dispatch( crearUsuarioSolicitud(agente));
-        emailjs.send(emjs.service, emjs.template, { //Enviamos correo al usuario confirmandole su contraseña incial
-                                                   nombre: agente.nombre, 
-                                                   email: agente.email, 
-                                                   contra: agente.contra}, emjs.user);
-        const cargarUsuarios = () => dispatch( obtenerUsuariosAction() );
-        cargarUsuarios();
-        Swal.fire(
-          '¡Agente Difusor Agregado!',
-          `¡Ahora ${agente.nombre} es parte de la familia EspinozaPymes!`,
-          'success'
-        )
-      }
-    })
+        }
+      }).then((result) => {
+        if (result.isConfirmed) {
+          
+          dispatch( crearUsuarioSolicitud(agente));
+          emailjs.send(emjs.service, emjs.template, { //Enviamos correo al usuario confirmandole su contraseña incial
+                                                    nombre: agente.nombre, 
+                                                    email: agente.email, 
+                                                    contra: agente.contra}, emjs.user);
+          const cargarUsuarios = () => dispatch( obtenerUsuariosAction() );
+          cargarUsuarios();
+          Swal.fire(
+            '¡Agente Difusor Agregado!',
+            `¡Ahora ${agente.nombre} es parte de la familia EspinozaPymes!`,
+            'success'
+          )
+        }
+      })
     }
 
     //Confirmación para eliminar solicitud de agente
@@ -103,8 +103,8 @@ const UsuariosSA = () => {
       }).then((result) => {
         if (result.isConfirmed) {
           // Pasarlo al action
-        dispatch( borrarSolicitudAction(solicitud.idSolicitud) );
-        // Si se elimina, mostrar alerta
+          dispatch( borrarSolicitudAction(solicitud.idSolicitud) );
+          // Si se elimina, mostrar alerta
           Swal.fire(
             '¡Eliminado!',
             `Se ha eliminado la solicitud de: ${solicitud.nombre} se ha eliminado exitosamente`,
@@ -146,7 +146,7 @@ const UsuariosSA = () => {
 
     // Obtener el state para usuarios
     const usuarios = useSelector( state => state.usuarios.usuarios );
-    const error = useSelector(state => state.usuarios.error);
+    const error    = useSelector( state => state.usuarios.error);
     const cargando = useSelector( state => state.usuarios.loading);
 
     // console.log(usuarios);
@@ -173,131 +173,129 @@ const UsuariosSA = () => {
                                 Contenido={ //Caja para agregar usuario con modal
                                     <>
                                         <CrearUserForm />
-                                    </>
+                                    </> 
                                 }
                         />
             </Box>
 
             { error ? <Alert severity="error" sx={{ mb: 4}}>Hubo un error! - Intentalo de nuevo o notifica al área de sistemas</Alert> : null }
 
-                  <Paper sx={{ width: '100%', overflow: 'hidden' }}>
-            <TableContainer sx={{ maxHeight: 490 }}>
-              <Table stickyHeader aria-label="sticky table">
-                <TableHead>
-                  <TableRow>
-                      <TableCell key={"nombre"} align="center" style={{ minWidth:140, backgroundColor:"#09507a", color:"white"}}>Nombre</TableCell>
-                      <TableCell key={"correo"} align="center" style={{ minWidth:150, backgroundColor:"#09507a", color:"white"}}>Correo</TableCell>
-                      <TableCell key={"tipo"} align="center" style={{ minWidth:200, backgroundColor:"#09507a", color:"white"}}>Tipo de Usuario</TableCell>
-                      <TableCell key={"accion"} align="center" style={{ minWidth:200, backgroundColor:"#09507a", color:"white"}}>Editar/Eliminar</TableCell>
-                  </TableRow>
-                </TableHead>
+            <Paper sx={{ width: '100%', overflow: 'hidden' }}>
+              <TableContainer sx={{ maxHeight: 490 }}>
+                <Table stickyHeader aria-label="sticky table">
+                  <TableHead>
+                    <TableRow>
+                        <TableCell key={"nombre"} align="center" style={{ minWidth:140, backgroundColor:"#09507a", color:"white"}}>Nombre</TableCell>
+                        <TableCell key={"correo"} align="center" style={{ minWidth:150, backgroundColor:"#09507a", color:"white"}}>Correo</TableCell>
+                        <TableCell key={"tipo"} align="center" style={{ minWidth:200, backgroundColor:"#09507a", color:"white"}}>Tipo de Usuario</TableCell>
+                        <TableCell key={"accion"} align="center" style={{ minWidth:200, backgroundColor:"#09507a", color:"white"}}>Editar/Eliminar</TableCell>
+                    </TableRow>
+                  </TableHead>
+                  
+                  <TableBody>
+                  { usuarios.lenght === 0 ? 'No Hay usuarios' :
+                      usuarios.map((usuario, i) => ( //Hacemos un mapeo a todos los clientes para poder mostrarlos en la tabla
+                        <TableRow align="center" key={i}> 
+                          <TableCell align="center">{usuario.Nombre}</TableCell>
+                          <TableCell align="center">{usuario.Correo}</TableCell> 
+                          <TableCell align="center">{usuario.Tipo}</TableCell>
+                          <TableCell align="center"  >  
+                            <Box sx={{  display: 'inline-flex' }} >
+                              <ModaReutilizable 
+                                Boton={ 
+                                  <IconButton style={{ color: '#09507a' }}
+                                    onClick={() => seleccionarEditarUsuario(usuario)}
+                                  >
+                                    <EditIcon />
+                                  </IconButton>  
+                                }
 
-                <TableBody>
-                { usuarios.lenght === 0 ? 'No Hay usuarios' :
-                    usuarios.map((usuario, i) => ( //Hacemos un mapeo a todos los clientes para poder mostrarlos en la tabla
-                      <TableRow align="center" key={i}> 
-                        <TableCell align="center">{usuario.Nombre}</TableCell>
-                        <TableCell align="center">{usuario.Correo}</TableCell> 
-                        <TableCell align="center">{usuario.Tipo}</TableCell>
-                        <TableCell align="center"  >  
-                          <Box sx={{  display: 'inline-flex' }} >
-                            <ModaReutilizable 
-                              Boton={ 
-                                <IconButton style={{ color: '#09507a' }}
-                                  onClick={() => seleccionarEditarUsuario(usuario)}
-                                >
-                                  <EditIcon />
-                                </IconButton>  
-                              }
+                                Contenido={// Caja para los botones de cada usuario
+                                  <EditUserForm 
+                                    titulo={'Editar'}
+                                    usuario={usuario} 
+                                  />
+                                }
+                              />
 
-                              Contenido={// Caja para los botones de cada usuario
-                                <EditUserForm 
-                                  titulo={'Editar'}
-                                  usuario={usuario} 
-                                />
-                              }
-                            />
-
-                            <IconButton style={{ color: '#b00020', marginLeft:35 }} 
-                              onClick={() => confirmarEliminarUsuario(usuario)}  >
-                              <DeleteIcon />            
-                            </IconButton>
-                          </Box>
-                        </TableCell>
-                      </TableRow>
-                    ))       
-                }
-                </TableBody>
-              </Table>
-            </TableContainer>
-            {/* <TablePagination
-              rowsPerPageOptions={[5, 10, 15]}    
-              component="div"
-              count={rows.length}
-              rowsPerPage={rowsPerPage}
-              page={page}
-              onPageChange={handleChangePage}
-              onRowsPerPageChange={handleChangeRowsPerPage}
-            /> */}
-          </Paper>
+                              <IconButton style={{ color: '#b00020', marginLeft:35 }} 
+                                onClick={() => confirmarEliminarUsuario(usuario)}  >
+                                <DeleteIcon />            
+                              </IconButton>
+                            </Box>
+                          </TableCell>
+                        </TableRow>
+                      ))       
+                  }
+                  </TableBody>
+                </Table>
+              </TableContainer>
+              {/* <TablePagination
+                rowsPerPageOptions={[5, 10, 15]}    
+                component="div"
+                count={rows.length}
+                rowsPerPage={rowsPerPage}
+                page={page}
+                onPageChange={handleChangePage}
+                onRowsPerPageChange={handleChangeRowsPerPage}
+              /> */}
+            </Paper>
              
-      <Typography gutterBottom variant="h5" sx={{mt:2}}>
-        Solicitudes:
-        </Typography>
-      <Box sx={{ minWidth: 275, mt:1, display: 'flex', flexWrap: 'wrap', alignContent: 'flex-start' }}>
+            <Typography gutterBottom variant="h5" sx={{mt:2}}>
+              Solicitudes:
+            </Typography>
+            <Box sx={{ minWidth: 275, mt:1, display: 'flex', flexWrap: 'wrap', alignContent: 'flex-start' }}>
 
-      {solicitudes.map((agente, i) => { //Map a las solicitudes de los agentes para mostrarlos en Cartas
-            return(
-              <Card sx={{ maxWidth: 265, m:2}} key={i} className={classes.tarjetaSolicitud}>
-                <Tarjetas 
-                  Contenido = {
-                    <>
-                      <Typography gutterBottom variant="h5" component="div" key={"nombre"} sx={{minHeight: 70}} color="white">
-                      {agente.nombre}
-                      </Typography>
-                      <Typography variant="body2" color="white" key={"curp"}>
-                        CURP: {agente.curp}
-                        </Typography>
-                        <Typography variant="body2" color="white" key={"celular"}>
-                        Teléfono: {agente.celular}
-                      </Typography>
-                    </>
-                  }
-                  Botones= {
-                    <>
-                        <IconButton style={{ color: '#E3F2FD'}} 
-                          onClick={ () => { confirmarEliminarAgente(agente) } } >
-                          <DeleteOutlineOutlinedIcon />
-                        </IconButton> 
+              {solicitudes.map((agente, i) => { //Map a las solicitudes de los agentes para mostrarlos en Cartas
+                    return(
+                      <Card sx={{ maxWidth: 265, m:2}} key={i} className={classes.tarjetaSolicitud}>
+                        <Tarjetas 
+                          Contenido = {
+                            <>
+                              <Typography gutterBottom variant="h5" component="div" key={"nombre"} sx={{minHeight: 70}} color="white">
+                              {agente.nombre}
+                              </Typography>
+                              <Typography variant="body2" color="white" key={"curp"}>
+                                CURP: {agente.curp}
+                                </Typography>
+                                <Typography variant="body2" color="white" key={"celular"}>
+                                Teléfono: {agente.celular}
+                              </Typography>
+                            </>
+                          }
+                          Botones= {
+                            <>
+                                <IconButton style={{ color: '#E3F2FD'}} 
+                                  onClick={ () => { confirmarEliminarAgente(agente) } } >
+                                  <DeleteOutlineOutlinedIcon />
+                                </IconButton> 
 
-                        <ModaReutilizable 
-                          Boton={ <IconButton 
-                          style={{ color: '#E3F2FD'}} >
-                                    <RemoveRedEyeOutlinedIcon />
-                                </IconButton> }
-                          Contenido={
-                              <>
-                                  <AgenteView 
-                                      agente={agente} />
-                              </> } 
+                                <ModaReutilizable 
+                                  Boton={ <IconButton 
+                                  style={{ color: '#E3F2FD'}} >
+                                            <RemoveRedEyeOutlinedIcon />
+                                        </IconButton> }
+                                  Contenido={
+                                      <>
+                                          <AgenteView 
+                                              agente={agente} />
+                                      </> } 
+                                />
+
+                                <IconButton style={{ color: '#E3F2FD', marginLeft:"auto"}} 
+                                            onClick={ () => { AceptarAgente(agente) } }>
+                                    <PersonAddIcon />
+                                </IconButton>
+                            </>
+                          }
                         />
-
-                        <IconButton style={{ color: '#E3F2FD', marginLeft:"auto"}} 
-                                    onClick={ () => { AceptarAgente(agente) } }>
-                            <PersonAddIcon />
-                        </IconButton>
-                    </>
-                  }
-                />
-                
-            </Card>
-            );
-
-            })}
-      </Box>
-            </>
+                      </Card>
+                    );
+                    })
+              }
+            </Box>
+                  </>
           }
-          
          </ >
      )
 }

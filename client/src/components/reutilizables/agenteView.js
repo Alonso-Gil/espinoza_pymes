@@ -23,7 +23,7 @@ const AgenteView = (
         return (
             <Box>
         <Typography gutterBottom variant="h5">
-            Datos del Agente Difusor
+            Datos de Agente de Difusión
         </Typography>
 
             <List

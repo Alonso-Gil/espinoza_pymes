@@ -1,7 +1,7 @@
 const cloudinary = require('cloudinary').v2;
 cloudinary.config( process.env.CLOUDINARY_URL );
 
-const actualizarImagen = async (req, res) => {
+const subirImagen = async (req, res) => {
 
     const extensionesValidas = ['png','jpg','jpeg','pdf'];
     const { archivo } = files;
@@ -14,7 +14,7 @@ const actualizarImagen = async (req, res) => {
             msg:`La extensión ${ extension } no es permitida`
         });
     }
-    
+
     const { tempFilePath } = req.files.archivo;
     try {
         const { secure_url } = await cloudinary.uploader.upload( tempFilePath );
@@ -38,5 +38,5 @@ const actualizarImagen = async (req, res) => {
 }
 
 module.exports = {
-    actualizarImagen
+    subirImagen
 }
