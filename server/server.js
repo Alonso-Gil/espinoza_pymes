@@ -1,7 +1,8 @@
 const express = require('express');
 const cors = require('cors');
-require('dotenv').config();
 const validarJWT = require('./middlewares/validar-jwt'); 
+const fileUpload = require('express-fileupload');
+require('dotenv').config();
 
 // Inicializar express
 const app = express();
@@ -9,6 +10,10 @@ const app = express();
 // Midddlewares
 app.use(cors());
 app.use(express.json({ limit: '25mb' }));
+app.use(fileUpload({ //Carga de archivos
+    useTempFiles: true,
+    tempFileDir: '/tmp/'
+}));
 
 const PORT = process.env.PORT;
 
